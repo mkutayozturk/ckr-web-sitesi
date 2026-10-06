@@ -95,10 +95,10 @@ export default function NeedAnalysisForms() {
       <div className="ckr-container">
         <div className="ckr-fade-up" style={{ maxWidth: 640, marginBottom: 32 }}>
           <span className="ckr-eyebrow">İhtiyaç Analizi</span>
-          <h2 style={{ fontSize: 'clamp(25px, 2.8vw, 34px)', fontWeight: 600, color: 'var(--ckr-petrol)', marginTop: 12, marginBottom: 14 }}>
+          <h2 style={{ fontSize: 'clamp(25px, 2.8vw, 34px)', fontWeight: 600, color: '#f3efe6', marginTop: 12, marginBottom: 14 }}>
             Durumunuza uygun analizi doldurun
           </h2>
-          <p style={{ fontSize: 17, color: 'var(--ckr-muted)', margin: 0 }}>
+          <p style={{ fontSize: 17, color: 'rgba(233,235,228,0.64)', margin: 0 }}>
             Bilgilerinizi paylaşın; hazır mesajınızı WhatsApp üzerinden anında iletebilirsiniz.
           </p>
         </div>
@@ -109,9 +109,9 @@ export default function NeedAnalysisForms() {
               style={{
                 padding: '10px 20px', borderRadius: 10, cursor: 'pointer', fontSize: 14.5, fontWeight: 600,
                 transition: 'all .2s ease',
-                border: '1px solid ' + (activeForm === t.key ? 'var(--ckr-petrol)' : 'var(--ckr-border)'),
-                background: activeForm === t.key ? 'var(--ckr-petrol)' : 'var(--ckr-cream-card)',
-                color: activeForm === t.key ? '#f3efe4' : 'var(--ckr-olive)',
+                border: '1px solid ' + (activeForm === t.key ? 'var(--ckr-gold)' : 'rgba(246,242,232,0.22)'),
+                background: activeForm === t.key ? 'var(--ckr-gold)' : 'rgba(255,255,255,0.06)',
+                color: activeForm === t.key ? '#241c0a' : 'rgba(233,235,228,0.75)',
               }}>
               {t.label}
             </button>
@@ -122,8 +122,8 @@ export default function NeedAnalysisForms() {
           {done ? (
             <div style={{ textAlign: 'left', padding: '20px 0' }}>
               <CheckCircle2 size={44} style={{ color: 'var(--ckr-gold)' }} />
-              <h3 style={{ fontSize: 24, fontWeight: 600, color: 'var(--ckr-petrol)', margin: '14px 0 8px' }}>Mesajınız hazır!</h3>
-              <p style={{ fontSize: 15.5, color: 'var(--ckr-muted)', maxWidth: 520 }}>
+              <h3 style={{ fontSize: 24, fontWeight: 600, color: '#f3efe6', margin: '14px 0 8px' }}>Mesajınız hazır!</h3>
+              <p style={{ fontSize: 15.5, color: 'rgba(233,235,228,0.64)', maxWidth: 520 }}>
                 WhatsApp penceresi açılmadıysa, aşağıdaki butonla tekrar deneyebilirsiniz. En kısa sürede dönüş yapılacaktır.
               </p>
               <div style={{ display: 'flex', gap: 12, marginTop: 20, flexWrap: 'wrap' }}>
@@ -135,8 +135,8 @@ export default function NeedAnalysisForms() {
             </div>
           ) : (
             <>
-              <h3 style={{ fontSize: 22, fontWeight: 600, color: 'var(--ckr-petrol)', margin: '0 0 6px' }}>{cfg.title}</h3>
-              <p style={{ fontSize: 15, color: 'var(--ckr-muted)', margin: '0 0 24px' }}>{cfg.intro}</p>
+              <h3 style={{ fontSize: 22, fontWeight: 600, color: '#f3efe6', margin: '0 0 6px' }}>{cfg.title}</h3>
+              <p style={{ fontSize: 15, color: 'rgba(233,235,228,0.64)', margin: '0 0 24px' }}>{cfg.intro}</p>
               <form onSubmit={submit}>
                 <div style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fit, minmax(240px, 1fr))', gap: 18 }}>
                   {cfg.fields.map((f) => (

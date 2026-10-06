@@ -11,11 +11,11 @@ export default function BlogCards() {
         <div className="ckr-fade-up" style={{ display: 'flex', flexWrap: 'wrap', justifyContent: 'space-between', alignItems: 'flex-end', gap: 16, marginBottom: 40 }}>
           <div style={{ maxWidth: 560 }}>
             <span className="ckr-eyebrow">Rehber & Blog</span>
-            <h2 style={{ fontSize: 'clamp(25px, 2.8vw, 34px)', fontWeight: 600, color: 'var(--ckr-petrol)', marginTop: 12, marginBottom: 0 }}>
+            <h2 style={{ fontSize: 'clamp(25px, 2.8vw, 34px)', fontWeight: 600, color: '#f3efe6', marginTop: 12, marginBottom: 0 }}>
               Kararınızı güçlendiren rehber yazılar
             </h2>
           </div>
-          <p style={{ fontSize: 15, color: 'var(--ckr-olive)', maxWidth: 320, margin: 0 }}>
+          <p style={{ fontSize: 15, color: 'rgba(233,235,228,0.72)', maxWidth: 320, margin: 0 }}>
             Piyasayı doğru okumak için sade, uygulanabilir bilgiler.
           </p>
         </div>
@@ -31,11 +31,11 @@ export default function BlogCards() {
               <div style={{ padding: 22, display: 'flex', flexDirection: 'column', flexGrow: 1 }}>
                 <div style={{ display: 'flex', alignItems: 'center', justifyContent: 'space-between', marginBottom: 12 }}>
                   <span style={{ fontSize: 12, fontWeight: 600, color: 'var(--ckr-gold)', background: 'rgba(169,139,82,0.12)', padding: '4px 10px', borderRadius: 999 }}>{p.tag}</span>
-                  <span style={{ display: 'inline-flex', alignItems: 'center', gap: 5, fontSize: 12.5, color: 'var(--ckr-muted)' }}><Clock size={13} /> {p.read}</span>
+                  <span style={{ display: 'inline-flex', alignItems: 'center', gap: 5, fontSize: 12.5, color: 'rgba(233,235,228,0.64)' }}><Clock size={13} /> {p.read}</span>
                 </div>
-                <h3 style={{ fontSize: 19, fontWeight: 600, color: 'var(--ckr-petrol)', margin: '0 0 10px', lineHeight: 1.25 }}>{p.title}</h3>
-                <p style={{ fontSize: 14.5, color: 'var(--ckr-muted)', margin: 0, flexGrow: 1 }}>{p.excerpt}</p>
-                <span style={{ display: 'inline-flex', alignItems: 'center', gap: 6, marginTop: 16, fontSize: 14, fontWeight: 600, color: 'var(--ckr-petrol)' }}>
+                <h3 style={{ fontSize: 19, fontWeight: 600, color: '#f3efe6', margin: '0 0 10px', lineHeight: 1.25 }}>{p.title}</h3>
+                <p style={{ fontSize: 14.5, color: 'rgba(233,235,228,0.64)', margin: 0, flexGrow: 1 }}>{p.excerpt}</p>
+                <span style={{ display: 'inline-flex', alignItems: 'center', gap: 6, marginTop: 16, fontSize: 14, fontWeight: 600, color: '#f3efe6' }}>
                   Yazıyı oku <ArrowUpRight size={16} />
                 </span>
               </div>

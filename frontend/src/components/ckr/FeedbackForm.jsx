@@ -26,10 +26,10 @@ export default function FeedbackForm() {
         <div className="ckr-fade-up ckr-card" style={{ padding: 'clamp(24px, 4vw, 44px)', maxWidth: 720, margin: '0 auto' }}>
           <div style={{ textAlign: 'center', marginBottom: 28 }}>
             <span className="ckr-eyebrow">Geri Bildirim</span>
-            <h2 style={{ fontSize: 'clamp(24px, 3vw, 32px)', fontWeight: 600, color: 'var(--ckr-petrol)', marginTop: 12, marginBottom: 10 }}>
+            <h2 style={{ fontSize: 'clamp(24px, 3vw, 32px)', fontWeight: 600, color: '#f3efe6', marginTop: 12, marginBottom: 10 }}>
               Deneyiminizi paylaşın
             </h2>
-            <p style={{ fontSize: 15.5, color: 'var(--ckr-muted)', margin: 0 }}>
+            <p style={{ fontSize: 15.5, color: 'rgba(233,235,228,0.64)', margin: 0 }}>
               Görüş ve önerileriniz, rehberliği daha da iyileştirmemize yardımcı olur.
             </p>
           </div>
@@ -37,8 +37,8 @@ export default function FeedbackForm() {
           {sent ? (
             <div style={{ textAlign: 'center', padding: '20px 0' }}>
               <CheckCircle2 size={44} style={{ color: 'var(--ckr-gold)' }} />
-              <h3 style={{ fontSize: 22, fontWeight: 600, color: 'var(--ckr-petrol)', margin: '12px 0 6px' }}>Teşekkürler!</h3>
-              <p style={{ fontSize: 15, color: 'var(--ckr-muted)' }}>Geri bildiriminiz alındı.</p>
+              <h3 style={{ fontSize: 22, fontWeight: 600, color: '#f3efe6', margin: '12px 0 6px' }}>Teşekkürler!</h3>
+              <p style={{ fontSize: 15, color: 'rgba(233,235,228,0.64)' }}>Geri bildiriminiz alındı.</p>
               <button className="ckr-btn ckr-btn-ghost" style={{ marginTop: 10 }} onClick={() => { setSent(false); setValues({ ad: '', rol: '', mesaj: '' }); }}>Yeni Geri Bildirim</button>
             </div>
           ) : (
