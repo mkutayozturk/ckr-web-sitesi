@@ -25,7 +25,7 @@ export default function Hero() {
       <div style={{ position: 'absolute', inset: 0, background: 'linear-gradient(180deg, rgba(18,36,38,0.5) 0%, rgba(18,36,38,0) 20%, rgba(18,36,38,0) 80%, rgba(18,36,38,0.35) 100%)' }} />
 
       {/* Content */}
-      <div className="ckr-container" style={{ position: 'relative', zIndex: 3, paddingTop: 116, paddingBottom: 56 }}>
+      <div className="ckr-site" style={{ position: 'relative', zIndex: 3, paddingTop: 116, paddingBottom: 56 }}>
         {/* Wide frosted glass panel that also covers the portrait */}
         <div style={{
           position: 'relative',

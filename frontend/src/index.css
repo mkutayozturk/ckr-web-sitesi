@@ -125,10 +125,13 @@ h1, h2, h3, h4, .font-serif {
 /* Frosted glass content column over the fixed background */
 .App { position: relative; background: transparent; }
 
+/* Shared site width so hero, nav and content column line up */
+.ckr-site { width: min(1180px, calc(100% - 48px)); margin-left: auto; margin-right: auto; }
+
 .ckr-glass-column {
   position: relative;
   z-index: 1;
-  width: min(1240px, calc(100% - 44px));
+  width: min(1180px, calc(100% - 48px));
   margin: 0 auto;
   background: rgba(16,31,32,0.5);
   backdrop-filter: blur(22px) saturate(1.1);
@@ -147,6 +150,6 @@ h1, h2, h3, h4, .font-serif {
 /* Inside the narrower column, trim container padding a touch */
 .ckr-glass-column .ckr-section { padding-top: 84px; padding-bottom: 84px; }
 @media (max-width: 900px) {
-  .ckr-glass-column { width: calc(100% - 20px); border-radius: 22px 22px 0 0; }
+  .ckr-glass-column { border-radius: 22px 22px 0 0; }
   .ckr-glass-column .ckr-section { padding-top: 56px; padding-bottom: 56px; }
 }

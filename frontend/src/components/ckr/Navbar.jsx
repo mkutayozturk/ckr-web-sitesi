@@ -35,7 +35,7 @@ export default function Navbar() {
       WebkitBackdropFilter: solid ? 'blur(12px)' : 'none',
       borderBottom: solid ? '1px solid var(--ckr-border)' : '1px solid transparent',
     }}>
-      <div className="ckr-container" style={{ display: 'flex', alignItems: 'center', justifyContent: 'space-between', height: 74 }}>
+      <div className="ckr-site" style={{ display: 'flex', alignItems: 'center', justifyContent: 'space-between', height: 74 }}>
         {/* Brand lockup */}
         <a href="#top" onClick={(e) => handleNav(e, '#top')} style={{ display: 'flex', alignItems: 'center', gap: 13, textDecoration: 'none', minWidth: 0 }}>
           <span style={{
@@ -81,7 +81,7 @@ export default function Navbar() {
 
       {open && (
         <div className="lg:hidden" style={{ background: 'rgba(246,243,236,0.98)', backdropFilter: 'blur(12px)', borderBottom: '1px solid var(--ckr-border)' }}>
-          <div className="ckr-container" style={{ display: 'flex', flexDirection: 'column', gap: 2, paddingTop: 8, paddingBottom: 18 }}>
+          <div className="ckr-site" style={{ display: 'flex', flexDirection: 'column', gap: 2, paddingTop: 8, paddingBottom: 18 }}>
             {navLinks.map((l) => (
               <a key={l.href} href={l.href} onClick={(e) => handleNav(e, l.href)}
                 style={{ fontSize: 16, fontWeight: 500, color: 'var(--ckr-text)', textDecoration: 'none', padding: '13px 4px', borderBottom: '1px solid var(--ckr-border-soft)' }}>{l.label}</a>
