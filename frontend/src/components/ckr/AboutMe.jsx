@@ -6,7 +6,7 @@ import useReveal from '../../hooks/useReveal';
 export default function AboutMe() {
   useReveal();
   return (
-    <section id="ben-kimim" className="ckr-section" style={{ background: 'var(--ckr-cream)' }}>
+    <section id="ben-kimim" className="ckr-section" style={{ background: 'transparent' }}>
       <div className="ckr-container">
         <div style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fit, minmax(300px, 1fr))', gap: 48, alignItems: 'center' }}>
           <div className="ckr-fade-up" style={{ position: 'relative' }}>

@@ -5,7 +5,7 @@ import useReveal from '../../hooks/useReveal';
 export default function ConsultancyFlow() {
   useReveal();
   return (
-    <section id="danismanlik" className="ckr-section" style={{ background: '#efe9db' }}>
+    <section id="danismanlik" className="ckr-section" style={{ background: 'transparent' }}>
       <div className="ckr-container">
         <div className="ckr-fade-up" style={{ maxWidth: 640, marginBottom: 44 }}>
           <span className="ckr-eyebrow">Danışmanlık Akışı</span>

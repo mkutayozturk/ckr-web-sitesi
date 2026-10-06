@@ -14,24 +14,37 @@ import FeedbackForm from './components/ckr/FeedbackForm';
 import MelisAssistant from './components/ckr/MelisAssistant';
 import Footer from './components/ckr/Footer';
 
+const HARBOR = 'https://customer-assets-v7afamib.emergentagent.net/job_canakkale-homes-1/artifacts/3772b21f9b6a5b2f_%C3%87ANAKKALE%20L%C4%B0MAN.png';
+
 function App() {
   return (
     <FormsProvider>
       <div className="App">
+        {/* Global fixed background visible through the side gutters */}
+        <div style={{ position: 'fixed', inset: 0, zIndex: 0, backgroundImage: `url(${HARBOR})`, backgroundSize: 'cover', backgroundPosition: 'center' }} />
+        <div style={{ position: 'fixed', inset: 0, zIndex: 0, background: 'rgba(16,31,32,0.34)' }} />
+
         <Navbar />
-        <main>
+
+        <div style={{ position: 'relative', zIndex: 1 }}>
           <Hero />
-          <Motivation />
-          <MarketIndex />
-          <Testimonials />
-          <BlogCards />
-          <AboutMe />
-          <NeedAnalysisForms />
-          <ConsultancyFlow />
-          <ApproachClosing />
-          <FeedbackForm />
-        </main>
-        <Footer />
+
+          {/* Frosted glass content column */}
+          <div className="ckr-glass-column">
+            <Motivation />
+            <MarketIndex />
+            <Testimonials />
+            <BlogCards />
+            <AboutMe />
+            <NeedAnalysisForms />
+            <ConsultancyFlow />
+            <ApproachClosing />
+            <FeedbackForm />
+          </div>
+
+          <Footer />
+        </div>
+
         <MelisAssistant />
       </div>
     </FormsProvider>

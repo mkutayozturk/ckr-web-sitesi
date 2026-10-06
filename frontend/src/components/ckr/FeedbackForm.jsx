@@ -21,7 +21,7 @@ export default function FeedbackForm() {
   };
 
   return (
-    <section className="ckr-section" style={{ background: '#efe9db' }}>
+    <section className="ckr-section" style={{ background: 'transparent' }}>
       <div className="ckr-container">
         <div className="ckr-fade-up ckr-card" style={{ padding: 'clamp(24px, 4vw, 44px)', maxWidth: 720, margin: '0 auto' }}>
           <div style={{ textAlign: 'center', marginBottom: 28 }}>

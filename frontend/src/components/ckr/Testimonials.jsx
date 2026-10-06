@@ -6,7 +6,7 @@ import useReveal from '../../hooks/useReveal';
 export default function Testimonials() {
   useReveal();
   return (
-    <section className="ckr-section" style={{ background: 'var(--ckr-cream)' }}>
+    <section className="ckr-section" style={{ background: 'transparent' }}>
       <div className="ckr-container">
         <div className="ckr-fade-up" style={{ maxWidth: 640, marginBottom: 40 }}>
           <span className="ckr-eyebrow">Geri Bildirimler</span>

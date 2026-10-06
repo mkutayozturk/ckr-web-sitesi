@@ -15,8 +15,9 @@ export default function ApproachClosing() {
   useReveal();
   const { openForm } = useForms();
   return (
-    <section className="ckr-section" style={{ background: 'var(--ckr-petrol)' }}>
+    <section className="ckr-section" style={{ background: 'transparent' }}>
       <div className="ckr-container">
+        <div style={{ background: 'rgba(16,33,34,0.66)', backdropFilter: 'blur(14px) saturate(1.1)', WebkitBackdropFilter: 'blur(14px) saturate(1.1)', border: '1px solid rgba(246,242,232,0.16)', borderRadius: 22, padding: 'clamp(28px, 4vw, 54px)' }}>
         <div className="ckr-fade-up" style={{ maxWidth: 760 }}>
           <span style={{ textTransform: 'uppercase', letterSpacing: '0.18em', fontSize: 12, fontWeight: 600, color: 'var(--ckr-gold-soft)' }}>ÇKR Yaklaşımı</span>
           <h2 style={{ fontSize: 'clamp(28px, 3.6vw, 40px)', fontWeight: 600, color: '#f6f2e8', marginTop: 14, marginBottom: 30, lineHeight: 1.15 }}>
@@ -41,6 +42,7 @@ export default function ApproachClosing() {
             onClick={() => openWhatsApp('Merhaba, ÇKR yaklaşımı hakkında konuşmak istiyorum.')}>
             <MessageCircle size={17} /> Konuşalım
           </button>
+        </div>
         </div>
       </div>
     </section>

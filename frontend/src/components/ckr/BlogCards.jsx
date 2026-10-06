@@ -6,7 +6,7 @@ import useReveal from '../../hooks/useReveal';
 export default function BlogCards() {
   useReveal();
   return (
-    <section id="rehber" className="ckr-section" style={{ background: '#efe9db' }}>
+    <section id="rehber" className="ckr-section" style={{ background: 'transparent' }}>
       <div className="ckr-container">
         <div className="ckr-fade-up" style={{ display: 'flex', flexWrap: 'wrap', justifyContent: 'space-between', alignItems: 'flex-end', gap: 16, marginBottom: 40 }}>
           <div style={{ maxWidth: 560 }}>

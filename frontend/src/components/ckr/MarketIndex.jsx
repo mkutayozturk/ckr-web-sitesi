@@ -23,7 +23,7 @@ export default function MarketIndex() {
   const footRow = { fontSize: 13, color: 'var(--ckr-muted)', minHeight: 40 };
 
   return (
-    <section id="piyasa" className="ckr-section" style={{ background: '#efe9db' }}>
+    <section id="piyasa" className="ckr-section" style={{ background: 'transparent' }}>
       <div className="ckr-container">
         <div className="ckr-fade-up" style={{ maxWidth: 640, marginBottom: 40 }}>
           <span className="ckr-eyebrow">ÇKR Piyasa Endeksi</span>

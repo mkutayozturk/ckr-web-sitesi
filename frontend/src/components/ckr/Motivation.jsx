@@ -51,7 +51,7 @@ function Gauge({ type, title, formKey }) {
 export default function Motivation() {
   useReveal();
   return (
-    <section id="motivasyon" className="ckr-section" style={{ background: 'var(--ckr-cream)' }}>
+    <section id="motivasyon" className="ckr-section" style={{ background: 'transparent' }}>
       <div className="ckr-container">
         <div className="ckr-fade-up" style={{ maxWidth: 640, marginBottom: 44 }}>
           <span className="ckr-eyebrow">Motivasyon Ölçümü</span>

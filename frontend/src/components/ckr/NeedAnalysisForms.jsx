@@ -91,7 +91,7 @@ export default function NeedAnalysisForms() {
   };
 
   return (
-    <section id="analiz" className="ckr-section" style={{ background: 'var(--ckr-cream)', scrollMarginTop: 80 }}>
+    <section id="analiz" className="ckr-section" style={{ background: 'transparent', scrollMarginTop: 80 }}>
       <div className="ckr-container">
         <div className="ckr-fade-up" style={{ maxWidth: 640, marginBottom: 32 }}>
           <span className="ckr-eyebrow">İhtiyaç Analizi</span>
