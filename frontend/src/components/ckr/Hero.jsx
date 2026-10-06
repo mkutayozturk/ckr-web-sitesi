@@ -4,7 +4,7 @@ import { brand } from '../../mock';
 import { useForms } from '../../context/FormsContext';
 import { openWhatsApp } from '../../lib/whatsapp';
 
-const HERO_IMG = 'https://images.unsplash.com/photo-1655918986943-add6734678bb';
+const HERO_IMG = 'https://customer-assets-v7afamib.emergentagent.net/job_canakkale-homes-1/artifacts/3772b21f9b6a5b2f_%C3%87ANAKKALE%20L%C4%B0MAN.png';
 
 const stats = [
   ['Satılabilir fiyat', 'İlan değil, talep belirler'],
@@ -18,7 +18,8 @@ export default function Hero() {
   return (
     <section id="top" style={{ position: 'relative', minHeight: '100vh', display: 'flex', alignItems: 'center', overflow: 'hidden' }}>
       <div style={{ position: 'absolute', inset: 0, backgroundImage: `url(${HERO_IMG})`, backgroundSize: 'cover', backgroundPosition: 'center' }} />
-      <div style={{ position: 'absolute', inset: 0, background: 'linear-gradient(180deg, rgba(21,40,42,0.80) 0%, rgba(21,40,42,0.62) 48%, rgba(21,40,42,0.78) 100%)' }} />
+      <div style={{ position: 'absolute', inset: 0, background: 'linear-gradient(95deg, rgba(18,36,38,0.82) 0%, rgba(18,36,38,0.6) 42%, rgba(18,36,38,0.28) 72%, rgba(18,36,38,0.15) 100%)' }} />
+      <div style={{ position: 'absolute', inset: 0, background: 'linear-gradient(180deg, rgba(18,36,38,0.55) 0%, rgba(18,36,38,0) 20%, rgba(18,36,38,0) 78%, rgba(18,36,38,0.35) 100%)' }} />
 
       <div className="ckr-container" style={{ position: 'relative', zIndex: 2, paddingTop: 128, paddingBottom: 96 }}>
         <div style={{ maxWidth: 680 }}>
