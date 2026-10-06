@@ -10,10 +10,10 @@ export default function Testimonials() {
       <div className="ckr-container">
         <div className="ckr-fade-up" style={{ maxWidth: 640, marginBottom: 40 }}>
           <span className="ckr-eyebrow">Geri Bildirimler</span>
-          <h2 style={{ fontSize: 'clamp(26px, 3.4vw, 38px)', fontWeight: 600, color: 'var(--ckr-petrol)', marginTop: 12, marginBottom: 14 }}>
+          <h2 style={{ fontSize: 'clamp(25px, 2.8vw, 34px)', fontWeight: 600, color: 'var(--ckr-petrol)', marginTop: 12, marginBottom: 14 }}>
             Kararını veriyle verenlerin deneyimi
           </h2>
-          <p style={{ fontSize: 16.5, color: 'var(--ckr-muted)', margin: 0 }}>
+          <p style={{ fontSize: 17, color: 'var(--ckr-muted)', margin: 0 }}>
             Alıcı, satıcı, kiraya veren ve kiracıların süreç sonrası paylaştığı gerçek yorumlar.
           </p>
         </div>

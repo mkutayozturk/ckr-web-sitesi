@@ -55,10 +55,10 @@ export default function Motivation() {
       <div className="ckr-container">
         <div className="ckr-fade-up" style={{ maxWidth: 640, marginBottom: 44 }}>
           <span className="ckr-eyebrow">Motivasyon Ölçümü</span>
-          <h2 style={{ fontSize: 'clamp(26px, 3.4vw, 38px)', fontWeight: 600, color: 'var(--ckr-petrol)', marginTop: 12, marginBottom: 14 }}>
+          <h2 style={{ fontSize: 'clamp(25px, 2.8vw, 34px)', fontWeight: 600, color: 'var(--ckr-petrol)', marginTop: 12, marginBottom: 14 }}>
             Kararın ilk adımı: niyetinizi netleştirin
           </h2>
-          <p style={{ fontSize: 16.5, color: 'var(--ckr-muted)', margin: 0 }}>
+          <p style={{ fontSize: 17, color: 'var(--ckr-muted)', margin: 0 }}>
             Alıcı ve satıcı motivasyonunuzu kısaca ölçelim. Bu, hangi adımdan başlayacağımızı ve stratejiyi belirler.
           </p>
         </div>

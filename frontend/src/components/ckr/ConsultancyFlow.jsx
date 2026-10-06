@@ -9,10 +9,10 @@ export default function ConsultancyFlow() {
       <div className="ckr-container">
         <div className="ckr-fade-up" style={{ maxWidth: 640, marginBottom: 44 }}>
           <span className="ckr-eyebrow">Danışmanlık Akışı</span>
-          <h2 style={{ fontSize: 'clamp(26px, 3.4vw, 38px)', fontWeight: 600, color: 'var(--ckr-petrol)', marginTop: 12, marginBottom: 14 }}>
+          <h2 style={{ fontSize: 'clamp(25px, 2.8vw, 34px)', fontWeight: 600, color: 'var(--ckr-petrol)', marginTop: 12, marginBottom: 14 }}>
             Ezberle değil, net bir süreçle ilerliyoruz
           </h2>
-          <p style={{ fontSize: 16.5, color: 'var(--ckr-olive)', margin: 0 }}>
+          <p style={{ fontSize: 17, color: 'var(--ckr-olive)', margin: 0 }}>
             Dört adımda; ihtiyacınızdan piyasa gerçeklerine, oradan sağlam bir karara.
           </p>
         </div>

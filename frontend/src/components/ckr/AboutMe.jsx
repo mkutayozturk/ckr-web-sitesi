@@ -21,7 +21,7 @@ export default function AboutMe() {
 
           <div className="ckr-fade-up">
             <span className="ckr-eyebrow">Ben Kimim</span>
-            <h2 style={{ fontSize: 'clamp(26px, 3.4vw, 38px)', fontWeight: 600, color: 'var(--ckr-petrol)', marginTop: 12, marginBottom: 20 }}>
+            <h2 style={{ fontSize: 'clamp(25px, 2.8vw, 34px)', fontWeight: 600, color: 'var(--ckr-petrol)', marginTop: 12, marginBottom: 20 }}>
               Ev beğendirmem; doğru kararı birlikte kurarız
             </h2>
             {aboutText.paragraphs.map((p, i) => (

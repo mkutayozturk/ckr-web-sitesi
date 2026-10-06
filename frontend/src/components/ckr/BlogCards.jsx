@@ -11,7 +11,7 @@ export default function BlogCards() {
         <div className="ckr-fade-up" style={{ display: 'flex', flexWrap: 'wrap', justifyContent: 'space-between', alignItems: 'flex-end', gap: 16, marginBottom: 40 }}>
           <div style={{ maxWidth: 560 }}>
             <span className="ckr-eyebrow">Rehber & Blog</span>
-            <h2 style={{ fontSize: 'clamp(26px, 3.4vw, 38px)', fontWeight: 600, color: 'var(--ckr-petrol)', marginTop: 12, marginBottom: 0 }}>
+            <h2 style={{ fontSize: 'clamp(25px, 2.8vw, 34px)', fontWeight: 600, color: 'var(--ckr-petrol)', marginTop: 12, marginBottom: 0 }}>
               Kararınızı güçlendiren rehber yazılar
             </h2>
           </div>

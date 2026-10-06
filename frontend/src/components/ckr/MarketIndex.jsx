@@ -27,10 +27,10 @@ export default function MarketIndex() {
       <div className="ckr-container">
         <div className="ckr-fade-up" style={{ maxWidth: 640, marginBottom: 40 }}>
           <span className="ckr-eyebrow">ÇKR Piyasa Endeksi</span>
-          <h2 style={{ fontSize: 'clamp(26px, 3.4vw, 38px)', fontWeight: 600, color: 'var(--ckr-petrol)', marginTop: 12, marginBottom: 14 }}>
-            {d.month} {d.year} çanakkale konut piyasası
+          <h2 style={{ fontSize: 'clamp(25px, 2.8vw, 34px)', fontWeight: 600, color: 'var(--ckr-petrol)', marginTop: 12, marginBottom: 14 }}>
+            {d.month} {d.year} · Çanakkale konut piyasası
           </h2>
-          <p style={{ fontSize: 16.5, color: 'var(--ckr-olive)', margin: 0 }}>
+          <p style={{ fontSize: 17, color: 'var(--ckr-olive)', margin: 0 }}>
             Güncel satış adetleri, ipotek dağılımı ve kira artış oranıyla piyasanın gerçek yönü.
           </p>
         </div>
