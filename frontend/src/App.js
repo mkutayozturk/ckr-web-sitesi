@@ -22,7 +22,6 @@ function App() {
       <div className="App">
         {/* Global fixed background visible through the side gutters */}
         <div style={{ position: 'fixed', inset: 0, zIndex: 0, backgroundImage: `url(${HARBOR})`, backgroundSize: 'cover', backgroundPosition: 'center' }} />
-        <div style={{ position: 'fixed', inset: 0, zIndex: 0, background: 'rgba(16,31,32,0.34)' }} />
 
         <Navbar />
 

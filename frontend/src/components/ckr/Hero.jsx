@@ -19,10 +19,8 @@ export default function Hero() {
 
   return (
     <section id="top" style={{ position: 'relative', minHeight: '100vh', display: 'flex', alignItems: 'center', overflow: 'hidden' }}>
-      {/* Fixed background + permanent filter */}
+      {/* Fixed background (no dark overlay — keeps the image tone consistent across the page) */}
       <div style={{ position: 'absolute', inset: 0, backgroundImage: `url(${HERO_IMG})`, backgroundSize: 'cover', backgroundPosition: 'center', backgroundAttachment: 'fixed' }} />
-      <div style={{ position: 'absolute', inset: 0, background: 'linear-gradient(95deg, rgba(18,36,38,0.72) 0%, rgba(18,36,38,0.5) 42%, rgba(18,36,38,0.3) 100%)' }} />
-      <div style={{ position: 'absolute', inset: 0, background: 'linear-gradient(180deg, rgba(18,36,38,0.5) 0%, rgba(18,36,38,0) 20%, rgba(18,36,38,0) 80%, rgba(18,36,38,0.35) 100%)' }} />
 
       {/* Content */}
       <div className="ckr-site" style={{ position: 'relative', zIndex: 3, paddingTop: 116, paddingBottom: 56 }}>
