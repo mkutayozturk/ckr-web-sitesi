@@ -18,6 +18,8 @@ import logging
 import os
 import re
 import smtplib
+import json
+from urllib.request import Request as UrlRequest, urlopen
 import uuid
 
 import pandas as pd
@@ -242,6 +244,32 @@ def smtp_configured() -> bool:
 
 
 def send_email_sync(subject: str, body: str) -> bool:
+    resend_api_key = os.environ.get("RESEND_API_KEY")
+    if resend_api_key:
+        recipient = os.environ.get("ADMIN_EMAIL")
+        if not recipient:
+            logger.warning("ADMIN_EMAIL eksik olduğu için Resend bildirimi gönderilmedi.")
+            return False
+        payload = json.dumps({
+            "from": os.environ.get("RESEND_FROM", "ÇKR Bildirim <onboarding@resend.dev>"),
+            "to": [recipient],
+            "subject": subject,
+            "text": body,
+        }).encode("utf-8")
+        req = UrlRequest(
+            "https://api.resend.com/emails",
+            data=payload,
+            headers={
+                "Authorization": f"Bearer {resend_api_key}",
+                "Content-Type": "application/json",
+            },
+            method="POST",
+        )
+        with urlopen(req, timeout=15) as response:
+            if response.status not in (200, 201):
+                raise RuntimeError(f"Resend unexpected HTTP status: {response.status}")
+        return True
+
     if not smtp_configured():
         logger.warning("SMTP ayarları eksik olduğu için yönetici e-postası gönderilmedi.")
         return False
@@ -254,7 +282,7 @@ def send_email_sync(subject: str, body: str) -> bool:
 
     host = os.environ["SMTP_HOST"]
     port = int(os.environ.get("SMTP_PORT", "587"))
-    username = os.environ.get("SMTP_USERNAME")
+    username = os.environ.get("SMTP_USERNAME") or os.environ.get("SMTP_USER")
     password = os.environ.get("SMTP_PASSWORD")
     use_tls = os.environ.get("SMTP_TLS", "true").lower() != "false"
 
