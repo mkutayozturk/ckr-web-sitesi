@@ -1,5 +1,6 @@
 from fastapi import BackgroundTasks, Depends, FastAPI, HTTPException, Query, Request, Response
 from fastapi.responses import StreamingResponse
+from fastapi.security import HTTPAuthorizationCredentials, HTTPBearer
 from dotenv import load_dotenv
 from starlette.middleware.cors import CORSMiddleware
 from motor.motor_asyncio import AsyncIOMotorClient
@@ -219,16 +220,13 @@ def create_access_token() -> str:
     return jwt.encode({"sub": "admin", "exp": expires_at}, ADMIN_JWT_SECRET, algorithm=JWT_ALGORITHM)
 
 
-def read_bearer_token(request: Request) -> str:
-    auth = request.headers.get("authorization", "")
-    scheme, _, token = auth.partition(" ")
-    if scheme.lower() != "bearer" or not token:
+bearer_scheme = HTTPBearer(auto_error=False)
+
+
+async def require_admin(credentials: Optional[HTTPAuthorizationCredentials] = Depends(bearer_scheme)) -> str:
+    if credentials is None or not credentials.credentials:
         raise HTTPException(status_code=401, detail="Yönetici oturumu gerekli.")
-    return token
-
-
-async def require_admin(request: Request) -> str:
-    token = read_bearer_token(request)
+    token = credentials.credentials
     try:
         payload = jwt.decode(token, ADMIN_JWT_SECRET, algorithms=[JWT_ALGORITHM])
     except JWTError:
