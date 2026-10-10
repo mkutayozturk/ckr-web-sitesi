@@ -41,7 +41,7 @@ function Gauge({ type, title, formKey }) {
         <p style={{ margin: 0, fontSize: 14.5, color: '#e9ebe4' }}>{interpret(type, val)}</p>
       </div>
 
-      <button className="ckr-btn ckr-btn-ghost" style={{ marginTop: 18, width: '100%' }} onClick={() => openForm(formKey)}>
+      <button className="ckr-btn ckr-btn-ghost" style={{ marginTop: 18, width: '100%' }} onClick={() => openForm(formKey, `motivasyon-${type}`)}>
         Detaylı Analize Geç <ArrowRight size={16} />
       </button>
     </div>

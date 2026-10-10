@@ -35,7 +35,7 @@ export default function ApproachClosing() {
         </div>
 
         <div className="ckr-fade-up" style={{ display: 'flex', flexWrap: 'wrap', gap: 14 }}>
-          <button className="ckr-btn ckr-btn-gold" onClick={() => openForm('alici')}>
+          <button className="ckr-btn ckr-btn-gold" onClick={() => openForm('alici', 'yaklasim-ihtiyac-analizi')}>
             İhtiyaç Analizine Başla <ArrowRight size={17} />
           </button>
           <button className="ckr-btn" style={{ background: 'transparent', color: '#f3efe4', border: '1px solid rgba(245,241,232,0.35)' }}

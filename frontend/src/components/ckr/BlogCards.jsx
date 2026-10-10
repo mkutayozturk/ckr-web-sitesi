@@ -1,10 +1,53 @@
-import React from 'react';
-import { ArrowUpRight, Clock } from 'lucide-react';
+import React, { useEffect, useState } from 'react';
+import { ArrowUpRight, ChevronLeft, ChevronRight, Clock, X } from 'lucide-react';
 import { blogPosts } from '../../mock';
 import useReveal from '../../hooks/useReveal';
 
 export default function BlogCards() {
   useReveal();
+  const [activePost, setActivePost] = useState(null);
+  const [touchStart, setTouchStart] = useState(null);
+  const post = activePost !== null ? blogPosts[activePost] : null;
+
+  const openPost = (index) => setActivePost(index);
+  const closePost = () => setActivePost(null);
+  const showPost = (index) => setActivePost((index + blogPosts.length) % blogPosts.length);
+  const showPrev = () => showPost((activePost ?? 0) - 1);
+  const showNext = () => showPost((activePost ?? 0) + 1);
+
+  useEffect(() => {
+    if (activePost === null) return undefined;
+
+    const previousOverflow = document.body.style.overflow;
+    document.body.style.overflow = 'hidden';
+
+    const onKeyDown = (event) => {
+      if (event.key === 'Escape') setActivePost(null);
+      if (event.key === 'ArrowLeft') setActivePost((current) => (current + blogPosts.length - 1) % blogPosts.length);
+      if (event.key === 'ArrowRight') setActivePost((current) => (current + 1) % blogPosts.length);
+    };
+
+    window.addEventListener('keydown', onKeyDown);
+
+    return () => {
+      document.body.style.overflow = previousOverflow;
+      window.removeEventListener('keydown', onKeyDown);
+    };
+  }, [activePost]);
+
+  const handleTouchEnd = (event) => {
+    if (touchStart === null) return;
+    const touchEnd = event.changedTouches[0]?.clientX ?? touchStart;
+    const diff = touchStart - touchEnd;
+
+    if (Math.abs(diff) > 54) {
+      if (diff > 0) showNext();
+      else showPrev();
+    }
+
+    setTouchStart(null);
+  };
+
   return (
     <section id="rehber" className="ckr-section" style={{ background: 'transparent' }}>
       <div className="ckr-container">
@@ -21,10 +64,11 @@ export default function BlogCards() {
         </div>
 
         <div className="ckr-fade-up" style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fit, minmax(290px, 1fr))', gap: 24 }}>
-          {blogPosts.map((p) => (
+          {blogPosts.map((p, i) => (
             <article key={p.title} className="ckr-card" style={{ overflow: 'hidden', display: 'flex', flexDirection: 'column', cursor: 'pointer', transition: 'transform .25s ease, box-shadow .25s ease' }}
               onMouseEnter={(e) => { e.currentTarget.style.transform = 'translateY(-4px)'; e.currentTarget.style.boxShadow = '0 14px 34px rgba(32,59,53,0.12)'; }}
-              onMouseLeave={(e) => { e.currentTarget.style.transform = 'translateY(0)'; e.currentTarget.style.boxShadow = ''; }}>
+              onMouseLeave={(e) => { e.currentTarget.style.transform = 'translateY(0)'; e.currentTarget.style.boxShadow = ''; }}
+              onClick={() => openPost(i)}>
               <div style={{ height: 190, overflow: 'hidden' }}>
                 <img src={p.image} alt={p.title} style={{ width: '100%', height: '100%', objectFit: 'cover' }} />
               </div>
@@ -42,6 +86,60 @@ export default function BlogCards() {
             </article>
           ))}
         </div>
+
+        {post && (
+          <div className="ckr-blog-modal" role="dialog" aria-modal="true" aria-label={post.title} onClick={closePost}>
+            <article
+              className="ckr-blog-window"
+              onClick={(event) => event.stopPropagation()}
+              onTouchStart={(event) => setTouchStart(event.touches[0]?.clientX ?? null)}
+              onTouchEnd={handleTouchEnd}
+            >
+              <div className="ckr-blog-window-top">
+                <div className="ckr-blog-article-meta">
+                  <span>{post.tag}</span>
+                  <span><Clock size={14} /> {post.read}</span>
+                </div>
+                <button type="button" className="ckr-blog-close" onClick={closePost} aria-label="Blog yazısını kapat">
+                  <X size={20} />
+                </button>
+              </div>
+
+              <div className="ckr-blog-window-body">
+                <button type="button" className="ckr-blog-nav ckr-blog-nav-left" onClick={showPrev} aria-label="Önceki blog yazısı">
+                  <ChevronLeft size={22} />
+                </button>
+                <div className="ckr-blog-article">
+                  <h2>{post.title}</h2>
+                  {post.content.map((block, i) => {
+                    if (block.type === 'h2') return <h3 key={i}>{block.text}</h3>;
+                    if (block.type === 'quote') return <p key={i} className="ckr-blog-strong">{block.text}</p>;
+                    return <p key={i}>{block.text}</p>;
+                  })}
+                </div>
+                <button type="button" className="ckr-blog-nav ckr-blog-nav-right" onClick={showNext} aria-label="Sonraki blog yazısı">
+                  <ChevronRight size={22} />
+                </button>
+              </div>
+
+              <aside className="ckr-blog-suggestions" aria-label="Diğer blog yazıları">
+                <span>Diğer yazılar</span>
+                <div>
+                  {blogPosts.map((suggestion, i) => (
+                    <button
+                      key={suggestion.title}
+                      type="button"
+                      className={i === activePost ? 'is-active' : ''}
+                      onClick={() => showPost(i)}
+                    >
+                      {suggestion.title}
+                    </button>
+                  ))}
+                </div>
+              </aside>
+            </article>
+          </div>
+        )}
       </div>
     </section>
   );

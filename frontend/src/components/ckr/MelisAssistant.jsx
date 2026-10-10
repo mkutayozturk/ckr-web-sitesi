@@ -63,7 +63,7 @@ export default function MelisAssistant() {
                 }}>{m.text}</div>
                 {m.cta && (
                   <button className="ckr-btn ckr-btn-gold" style={{ marginTop: 8, fontSize: 13.5, padding: '9px 16px' }}
-                    onClick={() => { openForm(m.cta); setOpen(false); }}>
+                    onClick={() => { openForm(m.cta, `melis-${m.cta}`); setOpen(false); }}>
                     Formu Aç <ArrowRight size={15} />
                   </button>
                 )}
