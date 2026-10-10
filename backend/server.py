@@ -284,7 +284,14 @@ def send_email_sync(subject: str, body: str) -> bool:
                 pass
             diagnostic = re.sub(r"re_[A-Za-z0-9_\\-]+", "[redacted-key]", diagnostic)
             diagnostic = re.sub(r"[\\w.+-]+@[\\w.-]+\\.[A-Za-z]{2,}", "[redacted-email]", diagnostic)
-            logger.error("Resend API failed: HTTP %s; %s", exc.code, diagnostic[:350])
+            logger.error(
+                "Resend API failed: HTTP %s; %s; content_type=%s; server=%s; cf_ray=%s",
+                exc.code,
+                diagnostic[:350],
+                str(exc.headers.get("Content-Type", "missing"))[:80],
+                str(exc.headers.get("Server", "missing"))[:60],
+                str(exc.headers.get("CF-Ray", "missing"))[:90],
+            )
             raise RuntimeError(f"Resend API returned HTTP {exc.code}") from None
         return True
 
