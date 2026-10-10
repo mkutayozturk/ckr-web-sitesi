@@ -20,6 +20,7 @@ import re
 import smtplib
 import json
 from urllib.request import Request as UrlRequest, urlopen
+from urllib.error import HTTPError
 import uuid
 
 import pandas as pd
@@ -265,9 +266,26 @@ def send_email_sync(subject: str, body: str) -> bool:
             },
             method="POST",
         )
-        with urlopen(req, timeout=15) as response:
-            if response.status not in (200, 201):
-                raise RuntimeError(f"Resend unexpected HTTP status: {response.status}")
+        try:
+            with urlopen(req, timeout=15) as response:
+                if response.status not in (200, 201):
+                    raise RuntimeError(f"Resend unexpected HTTP status: {response.status}")
+        except HTTPError as exc:
+            # Log only the provider's error category and a sanitized diagnostic;
+            # never log Authorization headers, API keys, or full request payloads.
+            diagnostic = "unavailable"
+            try:
+                error_data = json.loads(exc.read(4096).decode("utf-8"))
+                if isinstance(error_data, dict):
+                    error_code = str(error_data.get("name") or error_data.get("code") or "unknown")
+                    error_message = str(error_data.get("message") or "")
+                    diagnostic = f"{error_code}: {error_message}"
+            except (ValueError, UnicodeError):
+                pass
+            diagnostic = re.sub(r"re_[A-Za-z0-9_\\-]+", "[redacted-key]", diagnostic)
+            diagnostic = re.sub(r"[\\w.+-]+@[\\w.-]+\\.[A-Za-z]{2,}", "[redacted-email]", diagnostic)
+            logger.error("Resend API failed: HTTP %s; %s", exc.code, diagnostic[:350])
+            raise RuntimeError(f"Resend API returned HTTP {exc.code}") from None
         return True
 
     if not smtp_configured():
