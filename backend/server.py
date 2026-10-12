@@ -1,4 +1,4 @@
-from fastapi import BackgroundTasks, Depends, FastAPI, HTTPException, Query, Request, Response
+from fastapi import BackgroundTasks, Depends, FastAPI, HTTPException, Query, Request, Response, Security
 from fastapi.responses import StreamingResponse
 from fastapi.security import HTTPAuthorizationCredentials, HTTPBearer
 from dotenv import load_dotenv
@@ -17,10 +17,8 @@ import hmac
 import logging
 import os
 import re
+import secrets
 import smtplib
-import json
-from urllib.request import Request as UrlRequest, urlopen
-from urllib.error import HTTPError
 import uuid
 
 import pandas as pd
@@ -40,6 +38,7 @@ client = AsyncIOMotorClient(MONGO_URL)
 db = client[DB_NAME]
 
 app = FastAPI(title="Çanakkale Konut Rehberi API")
+admin_bearer = HTTPBearer(auto_error=False)
 
 app.add_middleware(
     CORSMiddleware,
@@ -57,11 +56,19 @@ logger = logging.getLogger(__name__)
 
 FollowUpStatus = Literal["new", "contacted", "qualified", "follow_up", "closed", "archived"]
 RequestType = Literal["seller", "buyer", "landlord", "tenant"]
+ApplicationStatus = Literal["draft", "completed"]
 
 PHONE_RE = re.compile(r"^\+?[0-9\s().-]{10,20}$")
 RATE_LIMIT_WINDOW = timedelta(minutes=10)
 RATE_LIMIT_MAX = 8
 DEDUP_WINDOW = timedelta(hours=24)
+INITIAL_PARTIAL_ADMIN_NOTE = "Takip edilecek yarım başvuru"
+DRAFT_RETENTION_DAYS = int(os.environ.get("DRAFT_RETENTION_DAYS", "30"))
+DRAFT_TOKEN_HEADER = "x-ckr-draft-token"
+PROCESSING_LEGAL_BASIS = (
+    "Başvuru talebinin değerlendirilmesi, kullanıcıyla iletişim kurulması ve talep edilen hizmete ilişkin "
+    "sözleşme öncesi süreçlerin yürütülmesi; ayrıca başvurunun takip edilebilmesi için meşru menfaat."
+)
 request_log: Dict[str, List[datetime]] = {}
 
 
@@ -83,10 +90,35 @@ class ContactInfo(BaseModel):
         return value
 
 
-class LocationInfo(BaseModel):
+class LocationSelection(BaseModel):
+    scope: Optional[str] = Field(default=None, max_length=50)
+    province: Optional[str] = Field(default=None, max_length=80)
+    province_code: Optional[str] = Field(default=None, max_length=20)
     district: Optional[str] = Field(default=None, max_length=100)
-    neighborhood: Optional[str] = Field(default=None, max_length=100)
-    raw: Optional[str] = Field(default=None, max_length=200)
+    district_code: Optional[str] = Field(default=None, max_length=30)
+    municipality: Optional[str] = Field(default=None, max_length=120)
+    municipality_code: Optional[str] = Field(default=None, max_length=30)
+    settlement: Optional[str] = Field(default=None, max_length=140)
+    settlement_code: Optional[str] = Field(default=None, max_length=40)
+    settlement_type: Optional[str] = Field(default=None, max_length=60)
+    label: Optional[str] = Field(default=None, max_length=260)
+
+
+class LocationInfo(BaseModel):
+    mode: Optional[Literal["single", "multiple"]] = None
+    province: Optional[str] = Field(default=None, max_length=80)
+    province_code: Optional[str] = Field(default=None, max_length=20)
+    district: Optional[str] = Field(default=None, max_length=100)
+    district_code: Optional[str] = Field(default=None, max_length=30)
+    districts: List[str] = Field(default_factory=list, max_length=50)
+    neighborhood: Optional[str] = Field(default=None, max_length=200)
+    municipality: Optional[str] = Field(default=None, max_length=120)
+    municipality_code: Optional[str] = Field(default=None, max_length=30)
+    settlement: Optional[str] = Field(default=None, max_length=140)
+    settlement_code: Optional[str] = Field(default=None, max_length=40)
+    settlement_type: Optional[str] = Field(default=None, max_length=60)
+    raw: Optional[str] = Field(default=None, max_length=1500)
+    selections: List[LocationSelection] = Field(default_factory=list, max_length=120)
 
 
 class SourceInfo(BaseModel):
@@ -106,6 +138,8 @@ class MotivationResult(BaseModel):
 
 
 class LeadCreate(BaseModel):
+    application_id: Optional[str] = Field(default=None, max_length=80)
+    application_status: Optional[ApplicationStatus] = None
     request_type: RequestType
     property_type: Optional[str] = Field(default=None, max_length=100)
     location: LocationInfo = Field(default_factory=LocationInfo)
@@ -117,10 +151,15 @@ class LeadCreate(BaseModel):
     source: SourceInfo = Field(default_factory=SourceInfo)
     motivation: Optional[MotivationResult] = None
     notes: Optional[str] = Field(default=None, max_length=2000)
+    kvkk_acknowledged: bool = False
+    kvkk_acknowledged_at: Optional[datetime] = None
+    marketing_consent: bool = False
+    marketing_consent_at: Optional[datetime] = None
+    processing_legal_basis: Optional[str] = Field(default=None, max_length=700)
     honeypot: Optional[str] = Field(default="", max_length=120)
     started_at: Optional[datetime] = None
 
-    @field_validator("property_type", "budget_expectation", "price_expectation", "timing", "notes", mode="before")
+    @field_validator("application_id", "property_type", "budget_expectation", "price_expectation", "timing", "notes", mode="before")
     @classmethod
     def trim_optional_text(cls, value: Any) -> Any:
         return value.strip() if isinstance(value, str) else value
@@ -129,6 +168,10 @@ class LeadCreate(BaseModel):
 class LeadUpdate(BaseModel):
     follow_up_status: Optional[FollowUpStatus] = None
     admin_notes: Optional[str] = Field(default=None, max_length=5000)
+
+
+class LeadPreferenceUpdate(BaseModel):
+    preference: Literal["DECIDING_LATER", "ADVISOR_REQUESTED"]
 
 
 class AdminLogin(BaseModel):
@@ -144,6 +187,8 @@ class LeadResponse(BaseModel):
     model_config = ConfigDict(extra="ignore")
 
     id: str
+    application_id: Optional[str] = None
+    application_status: ApplicationStatus = "completed"
     request_type: RequestType
     property_type: Optional[str] = None
     location: LocationInfo
@@ -159,6 +204,17 @@ class LeadResponse(BaseModel):
     follow_up_status: FollowUpStatus
     admin_notes: Optional[str] = None
     email_notification_status: Optional[str] = None
+    kvkk_acknowledged: bool = False
+    kvkk_acknowledged_at: Optional[datetime] = None
+    marketing_consent: bool = False
+    marketing_consent_at: Optional[datetime] = None
+    processing_legal_basis: Optional[str] = None
+    completed_at: Optional[datetime] = None
+    draft_expires_at: Optional[datetime] = None
+
+
+class LeadDraftResponse(LeadResponse):
+    draft_token: Optional[str] = None
 
 
 class LeadListResponse(BaseModel):
@@ -188,17 +244,89 @@ def normalize_phone(phone: str) -> str:
 
 
 def build_dedupe_key(payload: LeadCreate) -> str:
+    selection_text = "|".join(
+        [
+            item.label or item.settlement or item.district or item.province or ""
+            for item in (payload.location.selections or [])
+        ]
+    )
     parts = [
         normalize_phone(payload.contact.phone),
         payload.request_type,
         payload.property_type or "",
+        payload.location.province or "",
         payload.location.raw or "",
         payload.location.district or "",
         payload.location.neighborhood or "",
+        selection_text,
         payload.budget_expectation or "",
         payload.price_expectation or "",
     ]
     return hashlib.sha256("|".join(parts).lower().encode("utf-8")).hexdigest()
+
+
+def make_application_id() -> str:
+    return str(uuid.uuid4())
+
+
+def make_draft_token() -> str:
+    return secrets.token_urlsafe(32)
+
+
+def hash_draft_token(token: str) -> str:
+    return hashlib.sha256(token.encode("utf-8")).hexdigest()
+
+
+def get_draft_expiry(now: datetime) -> datetime:
+    return now + timedelta(days=DRAFT_RETENTION_DAYS)
+
+
+def check_submission_guard(payload: LeadCreate) -> None:
+    if payload.honeypot:
+        raise HTTPException(status_code=400, detail="Başvuru doğrulaması başarısız.")
+    if payload.started_at:
+        now = datetime.now(timezone.utc)
+        started_at = payload.started_at if payload.started_at.tzinfo else payload.started_at.replace(tzinfo=timezone.utc)
+        if now - started_at < timedelta(seconds=2):
+            raise HTTPException(status_code=400, detail="Başvuru çok hızlı gönderildi.")
+
+
+def require_kvkk_acknowledgement(payload: LeadCreate) -> None:
+    if not payload.kvkk_acknowledged:
+        raise HTTPException(status_code=400, detail="KVKK Aydınlatma Metni bilgilendirmesi onaylanmadan başvuru kaydedilemez.")
+
+
+def prepare_lead_fields(payload: LeadCreate, request: Request, status: ApplicationStatus) -> Dict[str, Any]:
+    now = datetime.now(timezone.utc)
+    doc = payload.model_dump(mode="json", exclude={"honeypot", "started_at"})
+    doc["application_id"] = doc.get("application_id") or make_application_id()
+    doc["application_status"] = status
+    doc["processing_legal_basis"] = doc.get("processing_legal_basis") or PROCESSING_LEGAL_BASIS
+    if doc.get("kvkk_acknowledged") and not doc.get("kvkk_acknowledged_at"):
+        doc["kvkk_acknowledged_at"] = now.isoformat()
+    if doc.get("marketing_consent") and not doc.get("marketing_consent_at"):
+        doc["marketing_consent_at"] = now.isoformat()
+    if not doc.get("marketing_consent"):
+        doc["marketing_consent_at"] = None
+    doc["contact"]["phone_normalized"] = normalize_phone(payload.contact.phone)
+    doc["source"]["user_agent"] = request.headers.get("user-agent", "")[:500]
+    return doc
+
+
+def attach_draft_token(doc: Dict[str, Any], token: Optional[str]) -> Dict[str, Any]:
+    response_doc = {key: value for key, value in doc.items() if key not in {"_id", "draft_access_hash"}}
+    if token:
+        response_doc["draft_token"] = token
+    return response_doc
+
+
+def verify_draft_access(lead: Dict[str, Any], request: Request) -> None:
+    provided = request.headers.get(DRAFT_TOKEN_HEADER)
+    expected = lead.get("draft_access_hash")
+    if not provided or not expected:
+        raise HTTPException(status_code=403, detail="Taslak başvuru erişimi doğrulanamadı.")
+    if not hmac.compare_digest(hash_draft_token(provided), expected):
+        raise HTTPException(status_code=403, detail="Taslak başvuru erişimi doğrulanamadı.")
 
 
 def get_client_ip(request: Request) -> str:
@@ -223,15 +351,11 @@ def create_access_token() -> str:
     return jwt.encode({"sub": "admin", "exp": expires_at}, ADMIN_JWT_SECRET, algorithm=JWT_ALGORITHM)
 
 
-bearer_scheme = HTTPBearer(auto_error=False)
-
-
-async def require_admin(credentials: Optional[HTTPAuthorizationCredentials] = Depends(bearer_scheme)) -> str:
-    if credentials is None or not credentials.credentials:
+async def require_admin(credentials: Optional[HTTPAuthorizationCredentials] = Security(admin_bearer)) -> str:
+    if not credentials or credentials.scheme.lower() != "bearer" or not credentials.credentials:
         raise HTTPException(status_code=401, detail="Yönetici oturumu gerekli.")
-    token = credentials.credentials
     try:
-        payload = jwt.decode(token, ADMIN_JWT_SECRET, algorithms=[JWT_ALGORITHM])
+        payload = jwt.decode(credentials.credentials, ADMIN_JWT_SECRET, algorithms=[JWT_ALGORITHM])
     except JWTError:
         raise HTTPException(status_code=401, detail="Yönetici oturumu geçersiz.")
     if payload.get("sub") != "admin":
@@ -245,56 +369,6 @@ def smtp_configured() -> bool:
 
 
 def send_email_sync(subject: str, body: str) -> bool:
-    resend_api_key = os.environ.get("RESEND_API_KEY")
-    if resend_api_key:
-        recipient = os.environ.get("ADMIN_EMAIL")
-        if not recipient:
-            logger.warning("ADMIN_EMAIL eksik olduğu için Resend bildirimi gönderilmedi.")
-            return False
-        payload = json.dumps({
-            "from": os.environ.get("RESEND_FROM", "ÇKR Bildirim <onboarding@resend.dev>"),
-            "to": [recipient],
-            "subject": subject,
-            "text": body,
-        }).encode("utf-8")
-        req = UrlRequest(
-            "https://api.resend.com/emails",
-            data=payload,
-            headers={
-                "Authorization": f"Bearer {resend_api_key}",
-                "Content-Type": "application/json",
-            },
-            method="POST",
-        )
-        try:
-            with urlopen(req, timeout=15) as response:
-                if response.status not in (200, 201):
-                    raise RuntimeError(f"Resend unexpected HTTP status: {response.status}")
-        except HTTPError as exc:
-            # Log only the provider's error category and a sanitized diagnostic;
-            # never log Authorization headers, API keys, or full request payloads.
-            diagnostic = "unavailable"
-            try:
-                error_data = json.loads(exc.read(4096).decode("utf-8"))
-                if isinstance(error_data, dict):
-                    error_code = str(error_data.get("name") or error_data.get("code") or "unknown")
-                    error_message = str(error_data.get("message") or "")
-                    diagnostic = f"{error_code}: {error_message}"
-            except (ValueError, UnicodeError):
-                pass
-            diagnostic = re.sub(r"re_[A-Za-z0-9_\\-]+", "[redacted-key]", diagnostic)
-            diagnostic = re.sub(r"[\\w.+-]+@[\\w.-]+\\.[A-Za-z]{2,}", "[redacted-email]", diagnostic)
-            logger.error(
-                "Resend API failed: HTTP %s; %s; content_type=%s; server=%s; cf_ray=%s",
-                exc.code,
-                diagnostic[:350],
-                str(exc.headers.get("Content-Type", "missing"))[:80],
-                str(exc.headers.get("Server", "missing"))[:60],
-                str(exc.headers.get("CF-Ray", "missing"))[:90],
-            )
-            raise RuntimeError(f"Resend API returned HTTP {exc.code}") from None
-        return True
-
     if not smtp_configured():
         logger.warning("SMTP ayarları eksik olduğu için yönetici e-postası gönderilmedi.")
         return False
@@ -307,7 +381,7 @@ def send_email_sync(subject: str, body: str) -> bool:
 
     host = os.environ["SMTP_HOST"]
     port = int(os.environ.get("SMTP_PORT", "587"))
-    username = os.environ.get("SMTP_USERNAME") or os.environ.get("SMTP_USER")
+    username = os.environ.get("SMTP_USERNAME")
     password = os.environ.get("SMTP_PASSWORD")
     use_tls = os.environ.get("SMTP_TLS", "true").lower() != "false"
 
@@ -353,16 +427,29 @@ async def notify_admin(lead: Dict[str, Any]) -> None:
 
 async def ensure_indexes() -> None:
     await db.leads.create_index("id", unique=True)
+    await db.leads.create_index("application_id", unique=True, sparse=True)
+    await db.leads.create_index("application_status")
+    await db.leads.create_index("draft_expires_at")
     await db.leads.create_index("created_at")
     await db.leads.create_index("request_type")
     await db.leads.create_index("follow_up_status")
+    await db.leads.create_index("location.province")
+    await db.leads.create_index("location.district")
+    await db.leads.create_index("location.neighborhood")
+    await db.leads.create_index("location.selections.label")
     await db.leads.create_index("contact.phone_normalized")
     await db.leads.create_index("dedupe_key")
+
+
+async def delete_expired_drafts() -> None:
+    now = datetime.now(timezone.utc).isoformat()
+    await db.leads.delete_many({"application_status": "draft", "draft_expires_at": {"$lt": now}})
 
 
 @app.on_event("startup")
 async def startup() -> None:
     await ensure_indexes()
+    await delete_expired_drafts()
 
 
 @app.get("/api/")
@@ -391,13 +478,7 @@ async def get_status_checks():
 @app.post("/api/leads", response_model=LeadResponse, status_code=201)
 async def create_lead(payload: LeadCreate, request: Request, background_tasks: BackgroundTasks):
     enforce_rate_limit(request)
-    if payload.honeypot:
-        raise HTTPException(status_code=400, detail="Başvuru doğrulaması başarısız.")
-    if payload.started_at:
-        now = datetime.now(timezone.utc)
-        started_at = payload.started_at if payload.started_at.tzinfo else payload.started_at.replace(tzinfo=timezone.utc)
-        if now - started_at < timedelta(seconds=2):
-            raise HTTPException(status_code=400, detail="Başvuru çok hızlı gönderildi.")
+    check_submission_guard(payload)
 
     dedupe_key = build_dedupe_key(payload)
     cutoff = datetime.now(timezone.utc) - DEDUP_WINDOW
@@ -405,6 +486,7 @@ async def create_lead(payload: LeadCreate, request: Request, background_tasks: B
         {
             "dedupe_key": dedupe_key,
             "created_at": {"$gte": cutoff.isoformat()},
+            "application_status": {"$ne": "draft"},
         },
         {"_id": 0},
     )
@@ -412,21 +494,135 @@ async def create_lead(payload: LeadCreate, request: Request, background_tasks: B
         raise HTTPException(status_code=409, detail="Bu başvuru yakın zamanda zaten alınmış görünüyor.")
 
     now = datetime.now(timezone.utc)
-    doc = payload.model_dump(exclude={"honeypot", "started_at"})
+    doc = prepare_lead_fields(payload, request, "completed")
     doc["id"] = str(uuid.uuid4())
+    doc["application_id"] = doc.get("application_id") or make_application_id()
+    doc["application_status"] = "completed"
     doc["created_at"] = now.isoformat()
     doc["updated_at"] = now.isoformat()
+    doc["completed_at"] = now.isoformat()
+    doc["draft_expires_at"] = None
     doc["follow_up_status"] = "new"
-    doc["admin_notes"] = ""
+    doc["admin_notes"] = INITIAL_PARTIAL_ADMIN_NOTE
     doc["dedupe_key"] = dedupe_key
-    doc["contact"]["phone_normalized"] = normalize_phone(payload.contact.phone)
-    doc["source"]["user_agent"] = request.headers.get("user-agent", "")[:500]
     doc["email_notification_status"] = "pending"
 
     await db.leads.insert_one(doc)
     background_tasks.add_task(notify_admin, doc)
     doc.pop("_id", None)
     return doc
+
+
+@app.post("/api/leads/draft", response_model=LeadDraftResponse, status_code=201)
+async def create_lead_draft(payload: LeadCreate, request: Request):
+    enforce_rate_limit(request)
+    check_submission_guard(payload)
+    require_kvkk_acknowledgement(payload)
+
+    application_id = payload.application_id or make_application_id()
+    existing = await db.leads.find_one({"application_id": application_id}, {"_id": 0})
+    if existing:
+        raise HTTPException(status_code=409, detail="Bu taslak başvuru zaten oluşturulmuş.")
+
+    now = datetime.now(timezone.utc)
+    draft_token = make_draft_token()
+    payload.application_id = application_id
+    doc = prepare_lead_fields(payload, request, "draft")
+    doc["id"] = str(uuid.uuid4())
+    doc["created_at"] = now.isoformat()
+    doc["updated_at"] = now.isoformat()
+    doc["completed_at"] = None
+    doc["draft_expires_at"] = get_draft_expiry(now).isoformat()
+    doc["follow_up_status"] = "follow_up"
+    doc["admin_notes"] = INITIAL_PARTIAL_ADMIN_NOTE
+    doc["dedupe_key"] = f"draft:{application_id}"
+    doc["draft_access_hash"] = hash_draft_token(draft_token)
+    doc["email_notification_status"] = "not_scheduled"
+
+    await db.leads.insert_one(doc)
+    return attach_draft_token(doc, draft_token)
+
+
+@app.patch("/api/leads/{application_id}/draft", response_model=LeadResponse)
+async def update_lead_draft(application_id: str, payload: LeadCreate, request: Request):
+    require_kvkk_acknowledgement(payload)
+    lead = await db.leads.find_one({"application_id": application_id}, {"_id": 0})
+    if not lead:
+        raise HTTPException(status_code=404, detail="Taslak başvuru bulunamadı.")
+    verify_draft_access(lead, request)
+    if lead.get("application_status") == "completed":
+        return lead
+
+    now = datetime.now(timezone.utc)
+    payload.application_id = application_id
+    updates = prepare_lead_fields(payload, request, "draft")
+    updates["updated_at"] = now.isoformat()
+    updates["draft_expires_at"] = get_draft_expiry(now).isoformat()
+    updates["completed_at"] = None
+    updates["email_notification_status"] = lead.get("email_notification_status") or "not_scheduled"
+    if not updates.get("admin_notes"):
+        updates["admin_notes"] = lead.get("admin_notes") or INITIAL_PARTIAL_ADMIN_NOTE
+    await db.leads.update_one({"application_id": application_id}, {"$set": updates})
+    updated = await db.leads.find_one({"application_id": application_id}, {"_id": 0})
+    return updated
+
+
+@app.patch("/api/leads/{application_id}/complete", response_model=LeadResponse)
+async def complete_lead_draft(application_id: str, payload: LeadCreate, request: Request, background_tasks: BackgroundTasks):
+    require_kvkk_acknowledgement(payload)
+    lead = await db.leads.find_one({"application_id": application_id}, {"_id": 0})
+    if not lead:
+        raise HTTPException(status_code=404, detail="Taslak başvuru bulunamadı.")
+    verify_draft_access(lead, request)
+    if lead.get("application_status") == "completed":
+        return lead
+
+    now = datetime.now(timezone.utc)
+    payload.application_id = application_id
+    updates = prepare_lead_fields(payload, request, "completed")
+    updates["updated_at"] = now.isoformat()
+    updates["completed_at"] = now.isoformat()
+    updates["draft_expires_at"] = None
+    updates["follow_up_status"] = "new"
+    updates["email_notification_status"] = "pending"
+    if (lead.get("admin_notes") or "") in ("", INITIAL_PARTIAL_ADMIN_NOTE):
+        updates["admin_notes"] = INITIAL_PARTIAL_ADMIN_NOTE
+
+    await db.leads.update_one({"application_id": application_id}, {"$set": updates})
+    updated = await db.leads.find_one({"application_id": application_id}, {"_id": 0})
+    background_tasks.add_task(notify_admin, updated)
+    return updated
+
+
+@app.patch("/api/leads/{lead_id}/preference", response_model=LeadResponse)
+async def update_lead_preference(lead_id: str, payload: LeadPreferenceUpdate):
+    lead = await db.leads.find_one({"id": lead_id}, {"_id": 0})
+    if not lead:
+        raise HTTPException(status_code=404, detail="Başvuru bulunamadı.")
+
+    now = datetime.now(timezone.utc)
+    features = lead.get("property_features") or {}
+    if payload.preference == "ADVISOR_REQUESTED":
+        features["Son ekran tercihi"] = "Formu Danışmana Yolla"
+        features["Danışmanlık talebi"] = "ADVISOR_REQUESTED"
+        follow_up_status = "qualified"
+        admin_notes = "Formu danışmana yolla tercihi seçildi."
+    else:
+        features["Son ekran tercihi"] = "Kararımı Netleştirip Haber Vereceğim"
+        features["Danışmanlık talebi"] = "DECIDING_LATER"
+        follow_up_status = "follow_up"
+        admin_notes = INITIAL_PARTIAL_ADMIN_NOTE
+
+    updates = {
+        "property_features": features,
+        "follow_up_status": follow_up_status,
+        "updated_at": now.isoformat(),
+    }
+    if (lead.get("admin_notes") or "") in ("", INITIAL_PARTIAL_ADMIN_NOTE):
+        updates["admin_notes"] = admin_notes
+    await db.leads.update_one({"id": lead_id}, {"$set": updates})
+    updated = await db.leads.find_one({"id": lead_id}, {"_id": 0})
+    return updated
 
 
 @app.post("/api/admin/login", response_model=TokenResponse)
@@ -438,18 +634,34 @@ async def admin_login(payload: AdminLogin):
     return TokenResponse(access_token=create_access_token())
 
 
+def add_location_filter(and_filters: List[Dict[str, Any]], value: Optional[str], fields: List[str]) -> None:
+    if not value:
+        return
+    safe_value = re.escape(value.strip())
+    and_filters.append({"$or": [{field: {"$regex": safe_value, "$options": "i"}} for field in fields]})
+
+
 def lead_filters(
     q: Optional[str],
     request_type: Optional[RequestType],
     follow_up_status: Optional[FollowUpStatus],
+    application_status: Optional[ApplicationStatus],
     date_from: Optional[datetime],
     date_to: Optional[datetime],
+    province: Optional[str] = None,
+    district: Optional[str] = None,
+    settlement: Optional[str] = None,
 ) -> Dict[str, Any]:
     filters: Dict[str, Any] = {}
+    and_filters: List[Dict[str, Any]] = []
     if request_type:
         filters["request_type"] = request_type
     if follow_up_status:
         filters["follow_up_status"] = follow_up_status
+    if application_status == "draft":
+        filters["application_status"] = "draft"
+    elif application_status == "completed":
+        and_filters.append({"$or": [{"application_status": "completed"}, {"application_status": {"$exists": False}}]})
     if date_from or date_to:
         created_filter: Dict[str, str] = {}
         if date_from:
@@ -459,14 +671,23 @@ def lead_filters(
         filters["created_at"] = created_filter
     if q:
         safe_q = re.escape(q.strip())
-        filters["$or"] = [
+        and_filters.append({"$or": [
             {"contact.name": {"$regex": safe_q, "$options": "i"}},
             {"contact.phone": {"$regex": safe_q, "$options": "i"}},
             {"contact.email": {"$regex": safe_q, "$options": "i"}},
+            {"location.province": {"$regex": safe_q, "$options": "i"}},
             {"location.raw": {"$regex": safe_q, "$options": "i"}},
             {"location.district": {"$regex": safe_q, "$options": "i"}},
+            {"location.districts": {"$regex": safe_q, "$options": "i"}},
             {"location.neighborhood": {"$regex": safe_q, "$options": "i"}},
-        ]
+            {"location.settlement": {"$regex": safe_q, "$options": "i"}},
+            {"location.selections.label": {"$regex": safe_q, "$options": "i"}},
+        ]})
+    add_location_filter(and_filters, province, ["location.province", "location.selections.province", "location.raw"])
+    add_location_filter(and_filters, district, ["location.district", "location.districts", "location.selections.district", "location.raw"])
+    add_location_filter(and_filters, settlement, ["location.neighborhood", "location.settlement", "location.selections.settlement", "location.selections.label", "location.raw"])
+    if and_filters:
+        filters["$and"] = and_filters
     return filters
 
 
@@ -476,15 +697,25 @@ async def list_leads(
     q: Optional[str] = None,
     request_type: Optional[RequestType] = None,
     follow_up_status: Optional[FollowUpStatus] = None,
+    application_status: Optional[ApplicationStatus] = None,
     date_from: Optional[datetime] = None,
     date_to: Optional[datetime] = None,
-    sort_by: Literal["created_at", "name", "request_type", "follow_up_status"] = "created_at",
+    province: Optional[str] = None,
+    district: Optional[str] = None,
+    settlement: Optional[str] = None,
+    sort_by: Literal["created_at", "name", "request_type", "follow_up_status", "application_status"] = "created_at",
     sort_dir: Literal["asc", "desc"] = "desc",
     limit: int = Query(default=100, ge=1, le=500),
     skip: int = Query(default=0, ge=0),
 ):
-    filters = lead_filters(q, request_type, follow_up_status, date_from, date_to)
-    sort_map = {"name": "contact.name", "created_at": "created_at", "request_type": "request_type", "follow_up_status": "follow_up_status"}
+    filters = lead_filters(q, request_type, follow_up_status, application_status, date_from, date_to, province, district, settlement)
+    sort_map = {
+        "name": "contact.name",
+        "created_at": "created_at",
+        "request_type": "request_type",
+        "follow_up_status": "follow_up_status",
+        "application_status": "application_status",
+    }
     direction = 1 if sort_dir == "asc" else -1
     total = await db.leads.count_documents(filters)
     rows = await db.leads.find(filters, {"_id": 0}).sort(sort_map[sort_by], direction).skip(skip).limit(limit).to_list(limit)
@@ -497,10 +728,14 @@ async def export_leads(
     q: Optional[str] = None,
     request_type: Optional[RequestType] = None,
     follow_up_status: Optional[FollowUpStatus] = None,
+    application_status: Optional[ApplicationStatus] = None,
     date_from: Optional[datetime] = None,
     date_to: Optional[datetime] = None,
+    province: Optional[str] = None,
+    district: Optional[str] = None,
+    settlement: Optional[str] = None,
 ):
-    filters = lead_filters(q, request_type, follow_up_status, date_from, date_to)
+    filters = lead_filters(q, request_type, follow_up_status, application_status, date_from, date_to, province, district, settlement)
     rows = await db.leads.find(filters, {"_id": 0}).sort("created_at", -1).to_list(10000)
     main_rows = []
     detail_rows = []
@@ -508,28 +743,53 @@ async def export_leads(
     for row in rows:
         contact = row.get("contact", {})
         location = row.get("location", {})
+        location_selections = location.get("selections") or []
+        selected_locations = " | ".join(
+            [
+                item.get("label") or item.get("settlement") or item.get("district") or item.get("province") or ""
+                for item in location_selections
+            ]
+        )
         source = row.get("source", {})
         motivation = row.get("motivation") or {}
+        property_features = row.get("property_features") or {}
         main_rows.append(
             {
+                "Başvuru ID": row.get("application_id") or row.get("id"),
+                "Başvuru durumu": "Yarım Başvuru" if row.get("application_status") == "draft" else "Tamamlanan Başvuru",
                 "Başvuru tarihi": row.get("created_at"),
+                "Tamamlanma tarihi": row.get("completed_at"),
+                "Taslak saklama sonu": row.get("draft_expires_at"),
                 "Ad soyad": contact.get("name"),
                 "Telefon": contact.get("phone"),
                 "E-posta": contact.get("email"),
                 "Talep türü": row.get("request_type"),
                 "Mülk türü": row.get("property_type"),
+                "İl": location.get("province"),
+                "İl kodu": location.get("province_code"),
                 "İlçe": location.get("district"),
+                "İlçe kodu": location.get("district_code"),
+                "Seçilen ilçeler": ", ".join(location.get("districts") or []),
                 "Mahalle": location.get("neighborhood"),
+                "Mahalle/Belde/Köy": location.get("settlement") or location.get("neighborhood"),
+                "Yerleşim türü": location.get("settlement_type"),
                 "Konum": location.get("raw"),
+                "Çoklu bölge tercihleri": selected_locations,
                 "Bütçe/Fiyat beklentisi": row.get("budget_expectation") or row.get("price_expectation"),
                 "İşlem zamanlaması": row.get("timing"),
                 "Başvuru kaynağı": source.get("button_source") or source.get("form_type"),
                 "Motivasyon puanı": motivation.get("score"),
+                "Motivasyon durumu": motivation.get("category"),
+                "Son ekran tercihi": property_features.get("Son ekran tercihi"),
+                "Danışmanlık talebi": property_features.get("Danışmanlık talebi"),
                 "Müşteri takip durumu": row.get("follow_up_status"),
+                "KVKK bilgilendirme": "Evet" if row.get("kvkk_acknowledged") else "Hayır",
+                "Pazarlama izni": "Evet" if row.get("marketing_consent") else "Hayır",
+                "Hukuki sebep": row.get("processing_legal_basis"),
                 "Takip notu": row.get("admin_notes"),
             }
         )
-        for key, value in (row.get("property_features") or {}).items():
+        for key, value in property_features.items():
             detail_rows.append({"Müşteri ID": row.get("id"), "Alan": key, "Değer": value})
         if motivation:
             motivation_rows.append(
