@@ -75,6 +75,11 @@ def lead_payload(phone="0530 111 22 33"):
         "contact": {"name": "Test Müşteri", "phone": phone, "email": "test@example.com"},
         "source": {"form_type": "satici", "button_source": "test"},
         "motivation": {"answers": {"aciliyet": 80}, "score": 80, "category": "Yüksek", "summary": "Test özeti"},
+        "kvkk_notice_presented": True,
+        "kvkk_notice_presented_at": "2026-10-08T12:01:00+00:00",
+        "kvkk_notice_version": "2026-10-12",
+        "kvkk_acknowledged": False,
+        "marketing_consent": False,
         "started_at": "2026-10-08T12:00:00+00:00",
     }
 
@@ -133,6 +138,7 @@ def test_lead_create_admin_update_and_export(api_client):
     assert "İl" in headers_row
     assert "Çoklu bölge tercihleri" in headers_row
     assert "Başvuru durumu" in headers_row
+    assert "KVKK aydınlatma sunuldu" in headers_row
     name_column = headers_row.index("Ad soyad") + 1
     assert sheet.cell(row=2, column=name_column).value == "Test Müşteri"
 
@@ -140,9 +146,6 @@ def test_lead_create_admin_update_and_export(api_client):
 def test_draft_autosave_complete_and_admin_filters(api_client):
     payload = lead_payload(phone="0530 111 22 44")
     payload["application_id"] = f"app-{uuid.uuid4().hex}"
-    payload["kvkk_acknowledged"] = True
-    payload["kvkk_acknowledged_at"] = "2026-10-08T12:01:00+00:00"
-    payload["marketing_consent"] = False
     payload["motivation"] = {
         "answers": {"completion": "incomplete", "responses": {}, "missing": ["Soru"]},
         "score": None,
@@ -154,8 +157,17 @@ def test_draft_autosave_complete_and_admin_filters(api_client):
     assert draft.status_code == 201
     draft_body = draft.json()
     assert draft_body["application_status"] == "draft"
+    assert draft_body["kvkk_notice_presented"] is True
+    assert draft_body["kvkk_acknowledged"] is False
     assert draft_body["draft_token"]
     assert draft_body["follow_up_status"] == "follow_up"
+
+    missing_notice_payload = lead_payload(phone="0530 111 22 55")
+    missing_notice_payload["application_id"] = f"app-{uuid.uuid4().hex}"
+    missing_notice_payload["kvkk_notice_presented"] = False
+    missing_notice_payload["kvkk_acknowledged"] = False
+    missing_notice = api_client.post("/api/leads/draft", json=missing_notice_payload)
+    assert missing_notice.status_code == 400
 
     payload["property_features"]["metrekare"] = "125"
     forbidden = api_client.patch(f"/api/leads/{payload['application_id']}/draft", json=payload)
