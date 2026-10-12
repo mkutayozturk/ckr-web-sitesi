@@ -69,6 +69,7 @@ PROCESSING_LEGAL_BASIS = (
     "Başvuru talebinin değerlendirilmesi, kullanıcıyla iletişim kurulması ve talep edilen hizmete ilişkin "
     "sözleşme öncesi süreçlerin yürütülmesi; ayrıca başvurunun takip edilebilmesi için meşru menfaat."
 )
+KVKK_NOTICE_VERSION = os.environ.get("KVKK_NOTICE_VERSION", "2026-10-12")
 request_log: Dict[str, List[datetime]] = {}
 
 
@@ -153,6 +154,9 @@ class LeadCreate(BaseModel):
     notes: Optional[str] = Field(default=None, max_length=2000)
     kvkk_acknowledged: bool = False
     kvkk_acknowledged_at: Optional[datetime] = None
+    kvkk_notice_presented: bool = False
+    kvkk_notice_presented_at: Optional[datetime] = None
+    kvkk_notice_version: Optional[str] = Field(default=None, max_length=40)
     marketing_consent: bool = False
     marketing_consent_at: Optional[datetime] = None
     processing_legal_basis: Optional[str] = Field(default=None, max_length=700)
@@ -206,6 +210,9 @@ class LeadResponse(BaseModel):
     email_notification_status: Optional[str] = None
     kvkk_acknowledged: bool = False
     kvkk_acknowledged_at: Optional[datetime] = None
+    kvkk_notice_presented: bool = False
+    kvkk_notice_presented_at: Optional[datetime] = None
+    kvkk_notice_version: Optional[str] = None
     marketing_consent: bool = False
     marketing_consent_at: Optional[datetime] = None
     processing_legal_basis: Optional[str] = None
@@ -291,9 +298,9 @@ def check_submission_guard(payload: LeadCreate) -> None:
             raise HTTPException(status_code=400, detail="Başvuru çok hızlı gönderildi.")
 
 
-def require_kvkk_acknowledgement(payload: LeadCreate) -> None:
-    if not payload.kvkk_acknowledged:
-        raise HTTPException(status_code=400, detail="KVKK Aydınlatma Metni bilgilendirmesi onaylanmadan başvuru kaydedilemez.")
+def require_kvkk_notice(payload: LeadCreate) -> None:
+    if not (payload.kvkk_notice_presented or payload.kvkk_acknowledged):
+        raise HTTPException(status_code=400, detail="KVKK Aydınlatma Metni kullanıcıya sunulmadan başvuru kaydedilemez.")
 
 
 def prepare_lead_fields(payload: LeadCreate, request: Request, status: ApplicationStatus) -> Dict[str, Any]:
@@ -302,6 +309,12 @@ def prepare_lead_fields(payload: LeadCreate, request: Request, status: Applicati
     doc["application_id"] = doc.get("application_id") or make_application_id()
     doc["application_status"] = status
     doc["processing_legal_basis"] = doc.get("processing_legal_basis") or PROCESSING_LEGAL_BASIS
+    if doc.get("kvkk_acknowledged") and not doc.get("kvkk_notice_presented"):
+        doc["kvkk_notice_presented"] = True
+    if doc.get("kvkk_notice_presented") and not doc.get("kvkk_notice_presented_at"):
+        doc["kvkk_notice_presented_at"] = doc.get("kvkk_acknowledged_at") or now.isoformat()
+    if doc.get("kvkk_notice_presented") and not doc.get("kvkk_notice_version"):
+        doc["kvkk_notice_version"] = KVKK_NOTICE_VERSION
     if doc.get("kvkk_acknowledged") and not doc.get("kvkk_acknowledged_at"):
         doc["kvkk_acknowledged_at"] = now.isoformat()
     if doc.get("marketing_consent") and not doc.get("marketing_consent_at"):
@@ -479,6 +492,7 @@ async def get_status_checks():
 async def create_lead(payload: LeadCreate, request: Request, background_tasks: BackgroundTasks):
     enforce_rate_limit(request)
     check_submission_guard(payload)
+    require_kvkk_notice(payload)
 
     dedupe_key = build_dedupe_key(payload)
     cutoff = datetime.now(timezone.utc) - DEDUP_WINDOW
@@ -517,7 +531,7 @@ async def create_lead(payload: LeadCreate, request: Request, background_tasks: B
 async def create_lead_draft(payload: LeadCreate, request: Request):
     enforce_rate_limit(request)
     check_submission_guard(payload)
-    require_kvkk_acknowledgement(payload)
+    require_kvkk_notice(payload)
 
     application_id = payload.application_id or make_application_id()
     existing = await db.leads.find_one({"application_id": application_id}, {"_id": 0})
@@ -545,7 +559,7 @@ async def create_lead_draft(payload: LeadCreate, request: Request):
 
 @app.patch("/api/leads/{application_id}/draft", response_model=LeadResponse)
 async def update_lead_draft(application_id: str, payload: LeadCreate, request: Request):
-    require_kvkk_acknowledgement(payload)
+    require_kvkk_notice(payload)
     lead = await db.leads.find_one({"application_id": application_id}, {"_id": 0})
     if not lead:
         raise HTTPException(status_code=404, detail="Taslak başvuru bulunamadı.")
@@ -569,7 +583,7 @@ async def update_lead_draft(application_id: str, payload: LeadCreate, request: R
 
 @app.patch("/api/leads/{application_id}/complete", response_model=LeadResponse)
 async def complete_lead_draft(application_id: str, payload: LeadCreate, request: Request, background_tasks: BackgroundTasks):
-    require_kvkk_acknowledgement(payload)
+    require_kvkk_notice(payload)
     lead = await db.leads.find_one({"application_id": application_id}, {"_id": 0})
     if not lead:
         raise HTTPException(status_code=404, detail="Taslak başvuru bulunamadı.")
@@ -783,7 +797,10 @@ async def export_leads(
                 "Son ekran tercihi": property_features.get("Son ekran tercihi"),
                 "Danışmanlık talebi": property_features.get("Danışmanlık talebi"),
                 "Müşteri takip durumu": row.get("follow_up_status"),
-                "KVKK bilgilendirme": "Evet" if row.get("kvkk_acknowledged") else "Hayır",
+                "KVKK aydınlatma sunuldu": "Evet" if (row.get("kvkk_notice_presented") or row.get("kvkk_acknowledged")) else "Hayır",
+                "KVKK aydınlatma tarihi": row.get("kvkk_notice_presented_at") or row.get("kvkk_acknowledged_at"),
+                "KVKK metin sürümü": row.get("kvkk_notice_version"),
+                "Okudum beyanı": "Evet" if row.get("kvkk_acknowledged") else "Hayır",
                 "Pazarlama izni": "Evet" if row.get("marketing_consent") else "Hayır",
                 "Hukuki sebep": row.get("processing_legal_basis"),
                 "Takip notu": row.get("admin_notes"),
