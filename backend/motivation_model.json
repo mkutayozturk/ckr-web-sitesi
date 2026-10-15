@@ -1,0 +1,399 @@
+{
+  "version": "ckr-readiness-2026-10-15-v1",
+  "deadline": {
+    "name": "son_tarih",
+    "label": "Bu işlemin en geç ne zaman tamamlanması gerekiyor?",
+    "options": [
+      "30 gün içerisinde.",
+      "1–3 ay içerisinde.",
+      "3–6 ay içerisinde.",
+      "6 aydan sonra."
+    ]
+  },
+  "forms": {
+    "satici": {
+      "title": "Satıcı Motivasyon Analizi",
+      "intro": "İşleme hazırlığınızı sekiz soruyla değerlendirin. Her soru için bir yanıt seçin.",
+      "scored": true,
+      "questions": [
+        {
+          "name": "zaman_zorunlulugu",
+          "label": "Alım veya satım işleminizin belirli bir tarihe kadar gerçekleşmesini gerektiren bir durum var mı?",
+          "weight": 15,
+          "options": [
+            {
+              "label": "Evet, belirli bir tarihe kadar işlemi tamamlamam gerekiyor.",
+              "score": 15
+            },
+            {
+              "label": "Evet, belirli bir tarihe yetişmesini istediğim bir planım var.",
+              "score": 13
+            },
+            {
+              "label": "Belirli bir hedef tarihim var ancak gerektiğinde erteleyebilirim.",
+              "score": 11
+            },
+            {
+              "label": "Hayır, herhangi bir zaman zorunluluğum yok.",
+              "score": 10
+            }
+          ]
+        },
+        {
+          "name": "gerekce",
+          "label": "Mülkünüzü satma kararınızın temel nedeni nedir?",
+          "weight": 10,
+          "options": [
+            {
+              "label": "Belirli bir ihtiyacım veya gerçekleştirmek istediğim somut bir hedefim var.",
+              "score": 10
+            },
+            {
+              "label": "Taşınma, yeni konut veya yatırım değişikliği planım var.",
+              "score": 10
+            },
+            {
+              "label": "Uygun bir teklif gelirse satmayı değerlendiririm.",
+              "score": 5
+            },
+            {
+              "label": "Şimdilik yalnızca mülkümün değerini öğrenmek istiyorum.",
+              "score": 0
+            }
+          ]
+        },
+        {
+          "name": "fiyat_butce",
+          "label": "Mülkünüz için satış fiyatını nasıl belirlemeyi düşünüyorsunuz?",
+          "weight": 15,
+          "options": [
+            {
+              "label": "Güncel piyasa verileri ve profesyonel değerleme ile.",
+              "score": 15
+            },
+            {
+              "label": "Piyasa verilerini dikkate alarak, beklentime de yer vererek.",
+              "score": 12
+            },
+            {
+              "label": "Öncelikle benzer mülklerin ilan fiyatlarına bakarak.",
+              "score": 5
+            },
+            {
+              "label": "Kendi belirlediğim rakam üzerinden ilerlemek istiyorum.",
+              "score": 0
+            }
+          ]
+        },
+        {
+          "name": "teklif_hazirligi",
+          "label": "Beklentilerinizi karşılayan ciddi bir teklif gelirse nasıl hareket edersiniz?",
+          "weight": 15,
+          "options": [
+            {
+              "label": "Kısa sürede satış kararını verebilirim.",
+              "score": 15
+            },
+            {
+              "label": "Birkaç gün içerisinde değerlendirme yaparım.",
+              "score": 12
+            },
+            {
+              "label": "Diğer karar vericilerle görüşmem gerekir, zaman alabilir.",
+              "score": 5
+            },
+            {
+              "label": "Teklif uygun olsa bile satmaktan vazgeçebilirim.",
+              "score": 0
+            }
+          ]
+        },
+        {
+          "name": "gosterim",
+          "label": "Mülkünüzün alıcılara gösterilmesi konusunda yaklaşımınız nedir?",
+          "weight": 10,
+          "options": [
+            {
+              "label": "Planlı randevularla düzenli gösterim sağlayabilirim.",
+              "score": 10
+            },
+            {
+              "label": "Önceden haber verilirse çoğu zaman uygunum.",
+              "score": 8
+            },
+            {
+              "label": "Yalnızca sınırlı gün veya saatlerde gösterebilirim.",
+              "score": 4
+            },
+            {
+              "label": "Şu aşamada gösterim yapılması zor.",
+              "score": 0
+            }
+          ]
+        },
+        {
+          "name": "teslim_finansman",
+          "label": "Satış sonrasında mülkün teslimi konusunda durumunuz nedir?",
+          "weight": 5,
+          "options": [
+            {
+              "label": "Teslim planım hazır veya kolayca düzenleyebilirim.",
+              "score": 5
+            },
+            {
+              "label": "Teslim için makul bir süreye ihtiyacım var.",
+              "score": 4
+            },
+            {
+              "label": "Kiracı veya başka nedenlerle teslim koşulları belirsiz.",
+              "score": 1
+            },
+            {
+              "label": "Henüz teslim koşullarını değerlendirmedim.",
+              "score": 0
+            }
+          ]
+        },
+        {
+          "name": "kararlilik",
+          "label": "Satış kararınız şu anda hangi aşamada?",
+          "weight": 15,
+          "options": [
+            {
+              "label": "Kararımı verdim, satış sürecini başlatmaya hazırım.",
+              "score": 15
+            },
+            {
+              "label": "Büyük ölçüde karar verdim, birkaç detayı netleştirmeliyim.",
+              "score": 10
+            },
+            {
+              "label": "Satmakla elde tutmak arasında değerlendiriyorum.",
+              "score": 4
+            },
+            {
+              "label": "Henüz karar vermedim, araştırıyorum.",
+              "score": 0
+            }
+          ]
+        },
+        {
+          "name": "esneklik",
+          "label": "Piyasa analizi beklediğinizden düşük bir satış değeri gösterirse nasıl yaklaşırsınız?",
+          "weight": 15,
+          "options": [
+            {
+              "label": "Veriler ikna ediciyse fiyat beklentimi güncellerim.",
+              "score": 15
+            },
+            {
+              "label": "Verileri değerlendirir ve makul pazarlık payı bırakırım.",
+              "score": 12
+            },
+            {
+              "label": "Önce kendi düşündüğüm fiyatı denemek isterim.",
+              "score": 5
+            },
+            {
+              "label": "Beklentimin altında satış yapmayı düşünmem.",
+              "score": 0
+            }
+          ]
+        }
+      ]
+    },
+    "alici": {
+      "title": "Alıcı Motivasyon Analizi",
+      "intro": "İşleme hazırlığınızı sekiz soruyla değerlendirin. Her soru için bir yanıt seçin.",
+      "scored": true,
+      "questions": [
+        {
+          "name": "zaman_zorunlulugu",
+          "label": "Alım veya satım işleminizin belirli bir tarihe kadar gerçekleşmesini gerektiren bir durum var mı?",
+          "weight": 15,
+          "options": [
+            {
+              "label": "Evet, belirli bir tarihe kadar işlemi tamamlamam gerekiyor.",
+              "score": 15
+            },
+            {
+              "label": "Evet, belirli bir tarihe yetişmesini istediğim bir planım var.",
+              "score": 13
+            },
+            {
+              "label": "Belirli bir hedef tarihim var ancak gerektiğinde erteleyebilirim.",
+              "score": 11
+            },
+            {
+              "label": "Hayır, herhangi bir zaman zorunluluğum yok.",
+              "score": 10
+            }
+          ]
+        },
+        {
+          "name": "gerekce",
+          "label": "Mülk satın almak istemenizin temel nedeni nedir?",
+          "weight": 10,
+          "options": [
+            {
+              "label": "Belirli bir barınma, taşınma veya yatırım hedefim var ve kararımı verdim.",
+              "score": 10
+            },
+            {
+              "label": "Yaşam koşullarımı değiştirmek veya yatırım yapmak istiyorum.",
+              "score": 10
+            },
+            {
+              "label": "Fırsat bulursam satın almayı düşünüyorum.",
+              "score": 5
+            },
+            {
+              "label": "Şimdilik piyasayı ve seçenekleri araştırıyorum.",
+              "score": 0
+            }
+          ]
+        },
+        {
+          "name": "fiyat_butce",
+          "label": "Satın alma bütçeniz ne kadar belirgin?",
+          "weight": 15,
+          "options": [
+            {
+              "label": "Toplam bütçem ve ödeme sınırlarım belli.",
+              "score": 15
+            },
+            {
+              "label": "Yaklaşık bütçem belli, biraz esneyebilirim.",
+              "score": 12
+            },
+            {
+              "label": "Bütçemi ve finansman seçeneklerini netleştiriyorum.",
+              "score": 5
+            },
+            {
+              "label": "Henüz bir bütçe belirlemedim.",
+              "score": 0
+            }
+          ]
+        },
+        {
+          "name": "teklif_hazirligi",
+          "label": "Bugün kriterlerinize ve bütçenize uygun bir mülk bulunsa nasıl hareket edersiniz?",
+          "weight": 15,
+          "options": [
+            {
+              "label": "Gerekli incelemelerden sonra kısa sürede teklif verebilirim.",
+              "score": 15
+            },
+            {
+              "label": "Birkaç gün değerlendirme yapıp karar verebilirim.",
+              "score": 12
+            },
+            {
+              "label": "Karar vermeden önce daha fazla seçenek görmek isterim.",
+              "score": 5
+            },
+            {
+              "label": "Henüz teklif vermeye hazır değilim.",
+              "score": 0
+            }
+          ]
+        },
+        {
+          "name": "gosterim",
+          "label": "Mülkleri yerinde incelemek için ne kadar hazırsınız?",
+          "weight": 10,
+          "options": [
+            {
+              "label": "Uygun randevulara katılabilirim.",
+              "score": 10
+            },
+            {
+              "label": "Önceden planlanırsa katılabilirim.",
+              "score": 8
+            },
+            {
+              "label": "Yalnızca belirli günlerde zaman ayırabilirim.",
+              "score": 4
+            },
+            {
+              "label": "Şimdilik yalnızca internetten araştırmak istiyorum.",
+              "score": 0
+            }
+          ]
+        },
+        {
+          "name": "teslim_finansman",
+          "label": "Satın alma için ödeme veya finansman hazırlığınız hangi aşamada?",
+          "weight": 5,
+          "options": [
+            {
+              "label": "Ödeme kaynağım hazır veya finansmanım kesinleşti.",
+              "score": 5
+            },
+            {
+              "label": "Ödeme planım büyük ölçüde hazır.",
+              "score": 4
+            },
+            {
+              "label": "Finansman koşullarını henüz araştırıyorum.",
+              "score": 1
+            },
+            {
+              "label": "Satın almayı nasıl finanse edeceğim henüz belli değil.",
+              "score": 0
+            }
+          ]
+        },
+        {
+          "name": "kararlilik",
+          "label": "Satın alma kararınız şu anda hangi aşamada?",
+          "weight": 15,
+          "options": [
+            {
+              "label": "Satın almaya karar verdim, doğru mülkü arıyorum.",
+              "score": 15
+            },
+            {
+              "label": "Büyük ölçüde karar verdim, bazı detaylar kaldı.",
+              "score": 10
+            },
+            {
+              "label": "Satın almakla beklemek arasında değerlendiriyorum.",
+              "score": 4
+            },
+            {
+              "label": "Henüz satın alma kararı vermedim.",
+              "score": 0
+            }
+          ]
+        },
+        {
+          "name": "esneklik",
+          "label": "Piyasa koşullarında kriterlerinize uygun bir mülk bulmak zorlaşırsa nasıl hareket edersiniz?",
+          "weight": 15,
+          "options": [
+            {
+              "label": "Verileri değerlendirip önceliklerimi yeniden düzenleyebilirim.",
+              "score": 15
+            },
+            {
+              "label": "Bazı kriterlerde makul esneklik gösterebilirim.",
+              "score": 12
+            },
+            {
+              "label": "Mevcut kriterlerimi koruyup beklemeyi tercih ederim.",
+              "score": 5
+            },
+            {
+              "label": "Tüm beklentilerim karşılanmadıkça satın almam.",
+              "score": 0
+            }
+          ]
+        }
+      ]
+    }
+  },
+  "ready_threshold": 80,
+  "critical_cap": 59
+}
