@@ -22,6 +22,10 @@ import smtplib
 import uuid
 
 import pandas as pd
+try:
+    from .motivation import evaluate_readiness, MODEL as READINESS_MODEL
+except ImportError:
+    from motivation import evaluate_readiness, MODEL as READINESS_MODEL
 
 
 ROOT_DIR = Path(__file__).parent
@@ -37,7 +41,7 @@ TOKEN_EXPIRE_HOURS = int(os.environ.get("ADMIN_TOKEN_EXPIRE_HOURS", "12"))
 client = AsyncIOMotorClient(MONGO_URL)
 db = client[DB_NAME]
 
-app = FastAPI(title="Çanakkale Konut Rehberi API")
+app = FastAPI(title="Çanakkale Konut Rehberi API", version="2026.10.15-readiness")
 admin_bearer = HTTPBearer(auto_error=False)
 
 app.add_middleware(
@@ -306,6 +310,18 @@ def require_kvkk_notice(payload: LeadCreate) -> None:
 def prepare_lead_fields(payload: LeadCreate, request: Request, status: ApplicationStatus) -> Dict[str, Any]:
     now = datetime.now(timezone.utc)
     doc = payload.model_dump(mode="json", exclude={"honeypot", "started_at"})
+    motivation = doc.get("motivation") or {}
+    answer_data = motivation.get("answers") or {}
+    if isinstance(answer_data, dict) and answer_data.get("model_version"):
+        if answer_data["model_version"] != READINESS_MODEL["version"]:
+            raise HTTPException(status_code=422, detail="Motivasyon model sürümü desteklenmiyor.")
+        key = {"seller": "satici", "buyer": "alici"}.get(doc["request_type"])
+        if not key:
+            raise HTTPException(status_code=422, detail="Bu talep türü için puanlama modeli yok.")
+        selections = answer_data.get("selections")
+        if not isinstance(selections, dict):
+            raise HTTPException(status_code=422, detail="Motivasyon yanıtları geçersiz.")
+        doc["motivation"] = evaluate_readiness(key, selections, True)
     doc["application_id"] = doc.get("application_id") or make_application_id()
     doc["application_status"] = status
     doc["processing_legal_basis"] = doc.get("processing_legal_basis") or PROCESSING_LEGAL_BASIS
@@ -407,23 +423,55 @@ def send_email_sync(subject: str, body: str) -> bool:
     return True
 
 
-async def notify_admin(lead: Dict[str, Any]) -> None:
+def request_type_label(request_type: Optional[str]) -> str:
+    return {
+        "seller": "Satıcı",
+        "buyer": "Alıcı",
+        "landlord": "Kiraya Veren",
+        "tenant": "Kiralayan",
+    }.get(request_type or "", request_type or "-")
+
+
+async def notify_admin(lead: Dict[str, Any], reason: str = "completed") -> None:
     contact = lead.get("contact", {})
     location = lead.get("location", {})
-    subject = f"Yeni ÇKR başvurusu: {contact.get('name', 'İsimsiz')}"
+    motivation = lead.get("motivation") or {}
+    features = lead.get("property_features") or {}
+    advisor_requested = reason == "advisor_requested" or features.get("Danışmanlık talebi") == "ADVISOR_REQUESTED"
+    subject_prefix = "ÇKR danışman talebi" if advisor_requested else "Yeni ÇKR başvurusu"
+    motivation_score = motivation.get("score")
+    motivation_result = (
+        f"{motivation_score}/100 - {motivation.get('category')}"
+        if motivation_score is not None
+        else motivation.get("category") or "-"
+    )
+    basic_features = [
+        f"{key}: {value}"
+        for key, value in features.items()
+        if key not in {"Form aşaması", "Başvuru takip notu", "Son ekran tercihi", "Danışmanlık talebi"} and value not in (None, "", [])
+    ][:12]
+    subject = f"{subject_prefix}: {contact.get('name', 'İsimsiz')}"
     body = "\n".join(
         [
-            "Çanakkale Konut Rehberi üzerinden yeni müşteri başvurusu alındı.",
+            "Çanakkale Konut Rehberi üzerinden müşteri başvurusu alındı.",
+            "Kullanıcı sonuç ekranında formu danışmana göndermeyi seçti." if advisor_requested else "Başvuru tamamlandı ve sisteme kaydedildi.",
             "",
-            f"Talep türü: {lead.get('request_type')}",
+            f"Form tipi: {request_type_label(lead.get('request_type'))}",
             f"Ad soyad: {contact.get('name')}",
             f"Telefon: {contact.get('phone')}",
             f"E-posta: {contact.get('email') or '-'}",
             f"Mülk türü: {lead.get('property_type') or '-'}",
             f"Konum: {location.get('raw') or location.get('district') or '-'}",
             f"Bütçe/fiyat beklentisi: {lead.get('budget_expectation') or lead.get('price_expectation') or '-'}",
+            f"Zamanlama: {lead.get('timing') or '-'}",
+            f"Hazırlık sonucu: {motivation_result}",
+            f"Kişisel değerlendirme: {motivation.get('summary') or '-'}",
             f"Kaynak: {lead.get('source', {}).get('button_source') or lead.get('source', {}).get('form_type') or '-'}",
-            f"Kayıt ID: {lead.get('id')}",
+            f"Kayıt numarası: {lead.get('application_id') or lead.get('id')}",
+            f"Sistem ID: {lead.get('id')}",
+            "",
+            "Temel mülk / talep bilgileri:",
+            *(basic_features or ["-"]),
         ]
     )
     try:
@@ -589,7 +637,14 @@ async def complete_lead_draft(application_id: str, payload: LeadCreate, request:
         raise HTTPException(status_code=404, detail="Taslak başvuru bulunamadı.")
     verify_draft_access(lead, request)
     if lead.get("application_status") == "completed":
-        return lead
+        payload.application_id = application_id
+        incoming = prepare_lead_fields(payload, request, "completed")
+        # Re-answering the analysis modifies this same token-protected application.
+        await db.leads.update_one({"application_id": application_id}, {"$set": {
+            "motivation": incoming.get("motivation"),
+            "updated_at": datetime.now(timezone.utc).isoformat(),
+        }})
+        return await db.leads.find_one({"application_id": application_id}, {"_id": 0})
 
     now = datetime.now(timezone.utc)
     payload.application_id = application_id
@@ -609,7 +664,7 @@ async def complete_lead_draft(application_id: str, payload: LeadCreate, request:
 
 
 @app.patch("/api/leads/{lead_id}/preference", response_model=LeadResponse)
-async def update_lead_preference(lead_id: str, payload: LeadPreferenceUpdate):
+async def update_lead_preference(lead_id: str, payload: LeadPreferenceUpdate, background_tasks: BackgroundTasks):
     lead = await db.leads.find_one({"id": lead_id}, {"_id": 0})
     if not lead:
         raise HTTPException(status_code=404, detail="Başvuru bulunamadı.")
@@ -617,7 +672,7 @@ async def update_lead_preference(lead_id: str, payload: LeadPreferenceUpdate):
     now = datetime.now(timezone.utc)
     features = lead.get("property_features") or {}
     if payload.preference == "ADVISOR_REQUESTED":
-        features["Son ekran tercihi"] = "Formu Danışmana Yolla"
+        features["Son ekran tercihi"] = "Formu Danışmana Gönder"
         features["Danışmanlık talebi"] = "ADVISOR_REQUESTED"
         follow_up_status = "qualified"
         admin_notes = "Formu danışmana yolla tercihi seçildi."
@@ -632,10 +687,14 @@ async def update_lead_preference(lead_id: str, payload: LeadPreferenceUpdate):
         "follow_up_status": follow_up_status,
         "updated_at": now.isoformat(),
     }
+    if payload.preference == "ADVISOR_REQUESTED":
+        updates["email_notification_status"] = "pending"
     if (lead.get("admin_notes") or "") in ("", INITIAL_PARTIAL_ADMIN_NOTE):
         updates["admin_notes"] = admin_notes
     await db.leads.update_one({"id": lead_id}, {"$set": updates})
     updated = await db.leads.find_one({"id": lead_id}, {"_id": 0})
+    if payload.preference == "ADVISOR_REQUESTED":
+        background_tasks.add_task(notify_admin, updated, "advisor_requested")
     return updated
 
 
@@ -794,6 +853,8 @@ async def export_leads(
                 "Başvuru kaynağı": source.get("button_source") or source.get("form_type"),
                 "Motivasyon puanı": motivation.get("score"),
                 "Motivasyon durumu": motivation.get("category"),
+                "Motivasyon grubu": (motivation.get("answers") or {}).get("group") if isinstance(motivation.get("answers"), dict) else None,
+                "Kritik işlem engelleri": " | ".join((motivation.get("answers") or {}).get("blockers") or []) if isinstance(motivation.get("answers"), dict) else "",
                 "Son ekran tercihi": property_features.get("Son ekran tercihi"),
                 "Danışmanlık talebi": property_features.get("Danışmanlık talebi"),
                 "Müşteri takip durumu": row.get("follow_up_status"),
