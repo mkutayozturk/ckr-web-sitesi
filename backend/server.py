@@ -41,13 +41,18 @@ TOKEN_EXPIRE_HOURS = int(os.environ.get("ADMIN_TOKEN_EXPIRE_HOURS", "12"))
 client = AsyncIOMotorClient(MONGO_URL)
 db = client[DB_NAME]
 
-app = FastAPI(title="Çanakkale Konut Rehberi API", version="2026.10.15-readiness")
+app = FastAPI(title="Çanakkale Konut Rehberi API", version="2026.10.15-readiness.1")
 admin_bearer = HTTPBearer(auto_error=False)
+cors_origins = list(dict.fromkeys([
+    *[origin.strip() for origin in os.environ.get("CORS_ORIGINS", "*").split(",") if origin.strip()],
+    "https://canakkalekonutrehberi.com",
+    "https://www.canakkalekonutrehberi.com",
+]))
 
 app.add_middleware(
     CORSMiddleware,
     allow_credentials=True,
-    allow_origins=os.environ.get("CORS_ORIGINS", "*").split(","),
+    allow_origins=cors_origins,
     allow_methods=["*"],
     allow_headers=["*"],
 )
