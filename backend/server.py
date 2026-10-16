@@ -64,7 +64,7 @@ logging.basicConfig(
 logger = logging.getLogger(__name__)
 
 FollowUpStatus = Literal["new", "contacted", "qualified", "follow_up", "closed", "archived"]
-RequestType = Literal["seller", "buyer", "landlord", "tenant"]
+RequestType = Literal["seller", "buyer", "landlord", "tenant", "konut_projesi_talebi"]
 ApplicationStatus = Literal["draft", "completed"]
 
 PHONE_RE = re.compile(r"^\+?[0-9\s().-]{10,20}$")
@@ -148,6 +148,7 @@ class MotivationResult(BaseModel):
 
 
 class LeadCreate(BaseModel):
+    project_access_token: Optional[str] = Field(default=None, min_length=32, max_length=128)
     application_id: Optional[str] = Field(default=None, max_length=80)
     application_status: Optional[ApplicationStatus] = None
     request_type: RequestType
@@ -314,7 +315,10 @@ def require_kvkk_notice(payload: LeadCreate) -> None:
 
 def prepare_lead_fields(payload: LeadCreate, request: Request, status: ApplicationStatus) -> Dict[str, Any]:
     now = datetime.now(timezone.utc)
-    doc = payload.model_dump(mode="json", exclude={"honeypot", "started_at"})
+    doc = payload.model_dump(mode="json", exclude={"honeypot", "started_at", "project_access_token"})
+    if payload.request_type == "konut_projesi_talebi":
+        if not re.fullmatch(r"(?:90|0)?5[0-9]{9}", re.sub(r"\D", "", payload.contact.phone)):
+            raise HTTPException(status_code=422, detail="Geçerli bir Türkiye cep telefonu girin.")
     motivation = doc.get("motivation") or {}
     answer_data = motivation.get("answers") or {}
     if isinstance(answer_data, dict) and answer_data.get("model_version"):
@@ -434,6 +438,7 @@ def request_type_label(request_type: Optional[str]) -> str:
         "buyer": "Alıcı",
         "landlord": "Kiraya Veren",
         "tenant": "Kiralayan",
+        "konut_projesi_talebi": "Konut Projesi Talebi",
     }.get(request_type or "", request_type or "-")
 
 
@@ -454,7 +459,9 @@ async def notify_admin(lead: Dict[str, Any], reason: str = "completed") -> None:
         f"{key}: {value}"
         for key, value in features.items()
         if key not in {"Form aşaması", "Başvuru takip notu", "Son ekran tercihi", "Danışmanlık talebi"} and value not in (None, "", [])
-    ][:12]
+    ]
+    if lead.get("request_type") != "konut_projesi_talebi":
+        basic_features = basic_features[:12]
     subject = f"{subject_prefix}: {contact.get('name', 'İsimsiz')}"
     body = "\n".join(
         [
@@ -477,6 +484,7 @@ async def notify_admin(lead: Dict[str, Any], reason: str = "completed") -> None:
             "",
             "Temel mülk / talep bilgileri:",
             *(basic_features or ["-"]),
+            *([f"Ek açıklama: {lead.get('notes') or '-'}"] if lead.get("request_type") == "konut_projesi_talebi" else []),
         ]
     )
     try:
@@ -589,10 +597,14 @@ async def create_lead_draft(payload: LeadCreate, request: Request):
     application_id = payload.application_id or make_application_id()
     existing = await db.leads.find_one({"application_id": application_id}, {"_id": 0})
     if existing:
+        if payload.request_type == "konut_projesi_talebi" and existing.get("request_type") == payload.request_type and payload.project_access_token:
+            expected = existing.get("draft_access_hash") or ""
+            if hmac.compare_digest(hash_draft_token(payload.project_access_token), expected):
+                return attach_draft_token(existing, payload.project_access_token)
         raise HTTPException(status_code=409, detail="Bu taslak başvuru zaten oluşturulmuş.")
 
     now = datetime.now(timezone.utc)
-    draft_token = make_draft_token()
+    draft_token = payload.project_access_token if payload.request_type == "konut_projesi_talebi" and payload.project_access_token else make_draft_token()
     payload.application_id = application_id
     doc = prepare_lead_fields(payload, request, "draft")
     doc["id"] = str(uuid.uuid4())
@@ -642,6 +654,8 @@ async def complete_lead_draft(application_id: str, payload: LeadCreate, request:
         raise HTTPException(status_code=404, detail="Taslak başvuru bulunamadı.")
     verify_draft_access(lead, request)
     if lead.get("application_status") == "completed":
+        if lead.get("request_type") == "konut_projesi_talebi":
+            return lead
         payload.application_id = application_id
         incoming = prepare_lead_fields(payload, request, "completed")
         # Re-answering the analysis modifies this same token-protected application.
@@ -666,6 +680,34 @@ async def complete_lead_draft(application_id: str, payload: LeadCreate, request:
     updated = await db.leads.find_one({"application_id": application_id}, {"_id": 0})
     background_tasks.add_task(notify_admin, updated)
     return updated
+
+
+@app.get("/api/leads/{application_id}/project-status")
+async def project_submission_status(application_id: str, request: Request):
+    lead = await db.leads.find_one({"application_id": application_id}, {"_id": 0})
+    if not lead or lead.get("request_type") != "konut_projesi_talebi":
+        raise HTTPException(status_code=404, detail="Proje talebi bulunamadı.")
+    verify_draft_access(lead, request)
+    return {key: lead.get(key) for key in ("id", "application_id", "application_status", "email_notification_status")}
+
+
+@app.post("/api/leads/{application_id}/project-notification")
+async def retry_project_notification(application_id: str, request: Request, background_tasks: BackgroundTasks):
+    enforce_rate_limit(request)
+    lead = await db.leads.find_one({"application_id": application_id}, {"_id": 0})
+    if not lead or lead.get("request_type") != "konut_projesi_talebi":
+        raise HTTPException(status_code=404, detail="Proje talebi bulunamadı.")
+    verify_draft_access(lead, request)
+    if lead.get("application_status") != "completed":
+        raise HTTPException(status_code=409, detail="Önce başvuruyu tamamlayın.")
+    # Atomic claim prevents parallel retries from sending duplicate emails.
+    claimed = await db.leads.find_one_and_update(
+        {"application_id": application_id, "email_notification_status": {"$in": ["failed", "not_configured"]}},
+        {"$set": {"email_notification_status": "pending"}},
+    )
+    if claimed:
+        background_tasks.add_task(notify_admin, lead)
+    return {"email_notification_status": "pending" if claimed else lead.get("email_notification_status")}
 
 
 @app.patch("/api/leads/{lead_id}/preference", response_model=LeadResponse)
@@ -842,6 +884,8 @@ async def export_leads(
                 "Telefon": contact.get("phone"),
                 "E-posta": contact.get("email"),
                 "Talep türü": row.get("request_type"),
+                "Proje ek açıklama": row.get("notes") if row.get("request_type") == "konut_projesi_talebi" else "",
+                "Proje tercihleri": " | ".join(f"{key}: {value}" for key, value in property_features.items()) if row.get("request_type") == "konut_projesi_talebi" else "",
                 "Mülk türü": row.get("property_type"),
                 "İl": location.get("province"),
                 "İl kodu": location.get("province_code"),
