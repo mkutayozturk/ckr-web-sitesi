@@ -674,7 +674,7 @@ async def complete_lead_draft(application_id: str, payload: LeadCreate, request:
     updates["follow_up_status"] = "new"
     updates["email_notification_status"] = "pending"
     if (lead.get("admin_notes") or "") in ("", INITIAL_PARTIAL_ADMIN_NOTE):
-        updates["admin_notes"] = INITIAL_PARTIAL_ADMIN_NOTE
+        updates["admin_notes"] = "Konut projesi talebi tamamlandı." if lead.get("request_type") == "konut_projesi_talebi" else INITIAL_PARTIAL_ADMIN_NOTE
 
     await db.leads.update_one({"application_id": application_id}, {"$set": updates})
     updated = await db.leads.find_one({"application_id": application_id}, {"_id": 0})
