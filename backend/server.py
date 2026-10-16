@@ -682,6 +682,11 @@ async def complete_lead_draft(application_id: str, payload: LeadCreate, request:
     return updated
 
 
+@app.get("/api/project-request-capabilities")
+async def project_request_capabilities():
+    return {"supported": True, "email_configured": smtp_configured()}
+
+
 @app.get("/api/leads/{application_id}/project-status")
 async def project_submission_status(application_id: str, request: Request):
     lead = await db.leads.find_one({"application_id": application_id}, {"_id": 0})
