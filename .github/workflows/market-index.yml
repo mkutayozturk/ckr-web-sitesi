@@ -31,7 +31,7 @@ jobs:
                   jobs = {j['provider']:j for j in data.get('checks',[])}
                   cutoff = datetime.now(timezone.utc) - timedelta(hours=24)
                   good = {name for name,j in jobs.items() if j.get('status') == 'ok' and j.get('last_successful_check_at') and datetime.fromisoformat(j['last_successful_check_at']) > cutoff}
-                  print(json.dumps({'attempt':attempt+1,'observations':len(data['observations']),'providers':{k:{'status':v.get('status'),'last_successful_check_at':v.get('last_successful_check_at'),'error':v.get('error')} for k,v in jobs.items()}))
+                  print(json.dumps({'attempt':attempt+1,'observations':len(data['observations']),'providers':{k:{'status':v.get('status'),'last_successful_check_at':v.get('last_successful_check_at'),'error':v.get('error')} for k,v in jobs.items()}}))
                   if expected <= good:
                       print('All five independent official-data adapters have recent persisted successful checks.')
                       break
