@@ -42,4 +42,11 @@ Backend `market.py`, `market_seed.json`, server entegrasyonu ve testler GitHub `
 
 Başlıca değişen dosyalar: backend/market.py, backend/market_seed.json, backend/server.py; frontend/src/components/ckr/MarketIndex.jsx, MarketIndex.css, MarketChart.jsx, MarketAdmin.jsx, AdminPanel.jsx; frontend/src/lib/api.js, marketIndex.js; frontend/src/data/market-index-snapshot.json; yeni blog JSON/WebP; testler; bu belge ve .github/workflows/market-index.yml.
 
-Günlük görev: main dalında cron 08:30 UTC = 11:30 Türkiye. Düzeltilmiş ilk bulut çalışması başarılı: https://github.com/mkutayozturk/ckr-web-sitesi/actions/runs/39031967792 . Aktif kaynak SHA: 4c850054c28bc33d14e8a58c569eb04e04d856a3.
+Günlük görev: main dalında cron 08:30 UTC = 11:30 Türkiye. Düzeltilmiş ilk bulut çalışması başarılı: https://github.com/mkutayozturk/ckr-web-sitesi/actions/runs/39031967792 . İlk doğrulanan sürüm SHA: 4c850054c28bc33d14e8a58c569eb04e04d856a3.
+
+## Günlük kontrol doğrulamasının tamamlanması
+Günlük görevin başarı ölçütü Europe/Istanbul takvim gününe göre kontrol edilir. Önceki günün 24 saatten yeni kaydı artık yeterli sayılmaz. Başarı tarihi son denemeden eskiyse, çalışma kilidi hâlâ açıksa veya tarih eksik/geçersiz/saat dilimsiz/gelecekteyse görev başarılı sayılmaz. Beş kaynak tamamlanana kadar mevcut bekleme ve yeniden okuma akışı korunur. Bu düzeltme yalnızca günlük izleme işini etkiler; frontend, müşteri API ve veri modeli değiştirilmez.
+
+Beş ek izole test başarılı: bugünkü tamamlanmış kontrol, önceki günün 24 saatten yeni kaydı, yenilenmekte/başarısız deneme, bozuk/eksik/gelecek tarih, UTC gece yarısında Türkiye tarihi. Test komutu: `python -m unittest discover -s tests -p test_market_schedule.py -v`.
+
+Güncellenen görevin gerçek GitHub çalışması başarılı: https://github.com/mkutayozturk/ckr-web-sitesi/actions/runs/39039154971 (dbe301951b650e3f23452f7353e823c458c10106).

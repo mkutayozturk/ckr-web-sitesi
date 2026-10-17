@@ -19,7 +19,20 @@ jobs:
         run: |
           python -u - <<'PY'
           import json, time, urllib.request
-          from datetime import datetime, timezone, timedelta
+          from datetime import datetime, timezone
+          from zoneinfo import ZoneInfo
+          def successful_today(job, stamp):
+              try:
+                  success = datetime.fromisoformat(job["last_successful_check_at"])
+                  attempt = datetime.fromisoformat(job["last_attempt_at"])
+                  lease = datetime.fromisoformat(job["running_until"])
+                  if any(value.tzinfo is None for value in (success, attempt, lease, stamp)):
+                      return False
+                  return (job.get("status") == "ok"
+                          and success.astimezone(ZoneInfo("Europe/Istanbul")).date() == stamp.astimezone(ZoneInfo("Europe/Istanbul")).date()
+                          and attempt <= success <= stamp and lease <= stamp)
+              except (KeyError, ValueError, TypeError):
+                  return False
           url = 'https://ckr-backend.onrender.com/api/market/index'
           expected = {'tuik_sales','tcmb_kfe','tcmb_rent','tcmb_appraisal','tuik_cpi'}
           for attempt in range(12):
@@ -29,11 +42,11 @@ jobs:
                   if not data.get('observations'):
                       raise ValueError('No verified cached observations returned')
                   jobs = {j['provider']:j for j in data.get('checks',[])}
-                  cutoff = datetime.now(timezone.utc) - timedelta(hours=24)
-                  good = {name for name,j in jobs.items() if j.get('status') == 'ok' and j.get('last_successful_check_at') and datetime.fromisoformat(j['last_successful_check_at']) > cutoff}
+                  stamp = datetime.now(timezone.utc)
+                  good = {name for name,j in jobs.items() if successful_today(j, stamp)}
                   print(json.dumps({'attempt':attempt+1,'observations':len(data['observations']),'providers':{k:{'status':v.get('status'),'last_successful_check_at':v.get('last_successful_check_at'),'error':v.get('error')} for k,v in jobs.items()}}))
                   if expected <= good:
-                      print('All five independent official-data adapters have recent persisted successful checks.')
+                      print('All five independent official-data adapters have persisted successful checks for today in Europe/Istanbul.')
                       break
               except Exception as exc:
                   print(type(exc).__name__ + ': ' + str(exc)[:200])
