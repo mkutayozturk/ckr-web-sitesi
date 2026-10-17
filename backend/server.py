@@ -24,8 +24,10 @@ import uuid
 import pandas as pd
 try:
     from .motivation import evaluate_readiness, MODEL as READINESS_MODEL
+    from .market import router_for, init_market
 except ImportError:
     from motivation import evaluate_readiness, MODEL as READINESS_MODEL
+    from market import router_for, init_market
 
 
 ROOT_DIR = Path(__file__).parent
@@ -524,6 +526,10 @@ async def delete_expired_drafts() -> None:
 async def startup() -> None:
     await ensure_indexes()
     await delete_expired_drafts()
+    try:
+        await init_market(db)
+    except Exception:
+        logging.exception("Endeks önbelleği başlatılamadı; müşteri API akışı korunuyor")
 
 
 @app.get("/api/")
@@ -977,3 +983,6 @@ async def export_options():
 @app.on_event("shutdown")
 async def shutdown_db_client():
     client.close()
+
+# Official-statistics routes share admin authorization but never customer storage.
+app.include_router(router_for(lambda: db, require_admin))
