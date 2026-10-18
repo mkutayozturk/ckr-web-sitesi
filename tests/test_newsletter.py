@@ -14,7 +14,7 @@ FEED=json.loads((ROOT/'frontend/src/data/housing-briefings.json').read_text())
 ROWS=json.loads((ROOT/'frontend/src/data/market-index-snapshot.json').read_text())['observations']
 
 def payload(**kw):
-    return dict(request_id='11111111-1111-4111-8111-111111111111',channel='email',email='test@example.com',name='Test',topics=['konut','satis','kira'],regions=[{'scope':'province','province_code':'17','province':'Çanakkale','label':'Çanakkale'}],audience=['seller','buyer','investor'],notice_presented=True,newsletter_consent=True,**kw)
+    return dict(request_id='11111111-1111-4111-8111-111111111111',channel='email',email='test@example.com',name='Test Kullanıcısı',topics=['konut','satis','kira'],regions=[{'scope':'province','province_code':'17','province':'Çanakkale','label':'Çanakkale'}],audience=['seller','buyer','investor'],notice_presented=True,newsletter_consent=True,**kw)
 @pytest.fixture
 def env(monkeypatch):
     for k in ['SMTP_HOST','SMTP_PORT','SMTP_FROM','RESEND_API_KEY','NEWSLETTER_FROM_EMAIL','WHATSAPP_ACCESS_TOKEN','WHATSAPP_PHONE_NUMBER_ID','WHATSAPP_NEWSLETTER_TEMPLATE','WHATSAPP_GRAPH_VERSION','NEWSLETTER_DELIVERY_ENABLED','NEWSLETTER_LEGAL_REVIEWED']:monkeypatch.delenv(k,raising=False)
@@ -91,3 +91,18 @@ def test_weekly_delivery_claim_prevents_duplicate_send_and_skips_unverified(env,
     asyncio.run(db.newsletter_subscribers.update_one({'id':row['id']},{'$set':{'status':'active','contact_verified':True,'delivery_approved':True}}))
     assert asyncio.run(n.dispatch_due(db))['claimed']==1;assert asyncio.run(n.dispatch_due(db))['claimed']==0;assert len(sends)==1
     assert asyncio.run(db.newsletter_deliveries.find_one({}))['status']=='provider_accepted'
+
+@pytest.mark.parametrize('scope,canonical', [('province_any','province'),('district_all','district')])
+def test_actual_shared_location_selector_scopes_are_accepted_and_canonicalized(env,scope,canonical):
+    db,client=env;x=payload();x['regions']=[{'scope':scope,'province_code':'17','province':'Çanakkale','district':'Biga' if scope=='district_all' else '', 'label':'Biga ilçesinin tamamı' if scope=='district_all' else 'Çanakkale il genelinde fark etmez'}]
+    result=client.post('/api/newsletter/subscribe',json=x);assert result.status_code==202,result.text
+    row=asyncio.run(db.newsletter_subscribers.find_one({}));assert row['preferences']['regions'][0]['scope']==canonical
+    assert row['preferences']['regions'][0]['district']==x['regions'][0]['district']
+
+@pytest.mark.parametrize('name',[None,'','   ','Kutay'])
+def test_full_name_is_required_without_creating_a_subscription(env,name):
+    db,client=env;x=payload()
+    if name is None:x.pop('name')
+    else:x['name']=name
+    assert client.post('/api/newsletter/subscribe',json=x).status_code==422
+    assert asyncio.run(db.newsletter_subscribers.count_documents({}))==0

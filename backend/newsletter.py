@@ -9,7 +9,7 @@ from urllib.parse import urlparse
 from zoneinfo import ZoneInfo
 import requests
 from fastapi import APIRouter, BackgroundTasks, Depends, HTTPException, Query, Request, Response
-from pydantic import BaseModel, ConfigDict, EmailStr, Field, model_validator
+from pydantic import BaseModel, ConfigDict, EmailStr, Field, model_validator, field_validator
 from pymongo import ReturnDocument
 from pymongo.errors import DuplicateKeyError
 
@@ -48,6 +48,10 @@ class Region(BaseModel):
     settlement_code:str=Field(default='',max_length=40)
     settlement_type:str=Field(default='',max_length=60)
     label:str=Field(default='',max_length=260)
+    @field_validator('scope', mode='before')
+    @classmethod
+    def normalize_scope(cls, value):
+        return {'province_any':'province', 'district_all':'district'}.get(value, value)
     @model_validator(mode='after')
     def local(self):
         if self.province_code!='17' or normalize(self.province)!='canakkale':raise ValueError('Yalnızca Çanakkale seçilebilir.')
@@ -67,7 +71,13 @@ class Preferences(BaseModel):
         return self
 class Subscribe(Preferences):
     request_id:uuid.UUID
-    name:str=Field(default='',max_length=120)
+    name:str=Field(min_length=3,max_length=120)
+    @field_validator('name', mode='before')
+    @classmethod
+    def full_name(cls,value):
+        value=' '.join(str(value or '').split())
+        if len(value.split())<2:raise ValueError('Adınızı ve soyadınızı girin.')
+        return value
     channel:str=Field(pattern='^(email|whatsapp)$')
     email:EmailStr|None=None
     phone:str|None=Field(default=None,max_length=24)
