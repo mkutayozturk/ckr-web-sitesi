@@ -1,6 +1,6 @@
 {
   "schema_version": 1,
-  "updated_at": "2026-10-18T11:00:46Z",
+  "updated_at": "2026-10-18T11:24:39.091325+00:00",
   "items": [
     {
       "id": "tuik-canakkale-2026-09",
@@ -19,7 +19,19 @@
       ],
       "buyer": "Yeni ve ikinci el seçeneklerini toplam maliyet ve ihtiyaçlarınızla karşılaştırın; her satıcıdan aynı indirimi beklemeyin.",
       "seller": "İlan fiyatlarının ortalaması yerine güncel rakipleri ve gerçek teklifleri izleyin; fiyatınızı ve bekleme sürenizi birlikte değerlendirin.",
-      "investor": "Kira getirisi kadar yeniden satış olanaklarını da araştırın; işlem sayısındaki düşüş tek başına yatırım fırsatı kanıtı değildir."
+      "investor": "Kira getirisi kadar yeniden satış olanaklarını da araştırın; işlem sayısındaki düşüş tek başına yatırım fırsatı kanıtı değildir.",
+      "topics": [
+        "konut",
+        "satis"
+      ],
+      "regions": [
+        {
+          "scope": "province",
+          "province_code": "17",
+          "province": "Çanakkale",
+          "label": "Çanakkale il geneli"
+        }
+      ]
     },
     {
       "id": "toki-gokceada-2026-1839115",
@@ -38,26 +50,30 @@
       ],
       "buyer": "Projeyi izleyebilirsiniz; konut satış başvuruları ve ödeme koşulları için ayrı resmî duyuruyu bekleyin.",
       "seller": "Gelecekteki arzı takip edin; ihale aşamasındaki konutları bugün satıştaki hazır konutlarla aynı kabul etmeyin.",
-      "investor": "İhale sonucu, sözleşme ve uygulama ilerlemesi netleşmeden fiyat artışı veya getiri varsaymayın."
-    },
-    {
-      "id": "cevatpasa-cigdem-sokak-2026-10",
-      "title": "Cevatpaşa’da kanalizasyon çalışması nedeniyle etaplı yol kısıtlaması var.",
-      "summary": "Çiğdem Sokak çevresindeki 6–20 Ekim çalışmaları, konut gezisi ve taşınma planlarında ulaşım kontrolünü önemli kılıyor.",
-      "event_date": "2026-10-06",
-      "published_at": "2026-10-05",
-      "expires_at": "2026-10-21",
-      "category": "Altyapı",
-      "status": "Belediye duyurusu",
-      "source_name": "Çanakkale Belediyesi",
-      "source_url": "https://www.canakkale.bel.tr/tr/sayfa/1140-tum-haberler/11949-kapali-yol-bilgilendirme",
-      "body": [
-        "Belediye, Cevatpaşa Mahallesi Çiğdem Sokak’taki kanalizasyon ana hat imalatı nedeniyle 6–20 Ekim 2026 arasında krokideki güzergâhların etaplar hâlinde araç ve yaya trafiğine kapatılacağını duyurdu.",
-        "Hangi etapta hangi sokağın açık olduğu imalat ilerleyişine göre değişebilir. Randevu veya taşınma öncesinde belediyenin güncel krokisini ve sahadaki işaretleri kontrol edin."
+      "investor": "İhale sonucu, sözleşme ve uygulama ilerlemesi netleşmeden fiyat artışı veya getiri varsaymayın.",
+      "topics": [
+        "konut",
+        "dukkan",
+        "mevzuat"
       ],
-      "buyer": "Ev gezisini ve günlük ulaşım rotasını planlarken geçici çalışma koşullarını dikkate alın.",
-      "seller": "Alıcılara ulaşım alternatifini önceden iletin; geçici yol çalışmasını mülkün kalıcı özelliği gibi sunmayın.",
-      "investor": "Bu duyuru tek başına değer artışı göstergesi değildir; kalıcı altyapı etkisini ayrıca araştırın."
+      "regions": [
+        {
+          "scope": "settlement",
+          "province_code": "17",
+          "province": "Çanakkale",
+          "district": "Gökçeada",
+          "settlement": "Çınarlı",
+          "label": "Gökçeada / Çınarlı"
+        },
+        {
+          "scope": "settlement",
+          "province_code": "17",
+          "province": "Çanakkale",
+          "district": "Gökçeada",
+          "settlement": "Kuzulimanı",
+          "label": "Gökçeada / Kuzulimanı"
+        }
+      ]
     }
   ]
 }
