@@ -25,9 +25,11 @@ import pandas as pd
 try:
     from .motivation import evaluate_readiness, MODEL as READINESS_MODEL
     from .market import router_for, init_market
+    from .newsletter import router_for as newsletter_router_for, init_newsletter, newsletter_loop
 except ImportError:
     from motivation import evaluate_readiness, MODEL as READINESS_MODEL
     from market import router_for, init_market
+    from newsletter import router_for as newsletter_router_for, init_newsletter, newsletter_loop
 
 
 ROOT_DIR = Path(__file__).parent
@@ -532,6 +534,13 @@ async def startup() -> None:
         logging.exception("Endeks önbelleği başlatılamadı; müşteri API akışı korunuyor")
 
 
+    try:
+        await init_newsletter(db)
+        app.state.newsletter_task = asyncio.create_task(newsletter_loop(db))
+    except Exception:
+        logging.exception("Bülten altyapısı başlatılamadı; müşteri formları korunuyor")
+
+
 @app.get("/api/")
 async def root():
     return {"message": "ÇKR API çalışıyor"}
@@ -982,7 +991,17 @@ async def export_options():
 
 @app.on_event("shutdown")
 async def shutdown_db_client():
+    task = getattr(app.state, "newsletter_task", None)
+    if task:
+        task.cancel()
+        try:
+            await task
+        except asyncio.CancelledError:
+            pass
     client.close()
 
 # Official-statistics routes share admin authorization but never customer storage.
 app.include_router(router_for(lambda: db, require_admin))
+
+# Newsletter storage is isolated from existing customer applications.
+app.include_router(newsletter_router_for(lambda: db, require_admin))
