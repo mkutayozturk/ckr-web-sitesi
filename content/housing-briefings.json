@@ -1,0 +1,63 @@
+{
+  "schema_version": 1,
+  "updated_at": "2026-10-18T11:00:46Z",
+  "items": [
+    {
+      "id": "tuik-canakkale-2026-09",
+      "title": "Çanakkale’de eylül satışları geçen yılın aynı ayının altında kaldı.",
+      "summary": "1.143 konut el değiştirdi; ikinci el satışlardaki gerileme, satıcıların güncel rakiplerini daha dikkatli incelemesini gerektiriyor.",
+      "event_date": "2026-10-16",
+      "published_at": "2026-10-16",
+      "expires_at": "2026-11-20",
+      "category": "Piyasa verisi",
+      "status": "Resmî veri",
+      "source_name": "TÜİK",
+      "source_url": "https://veriportali.tuik.gov.tr/tr/databrowser/tuik/categories/9/9_4/TR,DF_SATIS_SEKLI_DURUMU_ILILCE_V3,1.0",
+      "body": [
+        "Eylül 2026’da Çanakkale’de 1.143 konut satıldı. Güncel resmî seride geçen yılın aynı ayı 1.376 konut; yıllık azalış yaklaşık %16,9.",
+        "İkinci el satışlar 652, yeni konut satışları 491 oldu. İkinci el yıllık yaklaşık %27,3 gerilerken yeni konut satışları yaklaşık %2,5 arttı. Bu sayılar satış hacmini anlatır; belirli bir evin fiyatını veya alıcıların tercih nedenini tek başına açıklamaz."
+      ],
+      "buyer": "Yeni ve ikinci el seçeneklerini toplam maliyet ve ihtiyaçlarınızla karşılaştırın; her satıcıdan aynı indirimi beklemeyin.",
+      "seller": "İlan fiyatlarının ortalaması yerine güncel rakipleri ve gerçek teklifleri izleyin; fiyatınızı ve bekleme sürenizi birlikte değerlendirin.",
+      "investor": "Kira getirisi kadar yeniden satış olanaklarını da araştırın; işlem sayısındaki düşüş tek başına yatırım fırsatı kanıtı değildir."
+    },
+    {
+      "id": "toki-gokceada-2026-1839115",
+      "title": "Gökçeada’da 237 konut ve 6 dükkân için yapım ihalesi planlandı.",
+      "summary": "TOKİ ilanında 28 Ekim 2026 ihale tarihi yer alıyor; bu aşama satışa çıkış veya teslim duyurusu anlamına gelmiyor.",
+      "event_date": "2026-10-28",
+      "published_at": null,
+      "expires_at": "2026-11-05",
+      "category": "Yeni proje",
+      "status": "İhale ilanı",
+      "source_name": "TOKİ · İKN 2026/1839115",
+      "source_url": "https://www.toki.gov.tr/ihale-tarihleri/14882",
+      "body": [
+        "TOKİ’nin ilanı, Çınarlı’da 207 konut ve 4 dükkânı, Kuzulimanı’nda 30 konut ve 2 dükkânı kapsıyor. Yapım ihalesi 28 Ekim 2026 saat 11.30 için duyurulmuş.",
+        "İlanda iş süresi yer tesliminden itibaren 500 takvim günü. Bu süre, bugün başlayan kesin bir teslim takvimi değildir. Satış fiyatı, başvuru ve ödeme planı bu ilandan çıkarılamaz. Kaynakta yayın tarihi belirtilmediği için ayrıca tarih üretilmedi."
+      ],
+      "buyer": "Projeyi izleyebilirsiniz; konut satış başvuruları ve ödeme koşulları için ayrı resmî duyuruyu bekleyin.",
+      "seller": "Gelecekteki arzı takip edin; ihale aşamasındaki konutları bugün satıştaki hazır konutlarla aynı kabul etmeyin.",
+      "investor": "İhale sonucu, sözleşme ve uygulama ilerlemesi netleşmeden fiyat artışı veya getiri varsaymayın."
+    },
+    {
+      "id": "cevatpasa-cigdem-sokak-2026-10",
+      "title": "Cevatpaşa’da kanalizasyon çalışması nedeniyle etaplı yol kısıtlaması var.",
+      "summary": "Çiğdem Sokak çevresindeki 6–20 Ekim çalışmaları, konut gezisi ve taşınma planlarında ulaşım kontrolünü önemli kılıyor.",
+      "event_date": "2026-10-06",
+      "published_at": "2026-10-05",
+      "expires_at": "2026-10-21",
+      "category": "Altyapı",
+      "status": "Belediye duyurusu",
+      "source_name": "Çanakkale Belediyesi",
+      "source_url": "https://www.canakkale.bel.tr/tr/sayfa/1140-tum-haberler/11949-kapali-yol-bilgilendirme",
+      "body": [
+        "Belediye, Cevatpaşa Mahallesi Çiğdem Sokak’taki kanalizasyon ana hat imalatı nedeniyle 6–20 Ekim 2026 arasında krokideki güzergâhların etaplar hâlinde araç ve yaya trafiğine kapatılacağını duyurdu.",
+        "Hangi etapta hangi sokağın açık olduğu imalat ilerleyişine göre değişebilir. Randevu veya taşınma öncesinde belediyenin güncel krokisini ve sahadaki işaretleri kontrol edin."
+      ],
+      "buyer": "Ev gezisini ve günlük ulaşım rotasını planlarken geçici çalışma koşullarını dikkate alın.",
+      "seller": "Alıcılara ulaşım alternatifini önceden iletin; geçici yol çalışmasını mülkün kalıcı özelliği gibi sunmayın.",
+      "investor": "Bu duyuru tek başına değer artışı göstergesi değildir; kalıcı altyapı etkisini ayrıca araştırın."
+    }
+  ]
+}
