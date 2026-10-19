@@ -1,11 +1,11 @@
 {
   "schema_version": 1,
-  "updated_at": "2026-10-18T11:24:39.091325+00:00",
+  "updated_at": "2026-10-19T05:20:06.022Z",
   "items": [
     {
       "id": "tuik-canakkale-2026-09",
-      "title": "Çanakkale’de eylül satışları geçen yılın aynı ayının altında kaldı.",
-      "summary": "1.143 konut el değiştirdi; ikinci el satışlardaki gerileme, satıcıların güncel rakiplerini daha dikkatli incelemesini gerektiriyor.",
+      "title": "Çanakkale’de eylül konut satışları geçen yılın aynı ayının altında kaldı.",
+      "summary": "1.143 konut el değiştirdi; toplam, ikinci el ve ipotekli satışların üçü de güncel resmî seriye göre yıllık geriledi.",
       "event_date": "2026-10-16",
       "published_at": "2026-10-16",
       "expires_at": "2026-11-20",
@@ -14,22 +14,183 @@
       "source_name": "TÜİK",
       "source_url": "https://veriportali.tuik.gov.tr/tr/databrowser/tuik/categories/9/9_4/TR,DF_SATIS_SEKLI_DURUMU_ILILCE_V3,1.0",
       "body": [
-        "Eylül 2026’da Çanakkale’de 1.143 konut satıldı. Güncel resmî seride geçen yılın aynı ayı 1.376 konut; yıllık azalış yaklaşık %16,9.",
-        "İkinci el satışlar 652, yeni konut satışları 491 oldu. İkinci el yıllık yaklaşık %27,3 gerilerken yeni konut satışları yaklaşık %2,5 arttı. Bu sayılar satış hacmini anlatır; belirli bir evin fiyatını veya alıcıların tercih nedenini tek başına açıklamaz."
+        "Eylül 2026’da Çanakkale’de 1.143 konut satıldı. TÜİK’in güncel, revize edilmiş serisinde Eylül 2025 toplamı 1.376; yıllık değişim yaklaşık %-16,9.",
+        "İkinci el satışlar 652 oldu; Eylül 2025’teki 897 adede göre yaklaşık %-27,3 geriledi. İpotekli satışlar 142 oldu; geçen yılın aynı ayındaki 170 adede göre yaklaşık %-16,5 azaldı.",
+        "İlk el satışlar 491 ile geçen yılın aynı ayındaki 479 adedin yaklaşık %2,5 üzerinde kaldı. Bu veriler işlem hacmini gösterir; tek bir taşınmazın fiyatını veya talep nedenini açıklamaz."
       ],
-      "buyer": "Yeni ve ikinci el seçeneklerini toplam maliyet ve ihtiyaçlarınızla karşılaştırın; her satıcıdan aynı indirimi beklemeyin.",
-      "seller": "İlan fiyatlarının ortalaması yerine güncel rakipleri ve gerçek teklifleri izleyin; fiyatınızı ve bekleme sürenizi birlikte değerlendirin.",
-      "investor": "Kira getirisi kadar yeniden satış olanaklarını da araştırın; işlem sayısındaki düşüş tek başına yatırım fırsatı kanıtı değildir.",
+      "buyer": "Yeni ve ikinci el seçeneklerini yalnızca ilan fiyatıyla değil, toplam maliyet, kredi kullanımı ve taşınmazın fizikî-hukukî durumu ile birlikte karşılaştırın.",
+      "seller": "İkinci el hacmindeki gerilemeyi dikkate alarak güncel rakipleri ve gerçek teklifleri izleyin; fiyat ile bekleme süresini birlikte değerlendirin.",
+      "investor": "İşlem sayısındaki düşüşü tek başına fırsat veya fiyat yönü kanıtı saymayın; kira getirisi, nakit akışı ve yeniden satış süresini ayrıca test edin.",
       "topics": [
         "konut",
-        "satis"
+        "satis",
+        "finansman"
       ],
       "regions": [
         {
           "scope": "province",
-          "province_code": "17",
           "province": "Çanakkale",
+          "province_code": "17",
           "label": "Çanakkale il geneli"
+        }
+      ]
+    },
+    {
+      "id": "kucukkuyu-ekim-2026-imar-kararlari",
+      "title": "Küçükkuyu’da Mıhlı ve Sahil’i ilgilendiren yapılaşma kararları yayımlandı.",
+      "summary": "Mıhlı’daki konut alanları, kat/nizam koşulları ile Sahil’deki park-yaya yolu düzenlemesi meclis kararlarında yer aldı; askı ve kesinleşme ayrıca izlenmeli.",
+      "event_date": "2026-10-05",
+      "published_at": "2026-10-12",
+      "expires_at": "2026-12-15",
+      "category": "İmar ve plan",
+      "status": "Meclis kararı; askı/kesinleşme kontrolü gerekli",
+      "source_name": "Küçükkuyu Belediyesi",
+      "source_url": "https://www.kucukkuyu.bel.tr/2026-yili-ekim-ayi-meclis-kararlari-ilani/",
+      "body": [
+        "Belediyenin 5 Ekim 2026 tarihli karar ilanında Mıhlı 361 adaya blok nizam iki kat koşulu; Mıhlı 107 ada 3 parsel ve 268 ada 1 parsele gelişme konut alanı, ayrık nizam iki kat, TAKS 0.20 ve KAKS 0.40 koşulu getirildiği belirtiliyor.",
+        "Aynı ilanda Sahil Mahallesi 164 adanın güneyindeki park ve yaya yolu düzenlemesi ile pergola-sundurma konusundaki plan notu kararı da yer alıyor.",
+        "Bunlar meclis kararlarıdır. Parsel bazında uygulama öncesi askı ilanı, itiraz sonucu, kesinleşmiş plan paftası ve plan notu belediyeden teyit edilmelidir."
+      ],
+      "buyer": "Mıhlı ve Sahil’de arsa veya konut alırken yalnızca ilandaki imar bilgisini değil, güncel onaylı pafta ve plan notunu parsel bazında isteyin.",
+      "seller": "Yeni yapılaşma kararını fiyat garantisi gibi sunmayın; satış dosyasına karar metni ile birlikte kesinleşme ve askı durumunu ekleyin.",
+      "investor": "TAKS-KAKS ve kat koşullarını proje verimliliği hesabına ancak çekme mesafeleri, terkler ve diğer plan notları doğrulandıktan sonra alın.",
+      "topics": [
+        "arsa",
+        "konut",
+        "dukkan",
+        "mevzuat"
+      ],
+      "regions": [
+        {
+          "scope": "settlement",
+          "province": "Çanakkale",
+          "province_code": "17",
+          "district": "Ayvacık",
+          "settlement": "Mıhlı",
+          "label": "Ayvacık / Küçükkuyu / Mıhlı"
+        },
+        {
+          "scope": "settlement",
+          "province": "Çanakkale",
+          "province_code": "17",
+          "district": "Ayvacık",
+          "settlement": "Sahil",
+          "label": "Ayvacık / Küçükkuyu / Sahil"
+        }
+      ]
+    },
+    {
+      "id": "kucukkuyu-encumen-2026-10-08-hisse-satislari",
+      "title": "Küçükkuyu Belediyesi Mıhlı ve Gökçetepe’de iki küçük belediye hissesinin satışını karara bağladı.",
+      "summary": "Mıhlı 349 ada 11 parselde 63,54 m² hisse 2,5 milyon TL’ye, Gökçetepe 270 ada 15 parselde 12,50 m² hisse 320 bin TL’ye işlem gördü.",
+      "event_date": "2026-10-08",
+      "published_at": "2026-10-13",
+      "expires_at": "2026-11-20",
+      "category": "Taşınmaz satışı",
+      "status": "Encümen kararı",
+      "source_name": "Küçükkuyu Belediyesi",
+      "source_url": "https://www.kucukkuyu.bel.tr/08-10-2026-tarihli-belediye-encumen-kararlari-ilani/",
+      "body": [
+        "8 Ekim 2026 tarihli encümen kararında Mıhlı 349 ada 11 parseldeki 63,54 m² belediye hissesinin 2.500.000 TL bedelle satıldığı kayda geçirildi.",
+        "Gökçetepe 270 ada 15 parseldeki 12,50 m² belediye hissesi için 320.000 TL bedel yer alıyor.",
+        "Bunlar küçük yüzölçümlü belediye hissesi işlemleridir; doğrudan bağımsız arsa emsali gibi kullanılmaları yanıltıcı olabilir. Hisse oranı, alıcı ilişkisi ve parselin bütünü incelenmelidir."
+      ],
+      "buyer": "Aynı parsellerde veya yakınında alım düşünüyorsanız tapu hisselerini, fiilî kullanımı ve ortaklık yapısını kontrol edin.",
+      "seller": "Bu bedelleri tam parsel piyasa değeri gibi sunmayın; işlem türünü ve küçük hisse etkisini açıkça belirtin.",
+      "investor": "Metrekare hesabını tek başına emsal almayın; belediye hissesi tasfiyesinin parsel bütünlüğüne etkisini ve olası tevhit/paydaşlık sonuçlarını araştırın.",
+      "topics": [
+        "arsa",
+        "satis"
+      ],
+      "regions": [
+        {
+          "scope": "settlement",
+          "province": "Çanakkale",
+          "province_code": "17",
+          "district": "Ayvacık",
+          "settlement": "Mıhlı",
+          "label": "Ayvacık / Küçükkuyu / Mıhlı"
+        },
+        {
+          "scope": "settlement",
+          "province": "Çanakkale",
+          "province_code": "17",
+          "district": "Ayvacık",
+          "settlement": "Gökçetepe",
+          "label": "Ayvacık / Küçükkuyu / Gökçetepe"
+        }
+      ]
+    },
+    {
+      "id": "canakkale-cevatpasa-589-57-kat-karsiligi",
+      "title": "Cevatpaşa 589 ada 57 parsel için kat karşılığı konut ihalesi ilan edildi.",
+      "summary": "288,17 m² belediye parselinde dört katlı konut yapım işi için 11 Kasım 2026’da ihale yapılacak; ilan arsa satışı değildir.",
+      "event_date": "2026-11-11",
+      "published_at": "2026-10-14",
+      "expires_at": "2026-11-15",
+      "category": "Yeni proje",
+      "status": "İhale ilanı",
+      "source_name": "Çanakkale Belediyesi",
+      "source_url": "https://www.canakkale.bel.tr/tr/sayfa/1425-ihale-ilanlari/256-dosyalar",
+      "body": [
+        "Çanakkale Belediyesi, Cevatpaşa Mahallesi 589 ada 57 parselde dört katlı konut yapımını kat karşılığı modelle ihale edecek. Parsel yüzölçümü 288,17 m², ilandaki tahmini yapım bedeli 31.861.000 TL.",
+        "İhale 11 Kasım 2026 saat 14.00 için duyuruldu. Bu ilan arsa satışı, bağımsız bölüm satışı veya tamamlanmış proje teslimi anlamına gelmiyor.",
+        "İhale sonucu ve sözleşme kesinleşmeden üretilecek bağımsız bölüm sayısı, belediye payı, takvim ve piyasa etkisi kesin kabul edilmemelidir."
+      ],
+      "buyer": "Satışa sunulmuş bir proje gibi değerlendirmeyin; ileride bağımsız bölüm satışı olursa ruhsat, yüklenici ve tapu durumunu ayrıca doğrulayın.",
+      "seller": "Yakındaki konutlar için bu ihaleyi tamamlanmış yeni arz gibi fiyatlamayın; ihale sonucu ve uygulama başlangıcını izleyin.",
+      "investor": "İhale şartnamesindeki paylaşım ve proje koşullarını incelemeden arsa ya da proje emsali üretmeyin.",
+      "topics": [
+        "arsa",
+        "konut",
+        "satis",
+        "mevzuat"
+      ],
+      "regions": [
+        {
+          "scope": "settlement",
+          "province": "Çanakkale",
+          "province_code": "17",
+          "district": "Merkez",
+          "settlement": "Cevatpaşa",
+          "label": "Çanakkale Merkez / Cevatpaşa"
+        }
+      ]
+    },
+    {
+      "id": "karabiga-zeytinlik-440-32-plan-2026",
+      "title": "Karabiga Zeytinlik 440 ada 32 parselde ticaret kullanımı ticaret ve konuta çevrildi.",
+      "summary": "Emsal 1.00 ve 7,50 metre yükseklik korunarak karma kullanım onaylandı; plan 10 Kasım 2026’ya kadar askıda.",
+      "event_date": "2026-10-06",
+      "published_at": "2026-10-12",
+      "expires_at": "2026-11-10",
+      "category": "İmar ve plan",
+      "status": "Askıda",
+      "source_name": "Karabiga Belediyesi",
+      "source_url": "https://www.karabiga.bel.tr/indexx.php?id=6430&l=1&sayfa_id=2",
+      "body": [
+        "Karabiga Belediye Meclisinin 6 Ekim 2026 tarihli 2026/37 sayılı kararıyla Zeytinlik Mahallesi 440 ada 32 parselin kullanım kararı ticaretten ticaret ve konuta dönüştürüldü.",
+        "İlanda emsal 1.00 ve yapı yüksekliği 7,50 metre olarak belirtiliyor. Plan değişikliği 12 Ekim-10 Kasım 2026 arasında askıda.",
+        "Askı süresindeki itirazlar ve sonrasındaki kesinleşme görülmeden uygulama hakkı kesinleşmiş kabul edilmemelidir."
+      ],
+      "buyer": "Parsel veya yakın çevresinde alım yapmadan önce askı dosyasını, plan notlarını ve itiraz durumunu inceleyin.",
+      "seller": "Konut kullanımını kesinleşmiş ve ruhsata hazır bir hak gibi sunmayın; askı bitişini ve olası itirazları açıklayın.",
+      "investor": "Karma kullanımın gelir potansiyelini hesaplarken emsal-yükseklik dışında çekme mesafeleri, otopark, zemin kat kullanımı ve ruhsat koşullarını doğrulayın.",
+      "topics": [
+        "arsa",
+        "konut",
+        "dukkan",
+        "satis",
+        "mevzuat"
+      ],
+      "regions": [
+        {
+          "scope": "settlement",
+          "province": "Çanakkale",
+          "province_code": "17",
+          "district": "Biga",
+          "settlement": "Karabiga / Zeytinlik",
+          "label": "Biga / Karabiga / Zeytinlik"
         }
       ]
     },
@@ -59,16 +220,16 @@
       "regions": [
         {
           "scope": "settlement",
-          "province_code": "17",
           "province": "Çanakkale",
+          "province_code": "17",
           "district": "Gökçeada",
           "settlement": "Çınarlı",
           "label": "Gökçeada / Çınarlı"
         },
         {
           "scope": "settlement",
-          "province_code": "17",
           "province": "Çanakkale",
+          "province_code": "17",
           "district": "Gökçeada",
           "settlement": "Kuzulimanı",
           "label": "Gökçeada / Kuzulimanı"
