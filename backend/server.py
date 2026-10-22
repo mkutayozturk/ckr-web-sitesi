@@ -188,6 +188,18 @@ class LeadUpdate(BaseModel):
     admin_notes: Optional[str] = Field(default=None, max_length=5000)
 
 
+class LeadTrashUpdate(BaseModel):
+    ids: List[str] = Field(min_length=1, max_length=100)
+    action: Literal["trash", "restore"]
+
+    @field_validator("ids")
+    @classmethod
+    def valid_ids(cls, values):
+        if any(not value.strip() or len(value) > 100 for value in values):
+            raise ValueError("Geçersiz başvuru kimliği.")
+        return list(dict.fromkeys(values))
+
+
 class LeadPreferenceUpdate(BaseModel):
     preference: Literal["DECIDING_LATER", "ADVISOR_REQUESTED"]
 
@@ -232,6 +244,7 @@ class LeadResponse(BaseModel):
     processing_legal_basis: Optional[str] = None
     completed_at: Optional[datetime] = None
     draft_expires_at: Optional[datetime] = None
+    deleted_at: Optional[datetime] = None
 
 
 class LeadDraftResponse(LeadResponse):
@@ -363,6 +376,8 @@ def attach_draft_token(doc: Dict[str, Any], token: Optional[str]) -> Dict[str, A
 
 
 def verify_draft_access(lead: Dict[str, Any], request: Request) -> None:
+    if lead.get("deleted_at"):
+        raise HTTPException(status_code=410, detail="Bu başvuru çöp kutusuna taşınmış.")
     provided = request.headers.get(DRAFT_TOKEN_HEADER)
     expected = lead.get("draft_access_hash")
     if not provided or not expected:
@@ -447,6 +462,8 @@ def request_type_label(request_type: Optional[str]) -> str:
 
 
 async def notify_admin(lead: Dict[str, Any], reason: str = "completed") -> None:
+    if lead.get("deleted_at"):
+        return
     contact = lead.get("contact", {})
     location = lead.get("location", {})
     motivation = lead.get("motivation") or {}
@@ -506,6 +523,7 @@ async def notify_admin(lead: Dict[str, Any], reason: str = "completed") -> None:
 async def ensure_indexes() -> None:
     await db.leads.create_index("id", unique=True)
     await db.leads.create_index("application_id", unique=True, sparse=True)
+    await db.leads.create_index("deleted_at")
     await db.leads.create_index("application_status")
     await db.leads.create_index("draft_expires_at")
     await db.leads.create_index("created_at")
@@ -521,7 +539,7 @@ async def ensure_indexes() -> None:
 
 async def delete_expired_drafts() -> None:
     now = datetime.now(timezone.utc).isoformat()
-    await db.leads.delete_many({"application_status": "draft", "draft_expires_at": {"$lt": now}})
+    await db.leads.delete_many({"application_status": "draft", "draft_expires_at": {"$lt": now}, "deleted_at": None})
 
 
 @app.on_event("startup")
@@ -614,7 +632,7 @@ async def create_lead_draft(payload: LeadCreate, request: Request):
     if existing:
         if payload.request_type == "konut_projesi_talebi" and existing.get("request_type") == payload.request_type and payload.project_access_token:
             expected = existing.get("draft_access_hash") or ""
-            if hmac.compare_digest(hash_draft_token(payload.project_access_token), expected):
+            if not existing.get("deleted_at") and hmac.compare_digest(hash_draft_token(payload.project_access_token), expected):
                 return attach_draft_token(existing, payload.project_access_token)
         raise HTTPException(status_code=409, detail="Bu taslak başvuru zaten oluşturulmuş.")
 
@@ -736,6 +754,8 @@ async def update_lead_preference(lead_id: str, payload: LeadPreferenceUpdate, ba
     if not lead:
         raise HTTPException(status_code=404, detail="Başvuru bulunamadı.")
 
+    if lead.get("deleted_at"):
+        raise HTTPException(status_code=410, detail="Bu başvuru çöp kutusuna taşınmış.")
     now = datetime.now(timezone.utc)
     features = lead.get("property_features") or {}
     if payload.preference == "ADVISOR_REQUESTED":
@@ -791,8 +811,9 @@ def lead_filters(
     province: Optional[str] = None,
     district: Optional[str] = None,
     settlement: Optional[str] = None,
+    deleted: Literal["exclude", "only"] = "exclude",
 ) -> Dict[str, Any]:
-    filters: Dict[str, Any] = {}
+    filters: Dict[str, Any] = {"deleted_at": {"$ne": None} if deleted == "only" else None}
     and_filters: List[Dict[str, Any]] = []
     if request_type:
         filters["request_type"] = request_type
@@ -843,12 +864,13 @@ async def list_leads(
     province: Optional[str] = None,
     district: Optional[str] = None,
     settlement: Optional[str] = None,
+    deleted: Literal["exclude", "only"] = "exclude",
     sort_by: Literal["created_at", "name", "request_type", "follow_up_status", "application_status"] = "created_at",
     sort_dir: Literal["asc", "desc"] = "desc",
     limit: int = Query(default=100, ge=1, le=500),
     skip: int = Query(default=0, ge=0),
 ):
-    filters = lead_filters(q, request_type, follow_up_status, application_status, date_from, date_to, province, district, settlement)
+    filters = lead_filters(q, request_type, follow_up_status, application_status, date_from, date_to, province, district, settlement, deleted)
     sort_map = {
         "name": "contact.name",
         "created_at": "created_at",
@@ -874,8 +896,9 @@ async def export_leads(
     province: Optional[str] = None,
     district: Optional[str] = None,
     settlement: Optional[str] = None,
+    deleted: Literal["exclude", "only"] = "exclude",
 ):
-    filters = lead_filters(q, request_type, follow_up_status, application_status, date_from, date_to, province, district, settlement)
+    filters = lead_filters(q, request_type, follow_up_status, application_status, date_from, date_to, province, district, settlement, deleted)
     rows = await db.leads.find(filters, {"_id": 0}).sort("created_at", -1).to_list(10000)
     main_rows = []
     detail_rows = []
@@ -896,6 +919,7 @@ async def export_leads(
         main_rows.append(
             {
                 "Başvuru ID": row.get("application_id") or row.get("id"),
+                "Çöp kutusuna taşınma tarihi": row.get("deleted_at"),
                 "Başvuru durumu": "Yarım Başvuru" if row.get("application_status") == "draft" else "Tamamlanan Başvuru",
                 "Başvuru tarihi": row.get("created_at"),
                 "Tamamlanma tarihi": row.get("completed_at"),
@@ -964,6 +988,23 @@ async def export_leads(
     )
 
 
+@app.post("/api/admin/leads/trash")
+async def change_lead_trash(payload: LeadTrashUpdate, _: str = Depends(require_admin)):
+    # A bounded explicit ID list: never delete by an unbounded search/filter.
+    restoring = payload.action == "restore"
+    scope = {"id": {"$in": payload.ids}, "deleted_at": {"$ne": None} if restoring else None}
+    now = datetime.now(timezone.utc)
+    updates = {"deleted_at": None if restoring else now.isoformat(), "updated_at": now.isoformat()}
+    result = await db.leads.update_many(scope, {"$set": updates})
+    if restoring:
+        # Preserve the existing draft retention policy after a draft is restored.
+        await db.leads.update_many(
+            {"id": {"$in": payload.ids}, "deleted_at": None, "application_status": "draft", "draft_expires_at": {"$lt": now.isoformat()}},
+            {"$set": {"draft_expires_at": get_draft_expiry(now).isoformat()}},
+        )
+    return {"action": payload.action, "matched": result.matched_count, "modified": result.modified_count}
+
+
 @app.get("/api/admin/leads/{lead_id}", response_model=LeadResponse)
 async def get_lead(lead_id: str, _: str = Depends(require_admin)):
     lead = await db.leads.find_one({"id": lead_id}, {"_id": 0})
@@ -977,6 +1018,8 @@ async def update_lead(lead_id: str, payload: LeadUpdate, _: str = Depends(requir
     lead = await db.leads.find_one({"id": lead_id}, {"_id": 0})
     if not lead:
         raise HTTPException(status_code=404, detail="Müşteri kaydı bulunamadı.")
+    if lead.get("deleted_at"):
+        raise HTTPException(status_code=409, detail="Düzenlemeden önce başvuruyu çöp kutusundan geri alın.")
     updates = payload.model_dump(exclude_unset=True)
     updates["updated_at"] = datetime.now(timezone.utc).isoformat()
     await db.leads.update_one({"id": lead_id}, {"$set": updates})
