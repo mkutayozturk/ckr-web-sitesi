@@ -1,0 +1,63 @@
+{
+  "version": 1,
+  "host": "canakkalekonutrehberi.com",
+  "initialized": true,
+  "observed": {
+    "https://canakkalekonutrehberi.com/blog/alici-piyasasinda-fiyati-kim-belirler/": {
+      "hash": "5eaa48fb96ac014d55e0e5402390bdcd13def8bca908100bfa2ba9460f7d8273",
+      "revision": 0
+    },
+    "https://canakkalekonutrehberi.com/blog/bir-gayrimenkulun-iyi-bir-yatirim-oldugunu-nasil-anlarsiniz/": {
+      "hash": "c6b64492d275e04826a42c49d7e8e8d6e34d79fedcc11307a1746a74280dcfd2",
+      "revision": 0
+    },
+    "https://canakkalekonutrehberi.com/blog/canakkalede-bolge-secimi/": {
+      "hash": "0c67bab2b7de649cdc8154ba23502180d1e17b84726ea887ba3f32d1b34fa573",
+      "revision": 0
+    },
+    "https://canakkalekonutrehberi.com/blog/canakkaleye-bu-mimariyi-gercekten-yakistiriyor-musunuz/": {
+      "hash": "52a6694c48df73b91784a6709c16ec27035a6d4990aabd86c842a7600937192d",
+      "revision": 0
+    },
+    "https://canakkalekonutrehberi.com/blog/esyali-kiralik-ve-satilik-evlerin-problemi/": {
+      "hash": "80618f31929626149a3bdf14708f8cdc68b6b8bbc0bab213030aff36eab9a3fe",
+      "revision": 0
+    },
+    "https://canakkalekonutrehberi.com/blog/herkesin-bir-fiyati-var-piyasanin-baska/": {
+      "hash": "219fd1045a03f3ca93ed56c7413ef702fa90e62deed3eacc1ca18d51a2af6643",
+      "revision": 0
+    },
+    "https://canakkalekonutrehberi.com/blog/ilan-fiyati-ile-satilabilir-fiyat/": {
+      "hash": "3205bf062e8484b445276652045ab4c728f5a188feeadae2ead78186e2f65d02",
+      "revision": 0
+    },
+    "https://canakkalekonutrehberi.com/blog/karacaoren-balonu-sonuyor/": {
+      "hash": "fa43efa1fa3e341e260ea6d2fcdee9484c144f6dfcda53c99f09c979f20e68ef",
+      "revision": 0
+    },
+    "https://canakkalekonutrehberi.com/blog/karsi-tarafin-avukatina-guvenir-miydiniz/": {
+      "hash": "d681fb06f16e179e671129a8b8434b3f151a894bf16cf3d66bd87665dcb029bf",
+      "revision": 0
+    },
+    "https://canakkalekonutrehberi.com/blog/milyonluk-evler-peki-altindaki-toprak-kac-para-eder/": {
+      "hash": "214de8d8d9b3c67baba1941c5b2efa80978387875ca7e47ced1ffb1f39812829",
+      "revision": 0
+    }
+  },
+  "events": [
+    {
+      "id": "verification-fa43efa1fa3e341e260ea6d2fcdee9484c144f6dfcda53c99f09c979f20e68ef",
+      "url": "https://canakkalekonutrehberi.com/blog/karacaoren-balonu-sonuyor/",
+      "hash": "fa43efa1fa3e341e260ea6d2fcdee9484c144f6dfcda53c99f09c979f20e68ef",
+      "revision": 0,
+      "kind": "verification_test",
+      "status": "pending",
+      "attempts": 0,
+      "due_at": 1792790417,
+      "created_at": "2026-10-23T21:20:17.469578+00:00"
+    }
+  ],
+  "runs": [],
+  "initialized_at": "2026-10-23T21:20:17.469561+00:00",
+  "verification_test_queued": true
+}
