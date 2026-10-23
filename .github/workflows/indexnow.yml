@@ -1,0 +1,36 @@
+name: CKR IndexNow publication notifications
+on:
+  schedule:
+    - cron: '7,22,37,52 * * * *'
+  workflow_dispatch:
+  push:
+    branches: [main]
+    paths:
+      - '.github/workflows/indexnow.yml'
+      - 'scripts/indexnow_notify.py'
+      - 'scripts/tests/test_indexnow_notify.py'
+permissions:
+  contents: write
+concurrency:
+  group: ckr-indexnow-notifications
+  cancel-in-progress: false
+jobs:
+  notify:
+    runs-on: ubuntu-latest
+    timeout-minutes: 10
+    steps:
+      - uses: actions/checkout@v4
+      - name: Test notification safety and retry behavior
+        run: python3 -m unittest discover -s scripts/tests -p 'test_indexnow_notify.py' -v
+      - name: Check live publications and notify IndexNow
+        env:
+          GITHUB_TOKEN: ${{ github.token }}
+        run: python3 scripts/indexnow_notify.py --test-url https://canakkalekonutrehberi.com/blog/karacaoren-balonu-sonuyor/
+      - name: Keep execution report
+        if: always()
+        uses: actions/upload-artifact@v4
+        with:
+          name: indexnow-${{ github.run_id }}
+          path: indexnow-run.json
+          if-no-files-found: warn
+          retention-days: 90
