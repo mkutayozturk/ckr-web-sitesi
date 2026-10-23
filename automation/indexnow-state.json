@@ -51,12 +51,22 @@
       "hash": "fa43efa1fa3e341e260ea6d2fcdee9484c144f6dfcda53c99f09c979f20e68ef",
       "revision": 0,
       "kind": "verification_test",
-      "status": "sending",
+      "status": "accepted_key_validation_pending",
       "attempts": 1,
-      "due_at": 1792790718,
+      "due_at": 1792790720,
       "created_at": "2026-10-23T21:20:17.469578+00:00",
       "last_attempt_at": "2026-10-23T21:20:18.543696+00:00",
-      "last_attempt_epoch": 1792790418
+      "last_attempt_epoch": 1792790418,
+      "http_status": 202,
+      "accepted_at": "2026-10-23T21:20:20.518902+00:00",
+      "attempt_log": [
+        {
+          "at": "2026-10-23T21:20:18.543696+00:00",
+          "http_status": 202,
+          "status": "accepted_key_validation_pending",
+          "error": null
+        }
+      ]
     }
   ],
   "runs": [],
