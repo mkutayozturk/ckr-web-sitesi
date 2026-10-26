@@ -1,7 +1,40 @@
 {
   "schema_version": 1,
-  "updated_at": "2026-10-26T05:23:57.598Z",
+  "updated_at": "2026-10-26T05:24:47.368Z",
   "items": [
+    {
+      "id": "tcmb-ppk-2026-10-22",
+      "title": "ÖNEMLİ · TCMB politika faizini yüzde 37’den yüzde 36’ya indirdi.",
+      "summary": "Gecelik borç verme faizi yüzde 39’a, borçlanma faizi yüzde 34,5’e çekildi; konut kredisi maliyetlerine yansıma banka ve müşteri bazında ayrıca izlenmeli.",
+      "event_date": "2026-10-22",
+      "published_at": "2026-10-22",
+      "expires_at": "2026-12-10",
+      "category": "Konut finansmanı",
+      "status": "PPK kararı",
+      "source_name": "Türkiye Cumhuriyet Merkez Bankası",
+      "source_url": "https://www.tcmb.gov.tr/wps/wcm/connect/tr/tcmb%2Btr/main%2Bmenu/duyurular/basin/2026/duy2026-45",
+      "body": [
+        "TCMB, 22 Ekim 2026 tarihli kararla bir hafta vadeli repo ihale faizini yüzde 37’den yüzde 36’ya indirdi. Gecelik borç verme faizi yüzde 40’tan yüzde 39’a, borçlanma faizi yüzde 35,5’ten yüzde 34,5’e çekildi.",
+        "Kurul sıkı para politikası duruşunun süreceğini, sonraki adımların toplantı bazlı ve enflasyon görünümüne göre belirleneceğini açıkladı.",
+        "Politika faizi kararı konut kredisi oranlarına aynı gün ve aynı ölçüde yansımak zorunda değildir; bankaların güncel teklifleri, kredi-değer oranı, vade ve müşteri profili ayrıca karşılaştırılmalıdır."
+      ],
+      "buyer": "Peşinat ve vadeyi sabitlemeden önce aynı gün içinde birden fazla bankadan toplam geri ödeme ve aylık taksit teklifi alın; yalnızca ilan edilen aylık orana bakmayın.",
+      "seller": "Faiz indiriminin talebi hemen artıracağını varsaymayın; krediye bağımlı alıcıların gerçek onay limitini ve teklif hızını izleyin.",
+      "investor": "Finansman senaryolarını güncel banka oranlarıyla yenileyin; politika faizindeki bir puanlık düşüşü doğrudan konut kredisine veya fiyata eşitlemeyin.",
+      "topics": [
+        "konut",
+        "satis",
+        "finansman"
+      ],
+      "regions": [
+        {
+          "scope": "province",
+          "province": "Çanakkale",
+          "province_code": "17",
+          "label": "Çanakkale il geneli"
+        }
+      ]
+    },
     {
       "id": "kepez-hamidiye-506-2-satis-2026-11",
       "title": "ÖNEMLİ · Kepez Hamidiye 506 ada 2 parseldeki ticaret arsası yeniden satış ihalesine çıkarıldı.",
@@ -291,9 +324,9 @@
       "summary": "1.143 konut el değiştirdi; toplam, ikinci el ve ipotekli satışların üçü de güncel resmî seriye göre yıllık geriledi.",
       "event_date": "2026-10-16",
       "published_at": "2026-10-16",
-      "expires_at": "2026-11-20",
+      "expires_at": "2026-10-25",
       "category": "Piyasa verisi",
-      "status": "Resmî veri",
+      "status": "Resmî veri · arşiv",
       "source_name": "TÜİK",
       "source_url": "https://veriportali.tuik.gov.tr/tr/databrowser/tuik/categories/9/9_4/TR,DF_SATIS_SEKLI_DURUMU_ILILCE_V3,1.0",
       "body": [
