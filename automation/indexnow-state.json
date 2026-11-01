@@ -42,6 +42,10 @@
     "https://canakkalekonutrehberi.com/blog/milyonluk-evler-peki-altindaki-toprak-kac-para-eder/": {
       "hash": "214de8d8d9b3c67baba1941c5b2efa80978387875ca7e47ced1ffb1f39812829",
       "revision": 0
+    },
+    "https://canakkalekonutrehberi.com/blog/hicbir-mulk-sahibi-bunu-bilmiyor/": {
+      "hash": "199e7a72d283d121f87feae30350dc26d5d0795b7d26bb4d233c3510d4433a8d",
+      "revision": 1
     }
   },
   "events": [
@@ -67,6 +71,18 @@
           "error": null
         }
       ]
+    },
+    {
+      "id": "b43f7caa6cc42008dbec52583894df577c4d83aadbb44e7ec3a8683b9d5bb7f7",
+      "url": "https://canakkalekonutrehberi.com/blog/hicbir-mulk-sahibi-bunu-bilmiyor/",
+      "hash": "199e7a72d283d121f87feae30350dc26d5d0795b7d26bb4d233c3510d4433a8d",
+      "previous_hash": null,
+      "revision": 1,
+      "kind": "new",
+      "status": "pending",
+      "attempts": 0,
+      "due_at": 1793524795,
+      "created_at": "2026-11-01T09:19:55.047775+00:00"
     }
   ],
   "runs": [
