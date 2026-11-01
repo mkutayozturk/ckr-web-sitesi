@@ -79,10 +79,12 @@
       "previous_hash": null,
       "revision": 1,
       "kind": "new",
-      "status": "pending",
-      "attempts": 0,
-      "due_at": 1793524795,
-      "created_at": "2026-11-01T09:19:55.047775+00:00"
+      "status": "sending",
+      "attempts": 1,
+      "due_at": 1793525096,
+      "created_at": "2026-11-01T09:19:55.047775+00:00",
+      "last_attempt_at": "2026-11-01T09:19:56.498936+00:00",
+      "last_attempt_epoch": 1793524796
     }
   ],
   "runs": [
