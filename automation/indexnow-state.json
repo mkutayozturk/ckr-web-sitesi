@@ -112,6 +112,21 @@
           "error": null
         }
       ]
+    },
+    {
+      "at": "2026-11-01T09:19:59.188081+00:00",
+      "status": "ok",
+      "published": 11,
+      "results": [
+        {
+          "url": "https://canakkalekonutrehberi.com/blog/hicbir-mulk-sahibi-bunu-bilmiyor/",
+          "kind": "new",
+          "status": "submitted",
+          "attempts": 1,
+          "http_status": 200,
+          "error": null
+        }
+      ]
     }
   ],
   "initialized_at": "2026-10-23T21:20:17.469561+00:00",
