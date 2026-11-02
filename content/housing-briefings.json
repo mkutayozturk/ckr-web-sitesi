@@ -1,22 +1,184 @@
 {
   "schema_version": 1,
-  "updated_at": "2026-10-26T05:24:47.368Z",
+  "updated_at": "2026-11-02T05:19:26.326Z",
   "items": [
+    {
+      "id": "karacaoren-100000-kentsel-gelisme-aski-2026",
+      "title": "ÖNEMLİ · Karacaören’de TOKİ alanını kapsayan üst ölçekli kentsel gelişme planı askıya çıktı.",
+      "summary": "Karacaören 161 ada 57, 162 ada 2, 163 ada 2’nin bir kısmı ve tescil dışı alanı kapsayan yaklaşık 39,3 hektar, 1/100.000 planda kentsel gelişme alanı olarak onaylandı; askı 28 Ekim’de başladı.",
+      "event_date": "2026-10-28",
+      "published_at": "2026-10-28",
+      "expires_at": "2026-11-28",
+      "category": "İmar ve plan",
+      "status": "Onaylı plan · askıda",
+      "source_name": "Çevre, Şehircilik ve İklim Değişikliği Bakanlığı",
+      "source_url": "https://mpgm.csb.gov.tr/balikesir-canakkale-planlama-bolgesi-1-100-000-olcekli-cevre-duzeni-plani-82273",
+      "body": [
+        "Bakanlık, Balıkesir-Çanakkale Planlama Bölgesi 1/100.000 ölçekli Çevre Düzeni Planında Karacaören’e ilişkin H16 paftasındaki değişikliği 8 Eylül 2026’da onayladı; ilan 28 Ekim’den itibaren 30 gün süreyle askıya çıktı.",
+        "Plan raporuna göre yaklaşık 393.680 m² büyüklüğündeki TOKİ mülkiyetindeki alan Karacaören 161 ada 57, 162 ada 2, 163 ada 2 parselin bir kısmı ve tescil dışı alandan oluşuyor; üst ölçekte kentsel gelişme alanına alındı.",
+        "Bu karar tek başına parsel bazında yapı ruhsatı veya kesin yapılaşma hakkı vermez. 1/5.000 ve 1/1.000 planlar, parselasyon, donatı dağılımı ve askı itirazları ayrıca izlenmelidir."
+      ],
+      "buyer": "Karacaören’de alım öncesi parselin H16 plan değişikliği sınırında olup olmadığını, alt ölçek planını ve güncel tapu/imar durumunu birlikte doğrulayın.",
+      "seller": "Üst ölçek kararını “hemen imarlı arsa” veya kesin fiyat artışı şeklinde sunmayın; alt ölçek plan ve parselasyon aşamasını açıkça belirtin.",
+      "investor": "Gelişim aksı açısından güçlü bir sinyal olsa da net konut, ticaret ve donatı alanları alt ölçek planlarda belirleneceği için bugünden kesin yapılaşabilir alan hesabı yapmayın.",
+      "topics": [
+        "arsa",
+        "konut",
+        "satis",
+        "mevzuat"
+      ],
+      "regions": [
+        {
+          "scope": "settlement",
+          "province": "Çanakkale",
+          "province_code": "17",
+          "district": "Merkez",
+          "settlement": "Karacaören",
+          "label": "Çanakkale Merkez / Karacaören"
+        }
+      ]
+    },
+    {
+      "id": "canakkale-meclis-gundemi-2026-11-04-imar",
+      "title": "ÖNEMLİ · Karacaören, Güzelyalı ve Arslanca’daki imar teklifleri 4 Kasım Belediye Meclisi gündemine alındı.",
+      "summary": "Karacaören-Işıklar trafo/yeşil alanı, Güzelyalı 254 ada 1 çevresi yol düzeni ve Arslanca’daki ticaret-turizm ile diğer plan değişiklikleri görüşülecek; henüz kesinleşmiş plan kararı yok.",
+      "event_date": "2026-11-04",
+      "published_at": "2026-10-30",
+      "expires_at": "2026-11-10",
+      "category": "İmar ve plan",
+      "status": "Meclis gündemi · teklif aşaması",
+      "source_name": "Çanakkale Belediyesi",
+      "source_url": "https://www.canakkale.bel.tr/tr/sayfa/1190-belediye-meclis-gundemi/12024-04112026-tarihli-meclis-gundemi",
+      "body": [
+        "4 Kasım 2026 gündeminde Karacaören 268 ada 1 yanındaki yaklaşık 5.000 m² rekreasyon alanında okçuluk kompleksi için yetki; Işıklar ve Karacaören’de trafo ve eşdeğer yeşil alan; Güzelyalı 254 ada 1 çevresinde yol düzeni teklifleri yer alıyor.",
+        "Arslanca’da 1128 ada 1 yanındaki regülatör alanı, 1425 ada 5 parselde ticaret-turizm kullanımı ve 1104 ada 1, 2, 4, 5 parseller için plan değişiklikleri de gündemde.",
+        "Bunlar gündem/teklif aşamasındadır. Meclis kararı, varsa komisyon süreci ve sonrasında askı-kesinleşme görülmeden yürürlükte plan değişikliği gibi değerlendirilmemelidir."
+      ],
+      "buyer": "Karacaören, Güzelyalı ve Arslanca’daki ilgili portföylerde mevcut planı esas alın; satış vaadi öncesi 4 Kasım kararını ve sonraki askıyı bekleyin.",
+      "seller": "Teklifleri kesinleşmiş kullanım veya emsal artışı gibi pazarlamayın; parselin doğrudan mı yoksa yalnızca yakın çevreden mi etkilendiğini ayırın.",
+      "investor": "Meclis kararından sonra plan paftası ve plan notlarını inceleyin; yol, yeşil alan ve trafo düzenlemelerinin net parsel alanına etkisini harita üzerinden test edin.",
+      "topics": [
+        "arsa",
+        "konut",
+        "dukkan",
+        "satis",
+        "mevzuat"
+      ],
+      "regions": [
+        {
+          "scope": "settlement",
+          "province": "Çanakkale",
+          "province_code": "17",
+          "district": "Merkez",
+          "settlement": "Karacaören",
+          "label": "Çanakkale Merkez / Karacaören"
+        },
+        {
+          "scope": "settlement",
+          "province": "Çanakkale",
+          "province_code": "17",
+          "district": "Merkez",
+          "settlement": "Güzelyalı",
+          "label": "Çanakkale Merkez / Güzelyalı"
+        },
+        {
+          "scope": "settlement",
+          "province": "Çanakkale",
+          "province_code": "17",
+          "district": "Merkez",
+          "settlement": "Arslanca",
+          "label": "Çanakkale Merkez / Arslanca"
+        }
+      ]
+    },
+    {
+      "id": "can-ataturk-18-madde-baslangic-2026-10-27",
+      "title": "Çan Atatürk Mahallesi’nde 76 parseli kapsayan 18. madde çalışmalarının başlatılması uygun bulundu.",
+      "summary": "Çan Belediyesi Encümeni 27 Ekim 2026 tarihli 213 sayılı kararla Atatürk Mahallesi’ndeki geniş alanda imar uygulaması çalışmalarının başlamasını onayladı; parselasyon henüz kesinleşmedi.",
+      "event_date": "2026-10-27",
+      "published_at": "2026-10-28",
+      "expires_at": "2026-12-31",
+      "category": "Parselasyon ve 18. madde",
+      "status": "Encümen kararı · çalışma başlangıcı",
+      "source_name": "Çan Belediyesi",
+      "source_url": "https://www.can.bel.tr/27-10-2026-tarihli-211-nolu-encumen-karar-ozeti/",
+      "body": [
+        "27 Ekim 2026 tarihli 213 sayılı Encümen kararı; Atatürk Mahallesi’nde 209, 498, 626, 698, 700, 701, 702, 703, 704, 706, 709 ve 710 adalardaki toplam 76 parseli kapsayan alanda 3194 sayılı Kanunun 18. maddesi uyarınca imar uygulaması çalışmalarının başlatılmasını uygun buldu.",
+        "Karar çalışma başlangıcıdır; dağıtım cetveli, DOP oranı, yeni ada-parseller, askı ve tapu tescili henüz yayımlanmış değildir.",
+        "Bu nedenle eski tapu alanı ve cephe bilgileriyle kesin proje veya değer hesabı yapmak için erken aşamadadır."
+      ],
+      "buyer": "Listede bulunan parsellerde kapora veya devir öncesi uygulama sınırını ve sürecin hangi aşamada olduğunu belediyeden yazılı teyit edin.",
+      "seller": "İlan ve sözleşmede 18. madde çalışmasının başladığını açıklayın; yeni parsel, net alan veya cepheyi kesinleşmiş gibi belirtmeyin.",
+      "investor": "DOP, tahsis yeri ve tescil belli olmadan net arsa ve yapılaşabilir alan hesabını tek senaryoya bağlamayın.",
+      "topics": [
+        "arsa",
+        "konut",
+        "dukkan",
+        "satis",
+        "mevzuat"
+      ],
+      "regions": [
+        {
+          "scope": "settlement",
+          "province": "Çanakkale",
+          "province_code": "17",
+          "district": "Çan",
+          "settlement": "Atatürk",
+          "label": "Çan / Atatürk"
+        }
+      ]
+    },
+    {
+      "id": "cinarli-288-18-madde-aski-2026",
+      "title": "Çınarlı 288 ada 2-6 parsellerin parselasyon planı ve dağıtım cetveli askıya çıktı.",
+      "summary": "30 Eylül 2026 tarihli 436 sayılı Encümen kararıyla onaylanan 18. madde uygulaması 19 Ekim’den itibaren bir ay süreyle inceleme ve itiraza açıldı.",
+      "event_date": "2026-10-19",
+      "published_at": "2026-10-22",
+      "expires_at": "2026-11-19",
+      "category": "Parselasyon ve 18. madde",
+      "status": "Onaylı parselasyon · askıda",
+      "source_name": "Çanakkale Belediyesi",
+      "source_url": "https://www.canakkale.bel.tr/tr/sayfa/1346-imar-aski-panosu/772-2026-imar-aski-panosu",
+      "body": [
+        "Çınarlı’da H16C18A3A-H16C18A3D paftaları, 288 ada 2, 3, 4, 5 ve 6 parseller için hazırlanan parselasyon planı ve dağıtım cetveli Belediye Encümeninin 30 Eylül 2026 tarihli 436 sayılı kararıyla onaylandı.",
+        "İlan metnine göre plan 19 Ekim’den itibaren bir ay süreyle askıda; askı sonrasında tescil için Tapu Sicil Müdürlüğüne gönderilecek.",
+        "Askı tamamlanmadan ve tapu tescili görülmeden yeni parsel numarası, net alan ve cephe kesinleşmiş kabul edilmemelidir."
+      ],
+      "buyer": "Bu parsellerde mevcut tapuyu dağıtım cetveliyle karşılaştırın; DOP, tahsis edilen yeni parsel ve varsa itirazı görmeden işlem tamamlamayın.",
+      "seller": "İlanda eski ada-parsel ile muhtemel yeni tahsisi birbirinden ayırın; askı ve tescil durumunu alıcıya yazılı bildirin.",
+      "investor": "Fizibiliteyi eski brüt alanla değil, dağıtım cetveli ve tescil sonrası net parsel üzerinden güncelleyin.",
+      "topics": [
+        "arsa",
+        "konut",
+        "satis",
+        "mevzuat"
+      ],
+      "regions": [
+        {
+          "scope": "settlement",
+          "province": "Çanakkale",
+          "province_code": "17",
+          "district": "Merkez",
+          "settlement": "Çınarlı",
+          "label": "Çanakkale Merkez / Çınarlı"
+        }
+      ]
+    },
     {
       "id": "tcmb-ppk-2026-10-22",
       "title": "ÖNEMLİ · TCMB politika faizini yüzde 37’den yüzde 36’ya indirdi.",
-      "summary": "Gecelik borç verme faizi yüzde 39’a, borçlanma faizi yüzde 34,5’e çekildi; konut kredisi maliyetlerine yansıma banka ve müşteri bazında ayrıca izlenmeli.",
+      "summary": "Politika faizi yüzde 36’ya indirildi; TCMB’nin 30 Ekim özetine göre konut kredisi faizi 16 Ekim haftasında yüzde 41,5’e geriledi, ancak banka teklifleri hâlâ müşteri ve konut bazında ayrışıyor.",
       "event_date": "2026-10-22",
       "published_at": "2026-10-22",
       "expires_at": "2026-12-10",
       "category": "Konut finansmanı",
-      "status": "PPK kararı",
+      "status": "PPK kararı · 30 Ekim toplantı özeti",
       "source_name": "Türkiye Cumhuriyet Merkez Bankası",
       "source_url": "https://www.tcmb.gov.tr/wps/wcm/connect/tr/tcmb%2Btr/main%2Bmenu/duyurular/basin/2026/duy2026-45",
       "body": [
-        "TCMB, 22 Ekim 2026 tarihli kararla bir hafta vadeli repo ihale faizini yüzde 37’den yüzde 36’ya indirdi. Gecelik borç verme faizi yüzde 40’tan yüzde 39’a, borçlanma faizi yüzde 35,5’ten yüzde 34,5’e çekildi.",
-        "Kurul sıkı para politikası duruşunun süreceğini, sonraki adımların toplantı bazlı ve enflasyon görünümüne göre belirleneceğini açıkladı.",
-        "Politika faizi kararı konut kredisi oranlarına aynı gün ve aynı ölçüde yansımak zorunda değildir; bankaların güncel teklifleri, kredi-değer oranı, vade ve müşteri profili ayrıca karşılaştırılmalıdır."
+        "TCMB, 22 Ekim 2026 tarihli kararla bir hafta vadeli repo ihale faizini yüzde 37’den yüzde 36’ya indirdi. Gecelik borç verme faizi yüzde 39’a, borçlanma faizi yüzde 34,5’e çekildi.",
+        "30 Ekim 2026’da yayımlanan PPK Toplantı Özeti’ne göre konut kredisi faiz oranı, 11 Eylül haftasına kıyasla 43 baz puan azalarak 16 Ekim haftasında yüzde 41,5 oldu.",
+        "Bu oran haftalık ağırlıklı ortalamadır; tek tek bankaların aylık teklif oranı değildir. Kredi-değer oranı, vade, sigorta ve müşteri profili toplam maliyeti ayrıca değiştirir."
       ],
       "buyer": "Peşinat ve vadeyi sabitlemeden önce aynı gün içinde birden fazla bankadan toplam geri ödeme ve aylık taksit teklifi alın; yalnızca ilan edilen aylık orana bakmayın.",
       "seller": "Faiz indiriminin talebi hemen artıracağını varsaymayın; krediye bağımlı alıcıların gerçek onay limitini ve teklif hızını izleyin.",
@@ -155,134 +317,6 @@
           "district": "Eceabat",
           "settlement": "Behramlı",
           "label": "Eceabat / Behramlı"
-        }
-      ]
-    },
-    {
-      "id": "bozcaada-res-ayvacik-ezine-ced-2026",
-      "title": "ÖNEMLİ · Ayvacık-Ezine köylerinde planlanan Bozcaada RES için ÇED süreci başladı.",
-      "summary": "Sekiz köyü ilgilendiren 20 türbinli, 152 MWe kapasiteli proje ÇED incelemesine girdi; henüz ÇED olumlu kararı veya yapım izni yok.",
-      "event_date": "2026-10-21",
-      "published_at": "2026-10-21",
-      "expires_at": "2027-01-31",
-      "category": "ÇED ve arazi kullanımı",
-      "status": "ÇED süreci başladı",
-      "source_name": "Çanakkale Çevre, Şehircilik ve İklim Değişikliği İl Müdürlüğü",
-      "source_url": "https://webdosya.csb.gov.tr/v2/canakkale/2026/10/arasanli-ilan-metni-20261021095033.pdf",
-      "body": [
-        "YLE Enerji Elektrik Üretim A.Ş. tarafından Ayvacık ve Ezine ilçelerindeki Arasanlı, Sarpdere, Bozeli, Çakmaklar, Köseler, Yaylacık, Pınardere ve Bilaller köylerinde planlanan Bozcaada RES projesi için ÇED süreci 21 Ekim 2026’da başlatıldı.",
-        "Duyurudaki proje 20 türbin, 152 MWe kurulu güç ve yaklaşık 2,66 milyar TL yatırım bedeli öngörüyor.",
-        "Bu aşama proje onayı, kamulaştırma, yapı ruhsatı veya inşaat başlangıcı değildir. Etki alanı ve bağlantı yolları nihai dosya ve sonraki izinlerle değişebilir."
-      ],
-      "buyer": "Sekiz köyde arazi alırken yalnızca türbin noktalarını değil, enerji iletim hattı, servis yolu ve olası irtifak-kamulaştırma koridorlarını da sorgulayın.",
-      "seller": "ÇED başlangıcını kesin kamulaştırma veya fiyat artışı/azalışı olarak sunmayın; parselin proje koordinatlarıyla ilişkisini belgeleyin.",
-      "investor": "Tarım, turizm ve enerji kullanım senaryolarını birlikte test edin; nihai ÇED, imar ve mülkiyet izinleri çıkmadan proje etkisini kesinleştirmeyin.",
-      "topics": [
-        "arsa",
-        "tarla",
-        "mevzuat"
-      ],
-      "regions": [
-        {
-          "scope": "district",
-          "province": "Çanakkale",
-          "province_code": "17",
-          "district": "Ayvacık",
-          "label": "Ayvacık ilçesi"
-        },
-        {
-          "scope": "district",
-          "province": "Çanakkale",
-          "province_code": "17",
-          "district": "Ezine",
-          "label": "Ezine ilçesi"
-        }
-      ]
-    },
-    {
-      "id": "merge-res-salihler-gokceici-ced-2026",
-      "title": "Salihler-Gökçeiçi Merge RES ve depolama projesi için ÇED Olumlu kararı verildi.",
-      "summary": "Revize dört türbinli, 30 MWm/22,5 MWe kapasiteli ve 22,5 MWe/30 MWh depolamalı proje çevresel değerlendirme aşamasını geçti.",
-      "event_date": "2026-10-21",
-      "published_at": "2026-10-21",
-      "expires_at": "2027-01-31",
-      "category": "ÇED ve arazi kullanımı",
-      "status": "ÇED Olumlu kararı",
-      "source_name": "Çanakkale Çevre, Şehircilik ve İklim Değişikliği İl Müdürlüğü",
-      "source_url": "https://webdosya.csb.gov.tr/v2/canakkale/2026/10/ED-OLUMLU-KARARI-DUYURUSU-pdf-merge-4-turbin-20261021095523.pdf",
-      "body": [
-        "Merkez Salihler Köyü ile Bayramiç Gökçeiçi Köyü çevresindeki Merge Rüzgâr Enerji Santrali ve elektrik depolama projesi için 21 Ekim 2026’da ÇED Olumlu kararı duyuruldu.",
-        "Revize proje dört türbin, 30 MWm/22,5 MWe üretim gücü ile 22,5 MWe/30 MWh depolama kapasitesi öngörüyor.",
-        "ÇED Olumlu kararı çevresel değerlendirme aşamasını tamamlar; tek başına bütün imar, mülkiyet, enerji ve yapı izinlerinin alındığı veya inşaatın başladığı anlamına gelmez."
-      ],
-      "buyer": "Salihler ve Gökçeiçi’nde parselin türbin, yol, iletim hattı ve güvenlik mesafelerine konumunu resmî koordinatlarla karşılaştırın.",
-      "seller": "Kararı kesin kamulaştırma veya gerçekleşmiş arazi değer değişimi gibi sunmayın; parsel bazlı etkiyi belgeleyin.",
-      "investor": "İzin zincirinin kalan adımlarını ve araziye ilişkin irtifak/kamulaştırma ihtimalini takip ederek kullanım senaryosunu güncelleyin.",
-      "topics": [
-        "arsa",
-        "tarla",
-        "mevzuat"
-      ],
-      "regions": [
-        {
-          "scope": "settlement",
-          "province": "Çanakkale",
-          "province_code": "17",
-          "district": "Merkez",
-          "settlement": "Salihler",
-          "label": "Çanakkale Merkez / Salihler"
-        },
-        {
-          "scope": "settlement",
-          "province": "Çanakkale",
-          "province_code": "17",
-          "district": "Bayramiç",
-          "settlement": "Gökçeiçi",
-          "label": "Bayramiç / Gökçeiçi"
-        }
-      ]
-    },
-    {
-      "id": "can-istiklal-osmanefendi-18-madde-2026",
-      "title": "Çan’da İstiklal ve Osmanefendi mahallelerindeki 26 özel parsel için 18. madde düzenlemesi onaylandı.",
-      "summary": "Encümen, parselasyon planı, dağıtım cetvelleri ve DOP hesabını 20 Ekim 2026 tarihli 209 sayılı kararla uygun buldu.",
-      "event_date": "2026-10-20",
-      "published_at": "2026-10-22",
-      "expires_at": "2026-12-31",
-      "category": "Parselasyon ve 18. madde",
-      "status": "Encümen onayı",
-      "source_name": "Çan Belediyesi",
-      "source_url": "https://www.can.bel.tr/20-10-2026-tarihli-encumen-karar-ozeti/",
-      "body": [
-        "Çan Belediyesi Encümeni; İstiklal Mahallesi 531, 753, 772, 786, 788 ve 792 adalardaki 12 parsel ile Osmanefendi Mahallesi 679 ve 680 adalardaki 14 parseli kapsayan düzenlemeyi onayladı.",
-        "209 sayılı karar, 3194 sayılı Kanun’un 18. maddesine ilişkin parselasyon planı, dağıtım cetvelleri ve Düzenleme Ortaklık Payı hesabını 19. madde kapsamında uygun buluyor.",
-        "Karar özeti tek başına yeni tapuların tescil edildiğini göstermez; ilan/askı, itiraz ve tescil aşamaları ile yeni parsel numaraları ayrıca izlenmelidir."
-      ],
-      "buyer": "Listelenen parsellerde alım öncesi mevcut tapu ile dağıtım cetvelindeki yeni tahsis, DOP ve tescil durumunu karşılaştırın.",
-      "seller": "Eski ada-parsel bilgisini tek başına kullanmayın; işlem dosyasına parselasyon ve tescil aşamasını ekleyin.",
-      "investor": "Net arsa alanı ve cepheyi, düzenleme sonrası oluşacak parsel üzerinden hesaplayın; karar özetinden doğrudan yapı hakkı çıkarmayın.",
-      "topics": [
-        "arsa",
-        "konut",
-        "dukkan",
-        "mevzuat"
-      ],
-      "regions": [
-        {
-          "scope": "settlement",
-          "province": "Çanakkale",
-          "province_code": "17",
-          "district": "Çan",
-          "settlement": "İstiklal",
-          "label": "Çan / İstiklal"
-        },
-        {
-          "scope": "settlement",
-          "province": "Çanakkale",
-          "province_code": "17",
-          "district": "Çan",
-          "settlement": "Osmanefendi",
-          "label": "Çan / Osmanefendi"
         }
       ]
     },
@@ -465,48 +499,6 @@
           "district": "Biga",
           "settlement": "Karabiga / Zeytinlik",
           "label": "Biga / Karabiga / Zeytinlik"
-        }
-      ]
-    },
-    {
-      "id": "toki-gokceada-2026-1839115",
-      "title": "Gökçeada’da 237 konut ve 6 dükkân için yapım ihalesi planlandı.",
-      "summary": "TOKİ ilanında 28 Ekim 2026 ihale tarihi yer alıyor; bu aşama satışa çıkış veya teslim duyurusu anlamına gelmiyor.",
-      "event_date": "2026-10-28",
-      "published_at": null,
-      "expires_at": "2026-11-05",
-      "category": "Yeni proje",
-      "status": "İhale ilanı",
-      "source_name": "TOKİ · İKN 2026/1839115",
-      "source_url": "https://www.toki.gov.tr/ihale-tarihleri/14882",
-      "body": [
-        "TOKİ’nin ilanı, Çınarlı’da 207 konut ve 4 dükkânı, Kuzulimanı’nda 30 konut ve 2 dükkânı kapsıyor. Yapım ihalesi 28 Ekim 2026 saat 11.30 için duyurulmuş.",
-        "İlanda iş süresi yer tesliminden itibaren 500 takvim günü. Bu süre, bugün başlayan kesin bir teslim takvimi değildir. Satış fiyatı, başvuru ve ödeme planı bu ilandan çıkarılamaz. Kaynakta yayın tarihi belirtilmediği için ayrıca tarih üretilmedi."
-      ],
-      "buyer": "Projeyi izleyebilirsiniz; konut satış başvuruları ve ödeme koşulları için ayrı resmî duyuruyu bekleyin.",
-      "seller": "Gelecekteki arzı takip edin; ihale aşamasındaki konutları bugün satıştaki hazır konutlarla aynı kabul etmeyin.",
-      "investor": "İhale sonucu, sözleşme ve uygulama ilerlemesi netleşmeden fiyat artışı veya getiri varsaymayın.",
-      "topics": [
-        "konut",
-        "dukkan",
-        "mevzuat"
-      ],
-      "regions": [
-        {
-          "scope": "settlement",
-          "province": "Çanakkale",
-          "province_code": "17",
-          "district": "Gökçeada",
-          "settlement": "Çınarlı",
-          "label": "Gökçeada / Çınarlı"
-        },
-        {
-          "scope": "settlement",
-          "province": "Çanakkale",
-          "province_code": "17",
-          "district": "Gökçeada",
-          "settlement": "Kuzulimanı",
-          "label": "Gökçeada / Kuzulimanı"
         }
       ]
     },
