@@ -1,6 +1,6 @@
 {
   "schema_version": 1,
-  "updated_at": "2026-11-02T05:19:26.326Z",
+  "updated_at": "2026-11-09T05:24:20.269Z",
   "items": [
     {
       "id": "karacaoren-100000-kentsel-gelisme-aski-2026",
@@ -233,203 +233,6 @@
       ]
     },
     {
-      "id": "toki-gelibolu-guneyli-korukoy-2026-11",
-      "title": "ÖNEMLİ · TOKİ, Gelibolu Güneyli ve Koruköy’de 36 taşınmazı açık artırmaya sundu.",
-      "summary": "Yaklaşık 41,7 bin m² toplam yüzölçümlü 36 parsel için 5-6 Kasım 2026’da açık artırma yapılacak; listede konut ve günübirlik tesis kullanımları bulunuyor.",
-      "event_date": "2026-11-05",
-      "published_at": "2026-10-21",
-      "expires_at": "2026-11-08",
-      "category": "Taşınmaz satışı",
-      "status": "Açık artırma ilanı",
-      "source_name": "TOKİ",
-      "source_url": "https://www.toki.gov.tr/haber/toki-61-ilde-725-arsayi-acik-artirmayla-satacak",
-      "body": [
-        "TOKİ’nin 61 ildeki arsa satışında Gelibolu’ya bağlı Güneyli’de 14, Koruköy’de 22 olmak üzere 36 taşınmaz yer alıyor. Satış listesine göre toplam yüzölçümü yaklaşık 41.731 m², toplam muhammen bedel yaklaşık 179,7 milyon TL.",
-        "Açık artırma 5-6 Kasım 2026 günleri saat 10.30’da ve çevrim içi katılımla yapılacak. Taşınmazların çoğu konut, bazıları günübirlik tesis kullanımında.",
-        "Listede koruma alanı, 18. madde uygulaması ve tevhit gibi parsel bazlı notlar bulunuyor; her lot kendi plan notu ve takyidatıyla incelenmelidir."
-      ],
-      "buyer": "İlgilendiğiniz lotun satış şartnamesini, tapu takyidatını, koruma/18. madde notunu ve fiilî yol-altyapı durumunu tekliften önce doğrulayın.",
-      "seller": "Muhammen bedelleri gerçekleşmiş satış emsali gibi kullanmayın; ihale sonucunu ve ödeme koşullarını ayrıca takip edin.",
-      "investor": "Konut ve günübirlik tesis parsellerini aynı gelir modeliyle değerlendirmeyin; yapılaşabilir net alanı ve bekleme süresini lot bazında hesaplayın.",
-      "topics": [
-        "arsa",
-        "konut",
-        "dukkan",
-        "satis"
-      ],
-      "regions": [
-        {
-          "scope": "settlement",
-          "province": "Çanakkale",
-          "province_code": "17",
-          "district": "Gelibolu",
-          "settlement": "Güneyli",
-          "label": "Gelibolu / Güneyli"
-        },
-        {
-          "scope": "settlement",
-          "province": "Çanakkale",
-          "province_code": "17",
-          "district": "Gelibolu",
-          "settlement": "Koruköy",
-          "label": "Gelibolu / Koruköy"
-        }
-      ]
-    },
-    {
-      "id": "eceabat-milli-emlak-2026-11-04",
-      "title": "ÖNEMLİ · Eceabat’ta Kilitbahir konut alanı satışı ve Behramlı tarla kiralaması ilan edildi.",
-      "summary": "Kilitbahir’de 121,19 m² koşullu konut alanı 3,6 milyon TL tahminle satılacak; Behramlı’da 6.796,36 m² tarla beş yıllığına kiralanacak.",
-      "event_date": "2026-11-04",
-      "published_at": "2026-10-21",
-      "expires_at": "2026-11-06",
-      "category": "Taşınmaz ihalesi",
-      "status": "Satış ve kiralama ihalesi",
-      "source_name": "Eceabat Milli Emlak Şefliği · ilan.gov.tr",
-      "source_url": "https://www.ilan.gov.tr/ilan/2252294/emlak-arsa-eceabat-milli-emlak-sefliginden-tasinmaz-satis-ve-kiralama-yapilacaktir",
-      "body": [
-        "Eceabat Milli Emlak Şefliği, Kilitbahir Köyü 156 ada 22 parseldeki 121,19 m² koşullu konut alanını 3.600.000 TL tahmini bedelle satışa çıkardı.",
-        "Behramlı Köyü Koşukırı 202 ada 5 parseldeki 6.796,36 m² tarla, tarımsal amaçla beş yıl için ve ilk yıl 40.000 TL tahmini bedelle kiralanacak. İhaleler 4 Kasım 2026’da.",
-        "Kilitbahir’deki “koşullu konut alanı” ifadesi, koruma ve plan koşullarının ayrıca incelenmesini gerektirir; ilan bedelleri ihale başlangıç değeridir."
-      ],
-      "buyer": "Kilitbahir parselinde koruma kurulu, plan notu, yapılaşma izni ve fiilî erişimi yazılı belgelerle teyit edin.",
-      "seller": "Yakın çevrede bu bedeli kesin satış emsali saymayın; ihalenin gerçekleşip gerçekleşmediğini ve nihai bedeli izleyin.",
-      "investor": "Behramlı kiralamasında sözleşme kısıtlarını ve tarımsal kullanım maliyetini; Kilitbahir’de ise izin süresi ve net yapı hakkını ayrı hesaplayın.",
-      "topics": [
-        "arsa",
-        "tarla",
-        "satis",
-        "kira"
-      ],
-      "regions": [
-        {
-          "scope": "settlement",
-          "province": "Çanakkale",
-          "province_code": "17",
-          "district": "Eceabat",
-          "settlement": "Kilitbahir",
-          "label": "Eceabat / Kilitbahir"
-        },
-        {
-          "scope": "settlement",
-          "province": "Çanakkale",
-          "province_code": "17",
-          "district": "Eceabat",
-          "settlement": "Behramlı",
-          "label": "Eceabat / Behramlı"
-        }
-      ]
-    },
-    {
-      "id": "eids-sosyal-medya-denetim-2026-10-19",
-      "title": "ÖNEMLİ · EİDS kuralları sosyal medya taşınmaz ilanlarında yaptırımla uygulanıyor.",
-      "summary": "Ticaret Bakanlığı 70 emlak ve oto galeri işletmesine 7 milyon TL ceza açıkladı; doğrulanmış ilan bağlantısı, fiyat ve eşleşen içerik zorunlu.",
-      "event_date": "2026-10-19",
-      "published_at": "2026-10-19",
-      "expires_at": "2026-12-31",
-      "category": "EİDS ve mevzuat",
-      "status": "Yürürlükte · denetim ve yaptırım",
-      "source_name": "Ticaret Bakanlığı",
-      "source_url": "https://ticaret.gov.tr/haberler/ticaret-bakanligi-sosyal-medya-platformlarinda-yayimlanan-tasinmaz-ve-tasit-ilanlarina-yonelik-denetimlerini-surduruyor",
-      "body": [
-        "Ticaret Bakanlığı, sosyal medya platformlarında EİDS kurallarına aykırı ilan paylaşan 70 emlak ve oto galeri işletmesine toplam 7 milyon TL idari para cezası uygulandığını duyurdu. Bu kapsamdaki toplam sayı 152 işletme ve 15,2 milyon TL’ye ulaştı.",
-        "Instagram, Facebook, WhatsApp ve TikTok dâhil elektronik ortamdaki taşınmaz paylaşımlarında EİDS üzerinden doğrulanmış ilan bağlantısı ve fiyat bulunmalı; görsel ve açıklama doğrulanmış taşınmazla eşleşmeli.",
-        "Bu, Çanakkale’ye özgü yeni bir kural değil; ülke genelindeki uygulamanın yaptırımla sürdürüldüğünü gösteren resmî denetim duyurusudur."
-      ],
-      "buyer": "Sosyal medya ilanında doğrulanmış ilan bağlantısı ve fiyat yoksa yetkiyi, tapu bilgilerini ve ilan sahibini ayrıca kontrol edin.",
-      "seller": "Danışmana verdiğiniz ilan yetkisinin EİDS’de doğru tanımlandığını ve sosyal medya içeriğinin ana ilanla eşleştiğini kontrol edin.",
-      "investor": "Portföy pazarlamasında her paylaşımın doğrulanmış ilan bağlantısı, fiyatı ve güncel görselleri içerdiği bir kontrol listesi kullanın.",
-      "topics": [
-        "satis",
-        "mevzuat"
-      ],
-      "regions": [
-        {
-          "scope": "province",
-          "province": "Çanakkale",
-          "province_code": "17",
-          "label": "Çanakkale il geneli"
-        }
-      ]
-    },
-    {
-      "id": "tuik-canakkale-2026-09",
-      "title": "Çanakkale’de eylül konut satışları geçen yılın aynı ayının altında kaldı.",
-      "summary": "1.143 konut el değiştirdi; toplam, ikinci el ve ipotekli satışların üçü de güncel resmî seriye göre yıllık geriledi.",
-      "event_date": "2026-10-16",
-      "published_at": "2026-10-16",
-      "expires_at": "2026-10-25",
-      "category": "Piyasa verisi",
-      "status": "Resmî veri · arşiv",
-      "source_name": "TÜİK",
-      "source_url": "https://veriportali.tuik.gov.tr/tr/databrowser/tuik/categories/9/9_4/TR,DF_SATIS_SEKLI_DURUMU_ILILCE_V3,1.0",
-      "body": [
-        "Eylül 2026’da Çanakkale’de 1.143 konut satıldı. TÜİK’in güncel, revize edilmiş serisinde Eylül 2025 toplamı 1.376; yıllık değişim yaklaşık %-16,9.",
-        "İkinci el satışlar 652 oldu; Eylül 2025’teki 897 adede göre yaklaşık %-27,3 geriledi. İpotekli satışlar 142 oldu; geçen yılın aynı ayındaki 170 adede göre yaklaşık %-16,5 azaldı.",
-        "İlk el satışlar 491 ile geçen yılın aynı ayındaki 479 adedin yaklaşık %2,5 üzerinde kaldı. Bu veriler işlem hacmini gösterir; tek bir taşınmazın fiyatını veya talep nedenini açıklamaz."
-      ],
-      "buyer": "Yeni ve ikinci el seçeneklerini yalnızca ilan fiyatıyla değil, toplam maliyet, kredi kullanımı ve taşınmazın fizikî-hukukî durumu ile birlikte karşılaştırın.",
-      "seller": "İkinci el hacmindeki gerilemeyi dikkate alarak güncel rakipleri ve gerçek teklifleri izleyin; fiyat ile bekleme süresini birlikte değerlendirin.",
-      "investor": "İşlem sayısındaki düşüşü tek başına fırsat veya fiyat yönü kanıtı saymayın; kira getirisi, nakit akışı ve yeniden satış süresini ayrıca test edin.",
-      "topics": [
-        "konut",
-        "satis",
-        "finansman"
-      ],
-      "regions": [
-        {
-          "scope": "province",
-          "province": "Çanakkale",
-          "province_code": "17",
-          "label": "Çanakkale il geneli"
-        }
-      ]
-    },
-    {
-      "id": "kucukkuyu-ekim-2026-imar-kararlari",
-      "title": "Küçükkuyu’da Mıhlı ve Sahil’i ilgilendiren yapılaşma kararları yayımlandı.",
-      "summary": "Mıhlı ve Sahil’i ilgilendiren onaylı plan/plan notu değişiklikleri 16 Ekim’den itibaren 30 gün süreyle askıya çıktı.",
-      "event_date": "2026-10-05",
-      "published_at": "2026-10-12",
-      "expires_at": "2026-11-16",
-      "category": "İmar ve plan",
-      "status": "Askıda · 16 Ekim 2026'dan itibaren 30 gün",
-      "source_name": "Küçükkuyu Belediyesi",
-      "source_url": "https://www.kucukkuyu.bel.tr/uygulama-imar-plani/",
-      "body": [
-        "Küçükkuyu Belediyesi, 5 Ekim 2026 tarihli meclis kararlarıyla onaylanan plan ve plan notu değişikliklerini 16 Ekim 2026’dan itibaren 30 gün süreyle askıya çıkardı.",
-        "Mıhlı 361 ada için blok nizam iki kat; Mıhlı 107 ada 3 parsel ile 268 ada 1 parsel ve çevresi için gelişme konut alanı, ayrık nizam iki kat, TAKS 0.20 ve KAKS 0.40 kararları ile Sahil’deki park-yaya yolu ve plan notu düzenlemeleri dosyada yer alıyor.",
-        "Askı süresi içinde yapılacak itirazlar ve sonrasındaki kesinleşme görülmeden parsel bazında uygulama hakkı kesinleşmiş kabul edilmemelidir."
-      ],
-      "buyer": "Mıhlı ve Sahil’de arsa veya konut alırken yalnızca ilandaki imar bilgisini değil, güncel onaylı pafta ve plan notunu parsel bazında isteyin.",
-      "seller": "Yeni yapılaşma kararını fiyat garantisi gibi sunmayın; satış dosyasına karar metni ile birlikte kesinleşme ve askı durumunu ekleyin.",
-      "investor": "TAKS-KAKS ve kat koşullarını proje verimliliği hesabına ancak çekme mesafeleri, terkler ve diğer plan notları doğrulandıktan sonra alın.",
-      "topics": [
-        "arsa",
-        "konut",
-        "dukkan",
-        "mevzuat"
-      ],
-      "regions": [
-        {
-          "scope": "settlement",
-          "province": "Çanakkale",
-          "province_code": "17",
-          "district": "Ayvacık",
-          "settlement": "Mıhlı",
-          "label": "Ayvacık / Küçükkuyu / Mıhlı"
-        },
-        {
-          "scope": "settlement",
-          "province": "Çanakkale",
-          "province_code": "17",
-          "district": "Ayvacık",
-          "settlement": "Sahil",
-          "label": "Ayvacık / Küçükkuyu / Sahil"
-        }
-      ]
-    },
-    {
       "id": "canakkale-cevatpasa-589-57-kat-karsiligi",
       "title": "Cevatpaşa 589 ada 57 parsel için kat karşılığı konut ihalesi ilan edildi.",
       "summary": "288,17 m² belediye parselinde dört katlı konut yapım işi için 11 Kasım 2026’da ihale yapılacak; ilan arsa satışı değildir.",
@@ -466,24 +269,92 @@
       ]
     },
     {
-      "id": "karabiga-zeytinlik-440-32-plan-2026",
-      "title": "Karabiga Zeytinlik 440 ada 32 parselde ticaret kullanımı ticaret ve konuta çevrildi.",
-      "summary": "Emsal 1.00 ve 7,50 metre yükseklik korunarak karma kullanım onaylandı; plan 10 Kasım 2026’ya kadar askıda.",
-      "event_date": "2026-10-06",
-      "published_at": "2026-10-12",
-      "expires_at": "2026-11-10",
-      "category": "İmar ve plan",
-      "status": "Askıda",
-      "source_name": "Karabiga Belediyesi",
-      "source_url": "https://www.karabiga.bel.tr/indexx.php?id=6430&l=1&sayfa_id=2",
+      "id": "dogal-sit-tarimsal-agac-dikimi-ilke-153-2026",
+      "title": "ÖNEMLİ · Doğal sit içindeki tarım arazilerinde ağaç dikimi için izin süreci belirli koşullarda sadeleştirildi.",
+      "summary": "153 sayılı İlke Kararı, kesin korunacak hassas alanlar ve I. derece doğal sitler dışındaki tarım lejantlı sit alanlarında belirli koşullarla ağaç dikimi için ayrıca Bölge Komisyonu kararı aranmayacağını düzenledi.",
+      "event_date": "2026-11-03",
+      "published_at": "2026-11-03",
+      "expires_at": "2027-02-28",
+      "category": "Sit ve tarım mevzuatı",
+      "status": "Yürürlükte · resmî ilke kararı",
+      "source_name": "Resmî Gazete · Çevre, Şehircilik ve İklim Değişikliği Bakanlığı",
+      "source_url": "https://www.resmigazete.gov.tr/03.11.2026",
       "body": [
-        "Karabiga Belediye Meclisinin 6 Ekim 2026 tarihli 2026/37 sayılı kararıyla Zeytinlik Mahallesi 440 ada 32 parselin kullanım kararı ticaretten ticaret ve konuta dönüştürüldü.",
-        "İlanda emsal 1.00 ve yapı yüksekliği 7,50 metre olarak belirtiliyor. Plan değişikliği 12 Ekim-10 Kasım 2026 arasında askıda.",
-        "Askı süresindeki itirazlar ve sonrasındaki kesinleşme görülmeden uygulama hakkı kesinleşmiş kabul edilmemelidir."
+        "26 Ekim 2026 tarihli 153 sayılı İlke Kararı, 3 Kasım 2026 tarihli Resmî Gazete’de yayımlandı.",
+        "Kesin korunacak hassas alanlar ve I. derece doğal sit alanları hariç olmak üzere, yürürlükteki planda tarım lejantında kalan doğal sit alanlarında iş makinesi kullanılmaması, topografyanın bozulmaması ve yöresel doğal bitki örtüsüne uygun tür seçilmesi şartlarıyla ağaç dikimi için ayrıca Tabiat Varlıklarını Koruma Bölge Komisyonu kararı gerekmiyor.",
+        "Sondaj, kuyu, sulama sistemi, tel çit ve duvar gibi sonraki fizikî müdahaleler ise yine Bölge Komisyonunun değerlendirmesine tabi. Karar yapılaşma hakkı veya otomatik altyapı izni vermiyor."
       ],
-      "buyer": "Parsel veya yakın çevresinde alım yapmadan önce askı dosyasını, plan notlarını ve itiraz durumunu inceleyin.",
-      "seller": "Konut kullanımını kesinleşmiş ve ruhsata hazır bir hak gibi sunmayın; askı bitişini ve olası itirazları açıklayın.",
-      "investor": "Karma kullanımın gelir potansiyelini hesaplarken emsal-yükseklik dışında çekme mesafeleri, otopark, zemin kat kullanımı ve ruhsat koşullarını doğrulayın.",
+      "buyer": "Doğal sitli tarla alımında sit derecesini ve plandaki tarım lejantını yazılı teyit edin; ağaç dikimi ile kuyu, sulama, çit ve yapı izinlerini birbirinden ayırın.",
+      "seller": "“İzin gerekmiyor” ifadesini bütün müdahaleler için kullanmayın; kolaylık yalnızca karardaki koşulları sağlayan ağaç dikimi işlemiyle sınırlı.",
+      "investor": "Bahçe veya zeytinlik senaryosunda ağaçlandırma kolaylığını dikkate alabilirsiniz; ancak su, çevreleme ve yapı yatırımlarını ayrı izin ve maliyet kalemleriyle hesaplayın.",
+      "topics": [
+        "arsa",
+        "tarla",
+        "satis",
+        "mevzuat"
+      ],
+      "regions": [
+        {
+          "scope": "province",
+          "province": "Çanakkale",
+          "province_code": "17",
+          "label": "Çanakkale doğal sit alanları"
+        }
+      ]
+    },
+    {
+      "id": "osb-tahsis-pay-devri-ust-hakki-2026-11-06",
+      "title": "ÖNEMLİ · OSB parsellerinde tahsis, şirket payı devri ve üst hakkı kuralları değişti.",
+      "summary": "Bakanlık onayı olmadan tahsisli şirket paylarında toplam yüzde 49’u aşan değişiklik tahsis iptali riski doğuracak; üst hakkı devredilemeyecek ve ayrı taşınmaz olarak kaydedilemeyecek.",
+      "event_date": "2026-11-06",
+      "published_at": "2026-11-06",
+      "expires_at": "2027-03-31",
+      "category": "OSB ve sanayi taşınmazları",
+      "status": "Yürürlükte · yönetmelik değişikliği",
+      "source_name": "Resmî Gazete · Sanayi ve Teknoloji Bakanlığı",
+      "source_url": "https://www.resmigazete.gov.tr/eskiler/2026/11/20261106-1.htm",
+      "body": [
+        "Organize Sanayi Bölgeleri Uygulama Yönetmeliğindeki değişiklikler 6 Kasım 2026’da yayımlanarak yürürlüğe girdi.",
+        "Ön tahsis veya arsa tahsisi yapılan şirketin paylarında Bakanlık onayı alınmadan toplam yüzde 49’u aşan ortaklık değişikliği yapılması tahsisin iptaline yol açabilecek. Ön tahsis devri amacıyla izinsiz şirket hissesi devri tespit edilirse ön tahsis iptal edilecek.",
+        "OSB parsellerindeki üst hakkı bağımsız ve sürekli nitelikte olmayacak, ayrı bir taşınmaz olarak tapuya kaydedilemeyecek ve devredilemeyecek. İş yeri açma ve çalışma ruhsatlarının çevrim içi sistemde elektronik imzalanması da zorunlu hale geldi."
+      ],
+      "buyer": "OSB’de fabrika veya şirket hissesi alırken yalnız tapuya bakmayın; tahsis sözleşmesi, Bakanlık ve OSB izinleri ile geçmiş pay değişikliklerini birlikte inceleyin.",
+      "seller": "Şirket hissesi üzerinden parsel devrini serbest bir taşınmaz satışı gibi sunmayın; yüzde 49 eşiği ve izin şartlarını işlem modeline başlamadan kontrol edin.",
+      "investor": "Üst hakkını bağımsız ve serbestçe devredilebilir bir varlık gibi değerlemeyin; tahsis süresi, OSB onayı ve katılımcının devam eden sorumluluklarını modele ekleyin.",
+      "topics": [
+        "arsa",
+        "dukkan",
+        "satis",
+        "mevzuat"
+      ],
+      "regions": [
+        {
+          "scope": "province",
+          "province": "Çanakkale",
+          "province_code": "17",
+          "label": "Çanakkale ilindeki organize sanayi bölgeleri"
+        }
+      ]
+    },
+    {
+      "id": "gelibolu-uc-parsel-plan-aski-2026-11-05",
+      "title": "Gelibolu’da Hocahamza ve Yazıcızade’de üç parsel için plan değişiklikleri askıya çıktı.",
+      "summary": "Hocahamza 239 ada 18 ile Yazıcızade 196 ada 9 ve 222 ada 14 parsellerine ait onaylı 1/1000 plan değişiklikleri 5 Kasım’dan itibaren bir ay süreyle askıda.",
+      "event_date": "2026-11-05",
+      "published_at": "2026-11-05",
+      "expires_at": "2026-12-05",
+      "category": "İmar ve plan",
+      "status": "Onaylı plan · askıda",
+      "source_name": "Gelibolu Belediyesi",
+      "source_url": "https://www.gelibolu.bel.tr/Ilanlar",
+      "body": [
+        "Gelibolu Belediye Meclisinin 16 Eylül 2026 tarihli 98, 99 ve 100 sayılı kararlarıyla onaylanan üç ayrı 1/1000 ölçekli uygulama imar planı değişikliği 5 Kasım 2026’da askıya çıkarıldı.",
+        "Dosyalar Hocahamza Mahallesi 239 ada 18 parsel ile Yazıcızade Mahallesi 196 ada 9 ve 222 ada 14 parselleri kapsıyor; askı süresi bir ay.",
+        "Duyuru başlıkları değişikliğin ayrıntılı kullanım ve yapılaşma sonuçlarını tek başına göstermiyor. Eski-yeni pafta ile plan notları karşılaştırılmadan emsal, fonksiyon veya yol etkisi varsayılmamalıdır."
+      ],
+      "buyer": "Bu parsellerde veya yakın çevresinde alım öncesinde eski-yeni paftayı, plan notunu ve askı itirazlarını belediyeden alın.",
+      "seller": "Plan değişikliğini yalnız başlığına dayanarak emsal veya kullanım artışı şeklinde pazarlamayın; kesin içeriği ve askı durumunu açıklayın.",
+      "investor": "Yapılaşabilir alan ve gelir hesabını, değişen fonksiyon, yol-donatı ve çekme koşulları pafta üzerinden doğrulandıktan sonra güncelleyin.",
       "topics": [
         "arsa",
         "konut",
@@ -496,34 +367,45 @@
           "scope": "settlement",
           "province": "Çanakkale",
           "province_code": "17",
-          "district": "Biga",
-          "settlement": "Karabiga / Zeytinlik",
-          "label": "Biga / Karabiga / Zeytinlik"
+          "district": "Gelibolu",
+          "settlement": "Hocahamza",
+          "label": "Gelibolu / Hocahamza"
+        },
+        {
+          "scope": "settlement",
+          "province": "Çanakkale",
+          "province_code": "17",
+          "district": "Gelibolu",
+          "settlement": "Yazıcızade",
+          "label": "Gelibolu / Yazıcızade"
         }
       ]
     },
     {
-      "id": "kucukkuyu-encumen-2026-10-08-hisse-satislari",
-      "title": "Küçükkuyu Belediyesi Mıhlı ve Gökçetepe’de iki küçük belediye hissesinin satışını karara bağladı.",
-      "summary": "Mıhlı 349 ada 11 parselde 63,54 m² hisse 2,5 milyon TL’ye, Gökçetepe 270 ada 15 parselde 12,50 m² hisse 320 bin TL’ye işlem gördü.",
-      "event_date": "2026-10-08",
-      "published_at": "2026-10-13",
-      "expires_at": "2026-10-25",
-      "category": "Taşınmaz satışı",
-      "status": "Encümen kararı · arşiv",
-      "source_name": "Küçükkuyu Belediyesi",
-      "source_url": "https://www.kucukkuyu.bel.tr/08-10-2026-tarihli-belediye-encumen-kararlari-ilani/",
+      "id": "ayvacik-hamdıbey-86-2-3-7-11-plan-aski-2026",
+      "title": "ÖNEMLİ · Ayvacık Hamdibey’de 86 ada 2, 3, 7 ve 11 parsellerin uygulama imar planı askıya çıktı.",
+      "summary": "1/1000 ölçekli Uygulama İmar Planı 6 Kasım-6 Aralık 2026 arasında inceleme ve itiraza açık.",
+      "event_date": "2026-11-06",
+      "published_at": "2026-11-06",
+      "expires_at": "2026-12-06",
+      "category": "İmar ve plan",
+      "status": "Onaylı plan · askıda",
+      "source_name": "Ayvacık Belediyesi",
+      "source_url": "https://canakkaleayvacik.bel.tr/Gundem/HaberDetay/8517",
       "body": [
-        "8 Ekim 2026 tarihli encümen kararında Mıhlı 349 ada 11 parseldeki 63,54 m² belediye hissesinin 2.500.000 TL bedelle satıldığı kayda geçirildi.",
-        "Gökçetepe 270 ada 15 parseldeki 12,50 m² belediye hissesi için 320.000 TL bedel yer alıyor.",
-        "Bunlar küçük yüzölçümlü belediye hissesi işlemleridir; doğrudan bağımsız arsa emsali gibi kullanılmaları yanıltıcı olabilir. Hisse oranı, alıcı ilişkisi ve parselin bütünü incelenmelidir."
+        "Ayvacık Belediye Meclisinin 14 Kasım 2025 tarihli 93 sayılı kararıyla onaylanan Hamdibey Mahallesi 86 ada 2, 3, 7 ve 11 parsellerine ait 1/1000 ölçekli Uygulama İmar Planı 6 Kasım 2026’da askıya çıktı.",
+        "Askı 6 Aralık 2026’da sona erecek. Bu süre, ilgililerin plan paftası ve plan notlarını inceleyip gerekli görürlerse itiraz etmeleri için önem taşıyor.",
+        "Plan kesinleşmeden ve güncel imar durum belgesi alınmadan kullanım kararı, emsal, kat, yol-terk ve ruhsat koşulları kesin hak gibi değerlendirilmemelidir."
       ],
-      "buyer": "Aynı parsellerde veya yakınında alım düşünüyorsanız tapu hisselerini, fiilî kullanımı ve ortaklık yapısını kontrol edin.",
-      "seller": "Bu bedelleri tam parsel piyasa değeri gibi sunmayın; işlem türünü ve küçük hisse etkisini açıkça belirtin.",
-      "investor": "Metrekare hesabını tek başına emsal almayın; belediye hissesi tasfiyesinin parsel bütünlüğüne etkisini ve olası tevhit/paydaşlık sonuçlarını araştırın.",
+      "buyer": "Dört parselden biri veya bitişiğinde alım yapmadan önce güncel imar durum belgesi, pafta, plan notu ve itiraz durumunu yazılı alın.",
+      "seller": "Askıdaki planı kesinleşmiş ruhsat hakkı gibi anlatmayın; askı bitişini ve olası itiraz sürecini açıkça belirtin.",
+      "investor": "TAKS-KAKS, kat, çekme mesafeleri ve yol-terk etkisini resmî paftadan doğrulamadan proje verimliliği hesabı yapmayın.",
       "topics": [
         "arsa",
-        "satis"
+        "konut",
+        "dukkan",
+        "satis",
+        "mevzuat"
       ],
       "regions": [
         {
@@ -531,16 +413,43 @@
           "province": "Çanakkale",
           "province_code": "17",
           "district": "Ayvacık",
-          "settlement": "Mıhlı",
-          "label": "Ayvacık / Küçükkuyu / Mıhlı"
-        },
+          "settlement": "Hamdibey",
+          "label": "Ayvacık / Hamdibey"
+        }
+      ]
+    },
+    {
+      "id": "karacaoren-kent-park-kafeterya-ihale-2026-11",
+      "title": "ÖNEMLİ · Karacaören Kent Park’taki dört kafeterya yeniden yap-işlet-devret ihalesine çıkarıldı.",
+      "summary": "75.629 m² Kent Park içindeki her biri en çok 250 m² dört kafeterya için 10 yıllık kullanım hakkı ihalesi 18 Kasım 2026’da yapılacak.",
+      "event_date": "2026-11-18",
+      "published_at": "2026-11-04",
+      "expires_at": "2026-11-22",
+      "category": "Ticari proje ve kiralama",
+      "status": "İhale ilanı",
+      "source_name": "Resmî Gazete · Çanakkale Belediyesi",
+      "source_url": "https://www.resmigazete.gov.tr/ilanlar/eskiilanlar/2026/11/20261104-3.htm",
+      "body": [
+        "Cevatpaşa Mahallesi-Karacaören’de Şehit Ömer Halis Demir Caddesi ile Gazi Meclis Caddesi arasındaki 75.629 m² Kent Park içinde dört kafeterya yeniden ihaleye çıkarıldı.",
+        "Her yapı en çok 250 m², tek kat ve Hmax 4,50 metre olacak. Yapım maliyetini yüklenici karşılayacak; işletmeler 10 yıllık üst yapı kullanım hakkıyla çalıştırılıp süre sonunda belediyeye devredilecek.",
+        "İhale 18 Kasım 2026’da yapılacak. İlk iki işletmenin aylık muhammen kirası 180.000 TL, diğer iki işletmenin 150.000 TL artı KDV. İhale sonuçlanmadan yüklenici, inşa başlangıcı ve açılış kesinleşmiş sayılmaz."
+      ],
+      "buyer": "Kent Park çevresinde konut alırken projeyi çevresel donatı sinyali olarak görün; ihale sonucunu ve yapım başlangıcını görmeden kesin değer artışı varsaymayın.",
+      "seller": "“Dört kafeterya yapılacak” yerine 18 Kasım’da yap-işlet-devret ihalesine çıkacağını ve sonucun henüz belli olmadığını söyleyin.",
+      "investor": "Ticari hareket potansiyelini değerlendirin; fakat ihale sonucu, yatırım süresi, kira yükü ve işletme fizibilitesi kesinleşmeden gelir varsayımı kurmayın.",
+      "topics": [
+        "dukkan",
+        "kira",
+        "mevzuat"
+      ],
+      "regions": [
         {
           "scope": "settlement",
           "province": "Çanakkale",
           "province_code": "17",
-          "district": "Ayvacık",
-          "settlement": "Gökçetepe",
-          "label": "Ayvacık / Küçükkuyu / Gökçetepe"
+          "district": "Merkez",
+          "settlement": "Karacaören / Cevatpaşa",
+          "label": "Çanakkale Merkez / Karacaören-Kent Park"
         }
       ]
     }
